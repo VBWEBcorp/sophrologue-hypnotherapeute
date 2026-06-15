@@ -38,15 +38,15 @@ export function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 16, opacity: 0 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-4 left-4 right-4 z-[100] sm:right-auto sm:max-w-2xl"
+          className="fixed bottom-4 left-4 right-4 z-[100] sm:right-auto sm:max-w-[300px]"
           role="dialog"
           aria-labelledby="cookie-title"
           aria-describedby="cookie-desc"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card px-5 py-4 shadow-[0_20px_50px_-12px_oklch(0.2_0.02_264/0.2)]">
+          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card p-4 shadow-[0_16px_40px_-12px_oklch(0.2_0.02_264/0.22)]">
             {/* Halo violet subtil top-right (cohérent DA) */}
             <div
-              className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-primary/10 blur-3xl"
+              className="pointer-events-none absolute -top-12 -right-12 size-32 rounded-full bg-primary/10 blur-3xl"
               aria-hidden
             />
             {/* Bordure dégradée premium */}
@@ -63,85 +63,67 @@ export function CookieConsent() {
               }}
             />
 
-            <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
-              {/* Icône cookie animée */}
-              <motion.span
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{
-                  delay: 0.15,
-                  type: 'spring',
-                  stiffness: 260,
-                  damping: 14,
-                }}
-                whileHover={{ scale: 1.08, rotate: -6 }}
-                className="relative flex size-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20"
-              >
-                {/* Halo pulsant subtil */}
-                <span
-                  className="absolute inset-0 animate-ping rounded-xl bg-primary/15 opacity-60"
-                  style={{ animationDuration: '2.5s' }}
-                  aria-hidden
-                />
-                {/* Cookie qui bobotte gentiment */}
-                <motion.span
-                  animate={{ rotate: [0, -4, 4, -2, 2, 0] }}
-                  transition={{
-                    duration: 3.5,
-                    ease: 'easeInOut',
-                    repeat: Infinity,
-                    repeatDelay: 1.5,
-                  }}
-                  className="relative inline-flex"
-                >
-                  <Cookie className="size-5" strokeWidth={2} aria-hidden />
-                </motion.span>
-                {/* Crumb qui tombe occasionnellement */}
-                <motion.span
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{
-                    opacity: [0, 1, 1, 0],
-                    y: [0, 4, 14, 18],
-                  }}
-                  transition={{
-                    duration: 1.4,
-                    ease: 'easeIn',
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                    delay: 1,
-                  }}
-                  className="absolute bottom-1 left-1/2 size-0.5 -translate-x-1/2 rounded-full bg-primary/70"
-                  aria-hidden
-                />
-              </motion.span>
+            {/* Grand cookie décoratif en filigrane (coin haut-droit) qui tourne lentement */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -right-5 -top-6 text-primary/10"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 36, ease: 'linear', repeat: Infinity }}
+            >
+              <Cookie className="size-28" strokeWidth={1.5} />
+            </motion.div>
 
-              {/* Texte */}
-              <div className="flex-1 pr-8 sm:pr-0">
-                <p id="cookie-title" className="font-display text-sm font-semibold text-foreground">
-                  Nous utilisons des cookies
-                </p>
-                <p id="cookie-desc" className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                  Pour améliorer votre expérience. En continuant votre navigation, vous acceptez notre utilisation des cookies.{' '}
-                  <Link
-                    href="/politique-cookies"
-                    className="text-primary underline-offset-2 hover:underline"
+            <div className="relative">
+              {/* Ligne haut : icône + fermer */}
+              <div className="mb-2.5 flex items-start justify-between">
+                {/* Icône cookie animée */}
+                <motion.span
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 14 }}
+                  whileHover={{ scale: 1.08, rotate: -6 }}
+                  className="relative flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20"
+                >
+                  <span
+                    className="absolute inset-0 animate-ping rounded-xl bg-primary/15 opacity-60"
+                    style={{ animationDuration: '2.5s' }}
+                    aria-hidden
+                  />
+                  <motion.span
+                    animate={{ rotate: [0, -4, 4, -2, 2, 0] }}
+                    transition={{ duration: 3.5, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1.5 }}
+                    className="relative inline-flex"
                   >
-                    En savoir plus
-                  </Link>
-                </p>
+                    <Cookie className="size-[18px]" strokeWidth={2} aria-hidden />
+                  </motion.span>
+                </motion.span>
+
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  aria-label="Fermer"
+                  className="-mr-1 -mt-1 flex size-6 items-center justify-center rounded-full text-muted-foreground/60 transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
+                >
+                  <X className="size-3.5" strokeWidth={2} />
+                </button>
               </div>
 
+              {/* Texte */}
+              <p id="cookie-title" className="font-display text-[13px] font-semibold text-foreground">
+                Nous utilisons des cookies
+              </p>
+              <p id="cookie-desc" className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
+                Pour améliorer votre expérience.{' '}
+                <Link href="/politique-cookies" className="text-primary underline-offset-2 hover:underline">
+                  En savoir plus
+                </Link>
+              </p>
+
               {/* Boutons */}
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  onClick={handleRefuse}
-                  className="rounded-xl border border-border bg-background px-4 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
-                >
-                  Refuser
-                </button>
+              <div className="mt-3 flex items-center gap-2">
                 <button
                   onClick={handleAccept}
-                  className="group/cta relative inline-flex h-9 items-center overflow-hidden rounded-xl px-4 text-xs font-semibold text-primary-foreground shadow-[0_4px_14px_-4px_oklch(0.48_0.22_285/0.5)] transition-all hover:shadow-[0_6px_20px_-4px_oklch(0.48_0.22_285/0.6)] active:translate-y-px"
+                  className="group/cta relative inline-flex h-8 flex-1 items-center justify-center overflow-hidden rounded-lg text-xs font-semibold text-primary-foreground shadow-[0_4px_14px_-4px_oklch(0.48_0.22_285/0.5)] transition-all hover:shadow-[0_6px_20px_-4px_oklch(0.48_0.22_285/0.6)] active:translate-y-px"
                 >
                   <span
                     className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.42_0.22_280)] dark:from-primary dark:via-primary dark:to-[oklch(0.65_0.18_280)]"
@@ -151,23 +133,15 @@ export function CookieConsent() {
                     className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover/cta:translate-x-full"
                     aria-hidden
                   />
-                  <span
-                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    aria-hidden
-                  />
                   <span className="relative">Accepter</span>
                 </button>
+                <button
+                  onClick={handleRefuse}
+                  className="h-8 rounded-lg border border-border bg-background px-3 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                >
+                  Refuser
+                </button>
               </div>
-
-              {/* Bouton fermer top-right (absolute mobile) */}
-              <button
-                type="button"
-                onClick={handleClose}
-                aria-label="Fermer"
-                className="absolute right-0 top-0 flex size-7 items-center justify-center rounded-full text-muted-foreground/60 transition-colors hover:bg-foreground/[0.06] hover:text-foreground sm:relative sm:right-auto sm:top-auto"
-              >
-                <X className="size-4" strokeWidth={2} />
-              </button>
             </div>
           </div>
         </motion.div>

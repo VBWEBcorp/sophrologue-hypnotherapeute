@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { AdminSidebar, MobileMenuButton } from '@/components/admin/sidebar'
 import { SidebarProvider, useSidebar } from '@/components/admin/sidebar-context'
+import { AdminProviders } from '@/components/admin/admin-providers'
 import { cn } from '@/lib/utils'
 
 const publicPaths = ['/admin/login', '/admin/register']
@@ -57,12 +58,14 @@ export default function AdminLayout({
   if (!authenticated) return null
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen">
-        <AdminSidebar />
-        <MobileMenuButton />
-        <AdminMain>{children}</AdminMain>
-      </div>
-    </SidebarProvider>
+    <AdminProviders>
+      <SidebarProvider>
+        <div className="flex min-h-screen">
+          <AdminSidebar />
+          <MobileMenuButton />
+          <AdminMain>{children}</AdminMain>
+        </div>
+      </SidebarProvider>
+    </AdminProviders>
   )
 }

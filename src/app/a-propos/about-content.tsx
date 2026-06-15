@@ -288,7 +288,6 @@ export function AboutContent() {
   const { data } = useContent('about', defaults)
   const hero = data.hero ?? defaults.hero
   const values = data.values ?? defaults.values
-  const gallery = data.gallery ?? defaults.gallery
 
   return (
     <>
@@ -298,45 +297,6 @@ export function AboutContent() {
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <SectionTitle eyebrow="Nos valeurs" title="Ce qui nous guide au quotidien" />
           <ValuesTimeline values={values} />
-        </div>
-      </section>
-
-      <section className="border-b border-border/60 bg-[oklch(0.975_0.012_285)] dark:bg-[oklch(0.16_0.02_285)]">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <SectionTitle eyebrow="En images" title="Notre quotidien" />
-          <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
-            {gallery.map((src: string, i: number) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.45, ease, delay: i * 0.06 }}
-                className={`group relative overflow-hidden rounded-2xl shadow-[0_10px_30px_-12px_oklch(0.2_0.02_264/0.18)] ring-1 ring-border/60 ${
-                  i % 4 === 0 || i % 4 === 3 ? 'aspect-[4/5]' : 'aspect-[4/3]'
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  sizes="(min-width:768px) 25vw, 50vw"
-                  loading="lazy"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                {/* Overlay gradient subtle au hover */}
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  aria-hidden
-                />
-                {/* Indicator dot top-right */}
-                <div
-                  className="pointer-events-none absolute top-3 right-3 size-1.5 rounded-full bg-white/0 transition-all duration-500 group-hover:bg-white/80 group-hover:shadow-[0_0_10px_oklch(1_0_0/0.6)]"
-                  aria-hidden
-                />
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 

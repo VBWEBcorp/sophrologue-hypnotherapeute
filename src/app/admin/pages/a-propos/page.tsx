@@ -2,6 +2,7 @@
 
 import { PageEditor } from '@/components/admin/page-editor'
 import { FieldEditor, SectionEditor, ImageField } from '@/components/admin/field-editor'
+import { Sparkles, Gem, Images } from 'lucide-react'
 
 const defaults = {
   hero: {
@@ -28,14 +29,14 @@ export default function AdminAboutPage() {
     <PageEditor pageId="about" title="Page À propos" defaultContent={defaults}>
       {(content, update) => (
         <>
-          <SectionEditor title="Hero">
+          <SectionEditor title="Hero" icon={Sparkles} description="Bannière en haut de la page">
             <FieldEditor label="Accroche" value={content.hero?.eyebrow} onChange={(v) => update('hero.eyebrow', v)} />
             <FieldEditor label="Titre" value={content.hero?.title} onChange={(v) => update('hero.title', v)} />
             <FieldEditor label="Description" value={content.hero?.description} onChange={(v) => update('hero.description', v)} type="textarea" />
             <ImageField label="Image" value={content.hero?.image} onChange={(v) => update('hero.image', v)} />
           </SectionEditor>
 
-          <SectionEditor title="Valeurs">
+          <SectionEditor title="Valeurs" cols={1} icon={Gem} description="Vos engagements et points forts">
             {content.values?.map((val: any, i: number) => (
               <div key={i} className="p-4 border border-border/30 rounded-lg space-y-3">
                 <FieldEditor label={`Valeur ${i + 1} - Titre`} value={val.title} onChange={(v) => {
@@ -52,7 +53,7 @@ export default function AdminAboutPage() {
             ))}
           </SectionEditor>
 
-          <SectionEditor title="Galerie photos">
+          <SectionEditor title="Galerie photos" icon={Images} description="Images de la section galerie">
             {content.gallery?.map((img: string, i: number) => (
               <ImageField
                 key={i}

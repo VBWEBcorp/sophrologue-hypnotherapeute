@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ImageField } from '@/components/admin/field-editor'
+import { useToast } from '@/components/admin/toast'
+import { AdminLoading } from '@/components/admin/admin-ui'
 import { cn } from '@/lib/utils'
 
 interface BannerSettings {
@@ -58,6 +60,7 @@ type Tab = 'popup' | 'banner'
 
 export default function AdminMarketingPage() {
   const router = useRouter()
+  const { toast } = useToast()
   const [settings, setSettings] = useState<PopupSettings>(defaultSettings)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -106,18 +109,16 @@ export default function AdminMarketingPage() {
         body: JSON.stringify(settings),
       })
       if (res.ok) {
-        alert('Paramètres sauvegardés')
+        toast.success('Paramètres sauvegardés')
       }
     } catch (error) {
-      alert('Erreur: ' + (error instanceof Error ? error.message : 'Erreur inconnue'))
+      toast.error(error instanceof Error ? error.message : 'Erreur inconnue')
     } finally {
       setSaving(false)
     }
   }
 
-  if (loading) {
-    return <div className="p-6">Chargement...</div>
-  }
+  if (loading) return <AdminLoading />
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6">

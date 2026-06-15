@@ -64,7 +64,16 @@ export default async function GalleryPage() {
         .lean(),
     ])
 
-    if (settingsDoc) settings = settingsDoc
+    if (settingsDoc) {
+      const s = settingsDoc as any
+      settings = {
+        enabled: s.enabled ?? true,
+        title: s.title ?? defaultSettings.title,
+        description: s.description ?? defaultSettings.description,
+        eyebrow: s.eyebrow ?? defaultSettings.eyebrow,
+        ...(s.heroImage ? { heroImage: s.heroImage } : {}),
+      }
+    }
     images = (imagesDocs as any[]).map((img) => ({
       ...img,
       _id: String(img._id),

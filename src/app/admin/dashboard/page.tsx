@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
@@ -15,6 +14,16 @@ import {
   ArrowRight,
   FileText,
   Database,
+  Megaphone,
+  Plus,
+  ImagePlus,
+  ExternalLink,
+  PenLine,
+  Layers,
+  CheckCircle2,
+  AlertCircle,
+  Eye,
+  ArrowUpRight,
 } from 'lucide-react'
 
 interface AdminUser {
@@ -22,24 +31,67 @@ interface AdminUser {
   name?: string
 }
 
+interface Post {
+  _id: string
+  title: string
+  slug: string
+  category?: string
+  published: boolean
+  publishedAt?: string
+  createdAt: string
+  updatedAt: string
+}
+
 const modules = [
   { href: '/admin/pages/accueil', label: 'Accueil', desc: 'Hero, histoire, CTA, bandeau', icon: Home },
-  { href: '/admin/pages/a-propos', label: 'À propos', desc: 'Présentation, valeurs, galerie', icon: Users },
+  { href: '/admin/pages/a-propos', label: 'À propos', desc: 'Présentation, valeurs', icon: Users },
   { href: '/admin/pages/services', label: 'Services', desc: 'Liste des services', icon: Briefcase },
   { href: '/admin/pages/contact', label: 'Contact', desc: 'Formulaire, coordonnées', icon: Phone },
   { href: '/admin/pages/temoignages', label: 'Témoignages', desc: 'Avis clients', icon: MessageSquare },
   { href: '/admin/gallery', label: 'Galerie', desc: 'Photos du site', icon: Images },
   { href: '/admin/blog', label: 'Blog', desc: 'Articles et actualités', icon: FileText },
+  { href: '/admin/marketing', label: 'Marketing', desc: 'Popup et bandeau promo', icon: Megaphone },
+]
+
+const quickActions = [
+  { href: '/admin/blog/new', label: 'Nouvel article', icon: Plus, accent: 'bg-primary text-white hover:bg-primary/90' },
+  { href: '/admin/gallery', label: 'Ajouter une photo', icon: ImagePlus, accent: 'bg-card text-foreground hover:bg-muted border border-border' },
+  { href: '/admin/pages/accueil', label: "Modifier l'accueil", icon: PenLine, accent: 'bg-card text-foreground hover:bg-muted border border-border' },
+  { href: '/', label: 'Voir le site', icon: ExternalLink, accent: 'bg-card text-foreground hover:bg-muted border border-border', external: true },
 ]
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+const formatDate = (d?: string) =>
+  d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'
+
 export default function AdminDashboardPage() {
   const [user, setUser] = useState<AdminUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [statsLoading, setStatsLoading] = useState(true)
+  const [posts, setPosts] = useState<Post[]>([])
+  const [imageCount, setImageCount] = useState(0)
   const [seeding, setSeeding] = useState(false)
-  const [seedDone, setSeedDone] = useState(false)
+  const [seedMsg, setSeedMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
   const router = useRouter()
+
+  const loadStats = useCallback(async () => {
+    try {
+      const token = localStorage.getItem('authToken')
+      const [postsRes, imagesRes] = await Promise.all([
+        fetch('/api/blog/posts', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch('/api/gallery/images'),
+      ])
+      const postsData = postsRes.ok ? await postsRes.json() : []
+      const imagesData = imagesRes.ok ? await imagesRes.json() : []
+      setPosts(Array.isArray(postsData) ? postsData : [])
+      setImageCount(Array.isArray(imagesData) ? imagesData.length : 0)
+    } catch {
+      /* réseau indisponible : on garde des valeurs neutres */
+    } finally {
+      setStatsLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
     const token = localStorage.getItem('authToken')
@@ -54,137 +106,303 @@ export default function AdminDashboardPage() {
       setUser(JSON.parse(userStr))
     } catch {
       router.push('/admin/login')
+      return
     } finally {
       setLoading(false)
     }
   }, [router])
 
+  useEffect(() => {
+    if (user) loadStats()
+  }, [user, loadStats])
+
   if (loading || !user) return null
 
   const firstName = user.name?.split(' ')[0] || 'admin'
+  const today = new Date().toLocaleDateString('fr-FR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+  const dateLabel = today.charAt(0).toUpperCase() + today.slice(1)
+
+  const totalPosts = posts.length
+  const publishedCount = posts.filter((p) => p.published).length
+  const draftCount = totalPosts - publishedCount
+  const recentPosts = posts.slice(0, 5)
+  const isEmpty = !statsLoading && totalPosts === 0 && imageCount === 0
+
+  const stats = [
+    { label: 'Articles', value: totalPosts, hint: `${publishedCount} publié${publishedCount > 1 ? 's' : ''}`, icon: FileText, tint: 'bg-blue-500/10 text-blue-600', href: '/admin/blog' },
+    { label: 'Brouillons', value: draftCount, hint: draftCount ? 'à finaliser' : 'aucun', icon: PenLine, tint: 'bg-amber-500/10 text-amber-600', href: '/admin/blog' },
+    { label: 'Photos galerie', value: imageCount, hint: 'en ligne', icon: Images, tint: 'bg-violet-500/10 text-violet-600', href: '/admin/gallery' },
+    { label: 'Pages éditables', value: 5, hint: 'du site', icon: Layers, tint: 'bg-emerald-500/10 text-emerald-600', href: '/admin/pages/accueil' },
+  ]
+
+  const handleSeed = async () => {
+    setSeeding(true)
+    setSeedMsg(null)
+    try {
+      const token = localStorage.getItem('authToken')
+      const res = await fetch('/api/seed', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (res.ok) {
+        setSeedMsg({ type: 'ok', text: 'Données d’exemple ajoutées. Statistiques mises à jour.' })
+        setStatsLoading(true)
+        await loadStats()
+      } else {
+        setSeedMsg({ type: 'err', text: 'Impossible de charger les données. Réessayez.' })
+      }
+    } catch {
+      setSeedMsg({ type: 'err', text: 'Erreur réseau. Vérifiez votre connexion.' })
+    } finally {
+      setSeeding(false)
+    }
+  }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=75"
-          alt=""
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-primary/30" />
-      </div>
-
-      {/* Ambient glows */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 -left-24 size-[480px] rounded-full bg-primary/20 blur-[140px]" />
-        <div className="absolute -bottom-40 -right-20 size-[420px] rounded-full bg-sky-400/15 blur-[140px]" />
-      </div>
-
-      <div className="space-y-6 p-4 pt-12 sm:p-6 sm:pt-12 lg:p-8 lg:pt-12">
-        {/* Hero Banner — glassmorphism */}
+    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-6xl space-y-6">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease }}
-          className="rounded-3xl border border-white/15 bg-white/[0.07] p-7 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:p-9 lg:p-10"
+          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 p-6 sm:p-7"
         >
-          <p className="font-display text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
-            Espace admin
-          </p>
-          <h1 className="mt-2 font-display text-2xl font-bold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-            Bonjour {firstName}
-          </h1>
-          <p className="mt-2 max-w-xl text-sm text-white/70 sm:text-base">
-            Gérez le contenu de votre site depuis cet espace.
-          </p>
+          <div aria-hidden className="pointer-events-none absolute -right-16 -top-20 size-64 rounded-full bg-primary/25 blur-3xl" />
+          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">{dateLabel}</p>
+              <h1 className="mt-1.5 font-display text-2xl font-bold tracking-[-0.02em] text-white sm:text-3xl">
+                Bonjour {firstName} 👋
+              </h1>
+              <p className="mt-1.5 max-w-xl text-sm text-white/60">
+                Gérez le contenu de votre site depuis cet espace.
+              </p>
+            </div>
+            <Link
+              href="/"
+              target="_blank"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 transition-colors hover:bg-white/90"
+            >
+              <Eye className="size-4" />
+              Voir le site
+            </Link>
+          </div>
         </motion.div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {stats.map((stat, i) => {
+            const Icon = stat.icon
+            return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease, delay: 0.05 + i * 0.05 }}
+              >
+                <Link
+                  href={stat.href}
+                  className="group block rounded-2xl border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm sm:p-5"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className={`flex size-9 items-center justify-center rounded-lg ${stat.tint}`}>
+                      <Icon className="size-[18px]" />
+                    </span>
+                    <ArrowUpRight className="size-4 text-muted-foreground/40 transition-colors group-hover:text-foreground" />
+                  </div>
+                  {statsLoading ? (
+                    <div className="mt-3 h-8 w-12 animate-pulse rounded-md bg-muted" />
+                  ) : (
+                    <p className="mt-3 text-2xl font-bold tracking-tight text-foreground">{stat.value}</p>
+                  )}
+                  <p className="mt-0.5 text-xs font-medium text-foreground/80">{stat.label}</p>
+                  <p className="text-[11px] text-muted-foreground">{stat.hint}</p>
+                </Link>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* Recent posts + Quick actions */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {/* Recent posts */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease, delay: 0.15 }}
+            className="rounded-2xl border border-border bg-card p-5 lg:col-span-2"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-foreground">Articles récents</h2>
+              <Link href="/admin/blog" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+                Gérer le blog <ArrowRight className="size-3.5" />
+              </Link>
+            </div>
+
+            {statsLoading ? (
+              <div className="space-y-2">
+                {[0, 1, 2].map((i) => (
+                  <div key={i} className="h-14 animate-pulse rounded-xl bg-muted" />
+                ))}
+              </div>
+            ) : recentPosts.length === 0 ? (
+              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-10 text-center">
+                <FileText className="size-7 text-muted-foreground/50" />
+                <p className="mt-3 text-sm font-medium text-foreground">Aucun article pour le moment</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Publiez votre premier article de blog.</p>
+                <Link
+                  href="/admin/blog/new"
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary/90"
+                >
+                  <Plus className="size-4" /> Créer un article
+                </Link>
+              </div>
+            ) : (
+              <ul className="divide-y divide-border">
+                {recentPosts.map((post) => (
+                  <li key={post._id}>
+                    <Link
+                      href={`/admin/blog/${post.slug}`}
+                      className="group flex items-center gap-3 py-2.5 transition-colors"
+                    >
+                      <span
+                        className={`mt-0.5 size-2 shrink-0 rounded-full ${post.published ? 'bg-emerald-500' : 'bg-amber-500'}`}
+                        title={post.published ? 'Publié' : 'Brouillon'}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-foreground group-hover:text-primary">
+                          {post.title}
+                        </p>
+                        <p className="truncate text-[11px] text-muted-foreground">
+                          {post.category || 'Général'} · {formatDate(post.publishedAt || post.createdAt)}
+                        </p>
+                      </div>
+                      <span
+                        className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                          post.published
+                            ? 'bg-emerald-500/10 text-emerald-600'
+                            : 'bg-amber-500/10 text-amber-600'
+                        }`}
+                      >
+                        {post.published ? 'Publié' : 'Brouillon'}
+                      </span>
+                      <ArrowRight className="size-4 shrink-0 text-muted-foreground/30 transition-all group-hover:translate-x-0.5 group-hover:text-foreground" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </motion.div>
+
+          {/* Quick actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease, delay: 0.2 }}
+            className="rounded-2xl border border-border bg-card p-5"
+          >
+            <h2 className="mb-4 text-sm font-semibold text-foreground">Actions rapides</h2>
+            <div className="space-y-2">
+              {quickActions.map((action) => {
+                const Icon = action.icon
+                return (
+                  <Link
+                    key={action.label}
+                    href={action.href}
+                    {...(action.external ? { target: '_blank' } : {})}
+                    className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${action.accent}`}
+                  >
+                    <Icon className="size-[18px] shrink-0" />
+                    {action.label}
+                  </Link>
+                )
+              })}
+            </div>
+          </motion.div>
+        </div>
 
         {/* Modules */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease, delay: 0.08 }}
+          transition={{ duration: 0.5, ease, delay: 0.25 }}
         >
-          <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
-            Éditer les pages
-          </h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {modules.map((mod, i) => {
+          <h2 className="mb-3 text-sm font-semibold text-foreground">Gérer le contenu</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {modules.map((mod) => {
               const Icon = mod.icon
               return (
-                <motion.div
+                <Link
                   key={mod.href}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease, delay: 0.1 + i * 0.04 }}
+                  href={mod.href}
+                  className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm"
                 >
-                  <Link
-                    href={mod.href}
-                    className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all hover:border-white/30 hover:bg-white/[0.1]"
-                  >
-                    <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-colors group-hover:bg-white/20">
-                      <Icon className="size-5" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-white">{mod.label}</p>
-                      <p className="truncate text-xs text-white/60">{mod.desc}</p>
-                    </div>
-                    <ArrowRight className="size-4 text-white/40 transition-all group-hover:translate-x-0.5 group-hover:text-white" />
-                  </Link>
-                </motion.div>
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground/70 transition-colors group-hover:bg-primary group-hover:text-white">
+                    <Icon className="size-[18px]" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-foreground">{mod.label}</p>
+                    <p className="truncate text-xs text-muted-foreground">{mod.desc}</p>
+                  </div>
+                </Link>
               )
             })}
           </div>
         </motion.div>
 
-        {/* Seed */}
-        {!seedDone && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: 0.2 }}
-            className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-white/15 bg-white/[0.06] p-5 backdrop-blur-xl sm:flex-row sm:items-center"
-          >
+        {/* Seed — données d'exemple */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease, delay: 0.3 }}
+          className="rounded-2xl border border-border bg-card p-5"
+        >
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white">
-                <Database className="size-4" />
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground/70">
+                <Database className="size-[18px]" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-white">Données d&apos;exemple</p>
-                <p className="text-xs text-white/60">Ajouter des photos galerie et articles blog pour tester le template</p>
+                <p className="text-sm font-semibold text-foreground">Données d&apos;exemple</p>
+                <p className="text-xs text-muted-foreground">
+                  {isEmpty
+                    ? 'Votre site est vide : ajoutez des photos et articles de démonstration.'
+                    : 'Ajouter des photos galerie et articles blog pour tester le template.'}
+                </p>
               </div>
             </div>
             <button
-              onClick={async () => {
-                setSeeding(true)
-                try {
-                  const token = localStorage.getItem('authToken')
-                  const res = await fetch('/api/seed', {
-                    method: 'POST',
-                    headers: { Authorization: `Bearer ${token}` },
-                  })
-                  if (res.ok) {
-                    setSeedDone(true)
-                  } else {
-                    alert('Erreur lors du seed')
-                  }
-                } catch {
-                  alert('Erreur réseau')
-                } finally {
-                  setSeeding(false)
-                }
-              }}
+              onClick={handleSeed}
               disabled={seeding}
-              className="w-full shrink-0 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-white/90 disabled:opacity-50 sm:w-auto"
+              className="w-full shrink-0 rounded-xl bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-50 sm:w-auto"
             >
-              {seeding ? 'Chargement...' : 'Charger les données'}
+              {seeding ? 'Chargement…' : 'Charger les données'}
             </button>
-          </motion.div>
-        )}
+          </div>
+
+          {seedMsg && (
+            <div
+              className={`mt-4 flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm ${
+                seedMsg.type === 'ok'
+                  ? 'bg-emerald-500/10 text-emerald-700'
+                  : 'bg-red-500/10 text-red-700'
+              }`}
+            >
+              {seedMsg.type === 'ok' ? (
+                <CheckCircle2 className="size-4 shrink-0" />
+              ) : (
+                <AlertCircle className="size-4 shrink-0" />
+              )}
+              {seedMsg.text}
+            </div>
+          )}
+        </motion.div>
       </div>
     </div>
   )

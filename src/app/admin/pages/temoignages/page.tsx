@@ -3,7 +3,7 @@
 import { PageEditor } from '@/components/admin/page-editor'
 import { FieldEditor, SectionEditor } from '@/components/admin/field-editor'
 import { Button } from '@/components/ui/button'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, Type, MessageSquareQuote } from 'lucide-react'
 
 const defaults = {
   eyebrow: 'Témoignages',
@@ -23,13 +23,13 @@ export default function AdminTestimonialsPage() {
     <PageEditor pageId="testimonials" title="Témoignages" defaultContent={defaults}>
       {(content, update) => (
         <>
-          <SectionEditor title="En-tête">
+          <SectionEditor title="En-tête" icon={Type} description="Titre de la section témoignages">
             <FieldEditor label="Accroche" value={content.eyebrow} onChange={(v) => update('eyebrow', v)} />
             <FieldEditor label="Titre" value={content.title} onChange={(v) => update('title', v)} />
             <FieldEditor label="Description" value={content.description} onChange={(v) => update('description', v)} type="textarea" />
           </SectionEditor>
 
-          <SectionEditor title="Liste des témoignages">
+          <SectionEditor title="Liste des témoignages" cols={1} icon={MessageSquareQuote} description="Les avis clients affichés">
             {content.testimonials?.map((t: any, i: number) => (
               <div key={i} className="p-4 border border-border/30 rounded-lg space-y-3">
                 <div className="flex items-center justify-between">

@@ -14,6 +14,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ImageField } from '@/components/admin/field-editor'
+import { useToast } from '@/components/admin/toast'
+import { useConfirm } from '@/components/admin/confirm-dialog'
+import { AdminLoading } from '@/components/admin/admin-ui'
 import { cn } from '@/lib/utils'
 
 interface BlogPost {
@@ -41,6 +44,8 @@ type Tab = 'articles' | 'settings'
 
 export default function AdminBlogPage() {
   const router = useRouter()
+  const { toast } = useToast()
+  const confirm = useConfirm()
   const [tab, setTab] = useState<Tab>('articles')
   const [settings, setSettings] = useState<BlogSettings>({ enabled: false, title: 'Nos dernières actualités', eyebrow: 'Blog', description: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.', heroImage: '', categories: [] })
   const [posts, setPosts] = useState<BlogPost[]>([])
@@ -93,7 +98,7 @@ export default function AdminBlogPage() {
         setTimeout(() => setSaved(false), 3000)
       }
     } catch {
-      alert('Erreur lors de la sauvegarde')
+      toast.error('Erreur lors de la sauvegarde')
     } finally {
       setSaving(false)
     }
@@ -114,7 +119,7 @@ export default function AdminBlogPage() {
   }
 
   const handleDelete = async (slug: string) => {
-    if (!confirm('Supprimer cet article ?')) return
+    if (!(await confirm({ title: 'Supprimer l’article', message: 'Cette action est irréversible.', danger: true, confirmLabel: 'Supprimer' }))) return
     try {
       const token = localStorage.getItem('authToken')
       const response = await fetch(`/api/blog/posts/${slug}`, {
@@ -123,7 +128,7 @@ export default function AdminBlogPage() {
       })
       if (response.ok) setPosts(posts.filter((p) => p.slug !== slug))
     } catch {
-      alert('Erreur lors de la suppression')
+      toast.error('Erreur lors de la suppression')
     }
   }
 
@@ -139,7 +144,7 @@ export default function AdminBlogPage() {
         setPosts(posts.map((p) => p.slug === post.slug ? { ...p, published: !p.published } : p))
       }
     } catch {
-      alert('Erreur')
+      toast.error('Erreur')
     }
   }
 
@@ -157,10 +162,11 @@ export default function AdminBlogPage() {
   const publishedCount = posts.filter((p) => p.published).length
   const draftCount = posts.filter((p) => !p.published).length
 
-  if (loading) return <div className="p-6">Chargement...</div>
+  if (loading) return <AdminLoading />
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-6xl space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 pt-8 md:pt-0">
         <div className="flex items-center gap-3">
@@ -202,6 +208,43 @@ export default function AdminBlogPage() {
               {settings.enabled ? 'Visible sur le site' : 'Masqué'}
             </span>
           </label>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3 sm:gap-4">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-2xl font-bold leading-none text-foreground">{posts.length}</p>
+              <p className="mt-1.5 text-xs text-muted-foreground">Articles au total</p>
+            </div>
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <FileText className="size-[18px]" />
+            </span>
+          </div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-2xl font-bold leading-none text-foreground">{publishedCount}</p>
+              <p className="mt-1.5 text-xs text-muted-foreground">Publiés</p>
+            </div>
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600">
+              <Eye className="size-[18px]" />
+            </span>
+          </div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-2xl font-bold leading-none text-foreground">{draftCount}</p>
+              <p className="mt-1.5 text-xs text-muted-foreground">Brouillons</p>
+            </div>
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600">
+              <EyeOff className="size-[18px]" />
+            </span>
+          </div>
         </div>
       </div>
 
@@ -531,6 +574,7 @@ export default function AdminBlogPage() {
           </Button>
         </motion.div>
       )}
+      </div>
     </div>
   )
 }

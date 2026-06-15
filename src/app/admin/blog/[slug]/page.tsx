@@ -10,6 +10,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ImageField } from '@/components/admin/field-editor'
 import { RichEditor } from '@/components/admin/rich-editor'
+import { useToast } from '@/components/admin/toast'
+import { useConfirm } from '@/components/admin/confirm-dialog'
+import { AdminLoading } from '@/components/admin/admin-ui'
 
 interface BlogPost {
   _id?: string
@@ -45,6 +48,8 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
   const { slug } = use(params)
   const isNew = slug === 'new'
   const router = useRouter()
+  const { toast } = useToast()
+  const confirm = useConfirm()
   const [post, setPost] = useState<BlogPost>(emptyPost)
   const [loading, setLoading] = useState(!isNew)
   const [saving, setSaving] = useState(false)
@@ -97,7 +102,7 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
 
   const handleSave = async () => {
     if (!post.title) {
-      alert('Le titre est obligatoire')
+      toast.error('Le titre est obligatoire')
       return
     }
 
@@ -129,17 +134,17 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
         }
       } else {
         const err = await response.json()
-        alert(err.error || 'Erreur')
+        toast.error(err.error || 'Erreur')
       }
     } catch {
-      alert('Erreur lors de la sauvegarde')
+      toast.error('Erreur lors de la sauvegarde')
     } finally {
       setSaving(false)
     }
   }
 
   const handleDelete = async () => {
-    if (!confirm('Supprimer définitivement cet article ?')) return
+    if (!(await confirm({ title: 'Supprimer l’article', message: 'Cette action est définitive et irréversible.', danger: true, confirmLabel: 'Supprimer' }))) return
     try {
       const token = localStorage.getItem('authToken')
       await fetch(`/api/blog/posts/${post.slug}`, {
@@ -148,11 +153,11 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
       })
       router.push('/admin/blog')
     } catch {
-      alert('Erreur')
+      toast.error('Erreur')
     }
   }
 
-  if (loading) return <div className="p-6">Chargement...</div>
+  if (loading) return <AdminLoading />
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">

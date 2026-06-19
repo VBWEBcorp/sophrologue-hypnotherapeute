@@ -21,6 +21,7 @@ import {
   Megaphone,
   FilePen,
   ChevronDown,
+  Mail,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSidebar } from '@/components/admin/sidebar-context'
@@ -40,6 +41,7 @@ const pageEditItems = [
 const moduleItems = [
   { href: '/admin/gallery', label: 'Galerie', icon: Images },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
+  { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
   { href: '/admin/marketing', label: 'Marketing', icon: Megaphone },
 ]
 

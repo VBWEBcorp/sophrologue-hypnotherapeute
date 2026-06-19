@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 
 import { siteConfig } from '@/lib/seo'
+import { NewsletterSignup } from '@/components/newsletter-signup'
 
 const navLinks = [
   { label: 'Accueil', to: '/' },
@@ -41,6 +42,17 @@ export function Footer() {
             <p className="max-w-sm text-sm leading-relaxed text-zinc-400">
               {siteConfig.description}
             </p>
+
+            {/* Newsletter */}
+            <div className="pt-2">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                Newsletter
+              </h3>
+              <p className="mt-2 max-w-sm text-sm text-zinc-400">
+                Recevez nos actualités et conseils directement dans votre boîte mail.
+              </p>
+              <NewsletterSignup source="footer" className="mt-3 max-w-sm" />
+            </div>
           </div>
 
           {/* Navigation */}

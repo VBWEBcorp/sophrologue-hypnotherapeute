@@ -24,6 +24,7 @@ import {
   AlertCircle,
   Eye,
   ArrowUpRight,
+  Mail,
 } from 'lucide-react'
 
 interface AdminUser {
@@ -50,6 +51,7 @@ const modules = [
   { href: '/admin/pages/temoignages', label: 'Témoignages', desc: 'Avis clients', icon: MessageSquare },
   { href: '/admin/gallery', label: 'Galerie', desc: 'Photos du site', icon: Images },
   { href: '/admin/blog', label: 'Blog', desc: 'Articles et actualités', icon: FileText },
+  { href: '/admin/newsletter', label: 'Newsletter', desc: 'Abonnés et inscriptions', icon: Mail },
   { href: '/admin/marketing', label: 'Marketing', desc: 'Popup et bandeau promo', icon: Megaphone },
 ]
 

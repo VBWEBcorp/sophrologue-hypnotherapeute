@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db'
 import { BlogPost } from '@/models/Blog'
 import { verifyAuth } from '@/lib/auth'
 import { visiblePostFilter } from '@/lib/blog-filters'
+import { notifyNewPost } from '@/lib/notify-subscribers'
 
 type Params = Promise<{ slug: string }>
 
@@ -54,6 +55,10 @@ export async function PUT(request: NextRequest, { params }: { params: Params }) 
       slug,
       $or: [visiblePostFilter(), { published: false }],
     }
+
+    // État avant mise à jour, pour ne notifier que sur le passage en publié
+    const before = await BlogPost.findOne(editableFilter).select('published').lean() as { published?: boolean } | null
+
     const post = await BlogPost.findOneAndUpdate(editableFilter, body, {
       new: true,
       runValidators: true,
@@ -62,6 +67,9 @@ export async function PUT(request: NextRequest, { params }: { params: Params }) 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
+
+    // Annonce aux abonnés si l'article vient de passer en publié (best-effort)
+    await notifyNewPost(post, before?.published === true)
 
     return NextResponse.json(post)
   } catch (error) {

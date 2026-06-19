@@ -13,6 +13,8 @@ export interface IBlogPost extends Document {
   publishedAt?: Date
   metaTitle?: string
   metaDescription?: string
+  notifyOnPublish: boolean
+  newsletterSentAt?: Date
   createdAt: Date
   updatedAt: Date
 }
@@ -41,6 +43,10 @@ const BlogPostSchema = new Schema<IBlogPost>(
     publishedAt: { type: Date },
     metaTitle: String,
     metaDescription: String,
+    // Prévenir les abonnés newsletter à la première mise en ligne
+    notifyOnPublish: { type: Boolean, default: true },
+    // Horodatage de l'envoi (garde-fou : on n'envoie qu'une fois par article)
+    newsletterSentAt: { type: Date },
   },
   { timestamps: true }
 )

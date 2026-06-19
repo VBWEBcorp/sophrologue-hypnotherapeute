@@ -28,6 +28,8 @@ interface BlogPost {
   publishedAt?: string
   metaTitle?: string
   metaDescription?: string
+  notifyOnPublish?: boolean
+  newsletterSentAt?: string
 }
 
 const emptyPost: BlogPost = {
@@ -42,6 +44,7 @@ const emptyPost: BlogPost = {
   published: false,
   metaTitle: '',
   metaDescription: '',
+  notifyOnPublish: true,
 }
 
 export default function BlogPostEditor({ params }: { params: Promise<{ slug: string }> }) {
@@ -355,6 +358,39 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
                 Les mots-clés aident à organiser vos articles et améliorent le référencement.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        <div className="rounded-xl bg-card border border-border/40 overflow-hidden">
+          <div className="px-5 py-3 border-b border-border/40 bg-muted/30">
+            <h3 className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest">
+              Newsletter
+            </h3>
+          </div>
+          <div className="p-5">
+            {post.newsletterSentAt ? (
+              <p className="flex items-center gap-2 text-sm text-emerald-600">
+                <Check className="size-4 shrink-0" />
+                Abonnés déjà notifiés le {new Date(post.newsletterSentAt).toLocaleDateString('fr-FR')}.
+              </p>
+            ) : (
+              <label className="flex cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={post.notifyOnPublish !== false}
+                  onChange={(e) => updateField('notifyOnPublish', e.target.checked)}
+                  className="mt-0.5 size-4 shrink-0 rounded border-input accent-primary"
+                />
+                <span className="text-sm text-foreground">
+                  Prévenir les abonnés à la publication
+                  <span className="mt-0.5 block text-[11px] text-muted-foreground/70">
+                    À la première mise en ligne de cet article, un e-mail d&apos;annonce est envoyé aux abonnés
+                    de la newsletter (une seule fois).
+                  </span>
+                </span>
+              </label>
+            )}
           </div>
         </div>
 

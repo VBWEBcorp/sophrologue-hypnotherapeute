@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db'
 import { BlogPost } from '@/models/Blog'
 import { verifyAuth } from '@/lib/auth'
 import { visiblePostFilter } from '@/lib/blog-filters'
+import { notifyNewPost } from '@/lib/notify-subscribers'
 
 // GET all posts (admin: all visible + own drafts; public: visible only)
 // "Visible" = published AND publishedAt <= now (articles with future publishedAt
@@ -68,6 +69,10 @@ export async function POST(request: NextRequest) {
     }
 
     const post = await BlogPost.create(body)
+
+    // Nouvel article créé directement en publié → annonce aux abonnés (best-effort)
+    await notifyNewPost(post, false)
+
     return NextResponse.json(post, { status: 201 })
   } catch (error) {
     console.error('Blog post creation error:', error)

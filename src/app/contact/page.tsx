@@ -4,10 +4,10 @@ import { ContactContent } from './contact-content'
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 
 const description =
-  "Prenez rendez-vous avec Véronique Jan, hypnothérapeute et sophrologue à Acigné et Rennes. Réservation en ligne MEDOUCINE et RESALIB, par téléphone, SMS ou e-mail."
+  'Contactez-nous pour discuter de votre projet. Devis gratuit, réponse rapide.'
 
 export const metadata: Metadata = {
-  title: 'Prendre rendez-vous',
+  title: 'Contact',
   description,
   alternates: { canonical: '/contact' },
 }
@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    webPageJsonLd('Prendre rendez-vous', description, '/contact'),
+    webPageJsonLd('Contact', description, '/contact'),
     breadcrumbJsonLd([
       { name: 'Accueil', path: '/' },
-      { name: 'Rendez-vous', path: '/contact' },
+      { name: 'Contact', path: '/contact' },
     ]),
   ],
 }

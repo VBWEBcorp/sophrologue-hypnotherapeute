@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
-import { PageHero } from '@/components/sections/page-hero'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { siteConfig } from '@/lib/seo'
-import { images } from '@/lib/site-content'
 
 const description =
   "Mentions légales du site : informations sur l'éditeur, l'hébergement, la propriété intellectuelle et les conditions d'utilisation."
@@ -35,15 +34,13 @@ export default function LegalPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <PageHero
-        eyebrow="Informations légales"
-        title="Mentions légales"
-        image={images.contactHero}
-        breadcrumb="Mentions légales"
-      />
+      <Breadcrumb items={[{ label: 'Mentions légales' }]} />
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <h1 className="font-display text-3xl tracking-tight text-foreground sm:text-4xl">
+            Mentions légales
+          </h1>
           <p className="mt-4 text-sm text-muted-foreground">
             Dernière mise à jour : [JJ/MM/AAAA]
           </p>

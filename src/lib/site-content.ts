@@ -1,87 +1,94 @@
 /**
- * site-content.ts — Contenu du site Véronique Jan (hypnothérapeute & sophrologue)
+ * site-content.ts — Contenu adaptable de la template
  *
  * Toute la copie + tous les visuels par défaut sont centralisés ici.
+ * Pour adapter la template à un nouveau métier (restaurant, artisan, avocat,
+ * conseil, e-commerce, etc.) il suffit d'éditer ce fichier — aucun composant
+ * React à toucher.
+ *
  * Le CMS (via /api/content/[pageId]) peut surcharger n'importe quelle valeur
  * en runtime ; ce qui est ici sert de fallback / d'état initial.
  *
- * Pour les icônes : passe une chaîne ("Brain", "Leaf", "Moon"...) — elle est
- * résolue par `getIcon()` côté composant. Liste : https://lucide.dev/icons/
+ * Pour les icônes : passe une chaîne ("Globe", "Phone", "Heart"...) — elle est
+ * résolue par `getIcon()` côté composant. Liste complète des icônes :
+ * https://lucide.dev/icons/
  */
 
 // ============================================================================
 //                          IMAGES — pool de visuels
 // ============================================================================
-// Remplace ces URLs Unsplash par les vraies photos (cabinets, portrait,
-// ambiances). Garde le format auto+fit pour la performance.
+// Remplace ces URLs Unsplash par les vraies photos du client (locaux, équipe,
+// produits, ateliers, plats, chantiers, etc.). Garde le format auto+fit pour
+// la performance.
 
 export const images = {
   // Hero homepage — 3 images qui défilent en carousel
-  // [0] = vraie photo de séance ; suivantes = ambiances apaisantes
   heroCarousel: [
-    '/photos/seance-hypnose.png',
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=80',
   ],
 
-  // Section "À propos" sur la home — portrait de Véronique Jan
-  story: '/photos/veronique-jan.png',
+  // Section "Notre histoire" sur la home
+  story:
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
 
-  // Page À propos — image principale du hero (portrait praticienne)
-  aboutHero: '/photos/veronique-jan.png',
+  // Page À propos — image principale du hero
+  aboutHero:
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80',
 
-  // Page Services — image de fond du hero (ambiance détente)
+  // Page Services — image de fond du hero (workspace/bureau sombre)
   servicesHero:
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1920&q=80',
 
   // Page Contact — image de fond du hero
   contactHero:
-    'https://images.unsplash.com/photo-1528319725582-ddc096101511?auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1920&q=80',
 
   // Page À propos — galerie 4 images
   aboutGallery: [
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80',
   ],
 
-  // Page Services — 8 images illustrant chaque accompagnement
+  // Page Services — 8 images illustrant chaque prestation
   services: [
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1455642305367-68834a1da7ab?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=1200&q=80',
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
   ctaScrollColumns: {
     col1: [
-      'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=400&h=500&fit=crop&q=75',
     ],
     col2: [
-      'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1528319725582-ddc096101511?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=500&fit=crop&q=75',
+      'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400&h=500&fit=crop&q=75',
     ],
   },
 
   // GalleryCarousel sur la home
   homeGallery: [
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1528319725582-ddc096101511?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=720&q=80',
+    'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=720&q=80',
   ],
 }
 
@@ -90,84 +97,87 @@ export const images = {
 // ============================================================================
 
 export const heroContent = {
-  eyebrow: 'Hypnothérapeute & Sophrologue · Acigné · Rennes',
-  title: 'Hypnose thérapeutique et Sophrologie',
+  eyebrow: 'Bienvenue',
+  title: 'Votre partenaire pour réussir en ligne',
   description:
-    "Praticienne certifiée depuis 2006, je vous accompagne avec l'hypnose ericksonienne et la sophrologie caycédienne pour gérer le stress, l'anxiété, les phobies, le sommeil, la douleur et les addictions — et retrouver votre équilibre.",
-  button1: 'Prendre rendez-vous',
-  button2: 'Découvrir les séances',
+    'Nous accompagnons les entreprises avec des solutions sur mesure, pensées pour durer. Présence digitale, performance et clarté.',
+  button1: 'Prendre contact',
+  button2: 'Découvrir nos services',
   images: images.heroCarousel,
 }
 
 export const storyContent = {
-  eyebrow: 'À propos',
-  title: 'Une approche humaine et bienveillante',
+  eyebrow: 'Notre histoire',
+  title: 'Une approche humaine, des résultats concrets',
   paragraph1:
-    "Ancienne enseignante devenue thérapeute il y a vingt ans, je pratique l'hypnose et la sophrologie à Acigné et à Rennes. Formée à la sophrologie caycédienne à l'ISR et à l'hypnose ericksonienne à l'Institut Émergences du Dr Claude Virot, je mets ces approches au service de votre mieux-être.",
+    "Depuis nos débuts, nous croyons qu'un bon site commence par une bonne écoute. Nous prenons le temps de comprendre votre métier, vos clients et vos objectifs avant de concevoir quoi que ce soit.",
   paragraph2:
-    "Chaque accompagnement débute par un entretien approfondi pour comprendre votre histoire, vos symptômes et vos objectifs, afin de construire un protocole personnalisé. Les séances s'adressent à tous : enfants, adolescents, adultes, femmes enceintes et jeunes mamans.",
+    "Le résultat : des projets qui vous ressemblent, qui parlent à votre audience, et qui travaillent pour vous 24h/24.",
   image: images.story,
 }
 
-// Aperçu des accompagnements sur la home (4 cards)
+// Aperçu des services sur la home (4 cards)
+// `iconName` correspond à une icône lucide (voir https://lucide.dev/icons/)
 export const servicesPreviewContent = {
-  eyebrow: 'Mes accompagnements',
-  title: 'Deux approches complémentaires pour votre mieux-être',
+  eyebrow: 'Nos services',
+  title: 'Des solutions adaptées à votre activité',
   description:
-    "L'hypnose ericksonienne et la sophrologie caycédienne mobilisent vos ressources intérieures pour dénouer ce qui vous bloque, en douceur et à votre rythme.",
+    'Quel que soit votre secteur, nous vous aidons à développer votre présence et à atteindre vos objectifs.',
   items: [
     {
-      iconName: 'Brain',
-      title: 'Hypnothérapie ericksonienne',
-      desc: "Une thérapie brève qui mobilise votre inconscient pour activer vos capacités de changement et de mieux-être.",
+      iconName: 'Globe',
+      title: 'Création de site web',
+      desc: 'Sites vitrines modernes, responsive et optimisés pour convertir vos visiteurs en clients.',
     },
     {
-      iconName: 'Leaf',
-      title: 'Sophrologie caycédienne',
-      desc: "Une méthode douce de relaxation du corps et de l'esprit pour gérer votre stress et développer confiance et sérénité.",
+      iconName: 'Search',
+      title: 'Référencement SEO',
+      desc: 'Stratégie de contenu et optimisation technique pour apparaître en première page Google.',
     },
     {
-      iconName: 'Moon',
-      title: 'Stress, sommeil & anxiété',
-      desc: "Apaiser les tensions nerveuses et physiques, retrouver un sommeil réparateur et reprendre le dessus sur l'anxiété.",
+      iconName: 'Palette',
+      title: 'Identité visuelle',
+      desc: 'Logo, charte graphique et supports cohérents qui reflètent votre image de marque.',
     },
     {
       iconName: 'ShieldCheck',
-      title: 'Arrêt du tabac & addictions',
-      desc: "Un accompagnement ciblé pour vous libérer du tabac, de l'alcool ou des compulsions, à votre rythme.",
+      title: 'Maintenance & support',
+      desc: 'Mises à jour, sécurité et accompagnement continu pour garder votre site performant.',
     },
   ],
 }
 
 export const testimonialsContent = {
   eyebrow: 'Témoignages',
-  title: 'Ils ont retrouvé leur équilibre',
+  title: 'Ils nous font confiance',
   description:
-    "Des personnes accompagnées à Acigné et à Rennes qui ont franchi une étape importante.",
+    'Des entreprises de tous horizons qui ont gagné en visibilité et en crédibilité.',
   items: [
-    { name: 'Sandrine M.', company: 'Gestion du stress', text: "Après quelques séances, j'ai appris à gérer mon stress au quotidien. Véronique est à l'écoute, bienveillante et très professionnelle.", stars: 5 },
-    { name: 'Julien P.', company: 'Arrêt du tabac', text: "J'ai arrêté de fumer après 20 ans de tabac. Je ne pensais pas que ce serait possible aussi sereinement.", stars: 5 },
-    { name: 'Claire D.', company: 'Sommeil', text: "Mes troubles du sommeil se sont nettement améliorés. La sophrologie m'a donné des outils que j'utilise tous les jours.", stars: 5 },
-    { name: 'Marc L.', company: 'Anxiété', text: "Un accompagnement vraiment personnalisé. J'ai retrouvé confiance et une vraie sérénité face à mes angoisses.", stars: 5 },
-    { name: 'Émilie R.', company: 'Préparation à la naissance', text: "La sophrologie m'a beaucoup aidée pendant ma grossesse et le jour J. Merci pour votre douceur.", stars: 5 },
-    { name: 'Thomas B.', company: 'Phobies', text: "Ma phobie me gâchait la vie. Grâce à l'hypnose, j'ai pu la dépasser en quelques séances seulement.", stars: 5 },
-    { name: 'Nathalie G.', company: 'Confiance en soi', text: "J'ai gagné en confiance et en estime de moi. Les séances sont un vrai moment pour soi.", stars: 5 },
-    { name: 'Pauline V.', company: 'Gestion du poids', text: "Un accompagnement bienveillant qui m'a aidée à reprendre une relation apaisée avec l'alimentation.", stars: 5 },
+    { name: 'Marie D.', company: 'Boulangerie Le Fournil', text: "Depuis le nouveau site, je reçois 3 fois plus d'appels. Les clients nous trouvent enfin sur Google.", stars: 5 },
+    { name: 'Thomas L.', company: 'Cabinet Conseil TLR', text: 'Un travail soigné, un site clair et professionnel. Mes prospects comprennent immédiatement ce que je propose.', stars: 5 },
+    { name: 'Camille B.', company: 'Atelier Camille', text: "Le site reflète parfaitement l'univers de ma marque. J'ai gagné en crédibilité auprès de mes clients.", stars: 5 },
+    { name: 'Laurent M.', company: 'LM Rénovation', text: 'En trois mois, mon chiffre a augmenté de 40 %. Le site et le SEO font vraiment la différence.', stars: 5 },
+    { name: 'Nadia K.', company: 'Agence NovaTour', text: 'Un accompagnement au top, des délais respectés et un résultat qui dépasse mes attentes.', stars: 5 },
+    { name: 'Sophie R.', company: 'Studio Pilates Zen', text: "L'équipe a su capter l'ambiance de mon studio. Les réservations ont décollé.", stars: 5 },
+    { name: 'Pierre V.', company: 'Transports Vallée', text: 'Un investissement rentabilisé en quelques semaines. Des contacts qualifiés chaque jour.', stars: 5 },
+    { name: 'Julie A.', company: "Les Jardins d'Alice", text: 'Ils ont transformé notre présence en ligne. Le site est magnifique et nos ventes ont triplé.', stars: 5 },
+    { name: 'Franck G.', company: 'Studio FG', text: 'Design épuré, navigation fluide, exactement ce que je voulais pour présenter mes projets.', stars: 4 },
+    { name: 'Émilie T.', company: 'Clinique Vétérinaire du Parc', text: 'Nos clients trouvent toutes les infos facilement. La prise de rendez-vous a changé notre quotidien.', stars: 5 },
   ],
 }
 
 export const galleryContent = {
   eyebrow: 'Galerie',
-  title: 'Un espace propice à la détente',
+  title: 'En coulisses',
   images: images.homeGallery,
 }
 
 export const ctaContent = {
-  eyebrow: 'Prendre soin de soi',
-  title: 'Prêt·e à entamer votre changement ?',
+  eyebrow: 'Prêt à démarrer ?',
+  title: 'Parlons de votre projet',
   description:
-    "Un premier échange pour faire connaissance, comprendre votre besoin et envisager ensemble l'accompagnement le plus adapté.",
-  button: 'Prendre rendez-vous',
+    "Un échange simple et sans engagement pour comprendre vos besoins et vous proposer la meilleure approche.",
+  button: 'Demander un devis gratuit',
   scrollImages: images.ctaScrollColumns,
 }
 
@@ -175,37 +185,37 @@ export const faqContent = {
   eyebrow: 'FAQ',
   title: 'Questions fréquentes',
   description:
-    "Les réponses aux questions que l'on me pose le plus souvent avant une première séance.",
+    "Les réponses aux questions que vous vous posez avant de nous confier votre projet.",
   items: [
     {
-      question: "Quelle est la différence entre hypnose et sophrologie ?",
+      question: 'Combien coûte un site internet ?',
       answer:
-        "L'hypnose ericksonienne est une thérapie brève qui s'appuie sur l'inconscient pour activer vos ressources et déclencher un changement. La sophrologie est une méthode pédagogique de relaxation que vous apprenez à pratiquer en autonomie pour gérer votre stress au quotidien. Les deux approches sont complémentaires.",
+        "Le tarif dépend de votre besoin : un site vitrine simple démarre autour de 1 500 €, une application web sur mesure peut aller bien au-delà. Nous établissons toujours un devis clair et détaillé après un premier échange gratuit.",
     },
     {
-      question: "Vais-je perdre le contrôle pendant une séance d'hypnose ?",
+      question: 'Combien de temps faut-il pour livrer un site ?',
       answer:
-        "Non. L'hypnose thérapeutique n'a rien à voir avec l'hypnose de spectacle. Vous restez conscient·e et acteur·rice de la séance à tout moment. Je suis une praticienne certifiée dédiée à une action thérapeutique, jamais au divertissement.",
+        "Comptez 3 à 6 semaines pour un site vitrine standard, 2 à 4 mois pour un projet plus complexe. Nous vous fournissons un planning détaillé dès le début du projet, avec des jalons clairs.",
     },
     {
-      question: "Combien de séances faut-il prévoir ?",
+      question: 'Êtes-vous disponibles après la livraison ?',
       answer:
-        "L'hypnose est une thérapie brève : quelques séances suffisent généralement. Le nombre exact dépend de votre objectif et de votre situation. Nous faisons le point ensemble dès le premier entretien.",
+        "Oui, nous proposons des contrats de maintenance qui incluent les mises à jour, la sécurité, les sauvegardes et un support réactif. Vous restez accompagnés dans la durée.",
     },
     {
-      question: "Combien coûte une séance ?",
+      question: "Le site m'appartient-il une fois livré ?",
       answer:
-        "La première séance est à 57 € (entretien + séance technique). Les séances suivantes débutent à 50 €, selon le cabinet, la durée et l'éventuel déplacement. Un tarif spécifique est proposé pour les enfants, sur demande.",
+        "Totalement. Vous êtes propriétaire de votre site, de son code source, de son nom de domaine et de tous les contenus. Nous vous fournissons les accès et la documentation nécessaire.",
     },
     {
-      question: "Où se déroulent les séances ?",
+      question: 'Comment se passe le référencement (SEO) ?',
       answer:
-        "Je consulte dans deux cabinets : à Acigné (2 Rue du Calvaire) et à Rennes (centre SPORMED, 2A Rue du Bourg Nouveau). Je propose aussi des visites à domicile dans un rayon de 20 km, ainsi que des consultations en visio pour les patients déjà suivis.",
+        "Le SEO technique est intégré dès la conception : performance, structure sémantique, données structurées, accessibilité. Nous proposons aussi un accompagnement éditorial pour renforcer votre positionnement sur le long terme.",
     },
     {
-      question: "À qui s'adressent les séances ?",
+      question: 'Acceptez-vous les paiements échelonnés ?',
       answer:
-        "À tout type de public : enfants, adolescents, adultes, femmes enceintes et jeunes mamans. J'accompagne également des sportifs, des professionnels de santé et des entreprises.",
+        "Oui. Le règlement se fait habituellement en 3 fois : 30 % à la signature, 40 % à mi-projet, 30 % à la livraison. Nous adaptons cette répartition selon vos contraintes.",
     },
   ],
 }
@@ -217,144 +227,163 @@ export const faqContent = {
 export const aboutContent = {
   hero: {
     eyebrow: 'À propos',
-    title: 'Débloquer et activer vos ressources endormies',
+    title: 'Une équipe engagée à vos côtés',
     description:
-      "Sophrologue et hypnothérapeute depuis 2006, je vous accueille à Acigné et à Rennes. Mon rôle : vous aider à mobiliser vos propres ressources pour retrouver équilibre, sérénité et confiance.",
+      "Nous croyons que chaque entreprise mérite une présence en ligne à la hauteur de ses ambitions. Depuis notre création, nous accompagnons artisans, PME et indépendants avec des solutions simples, efficaces et soignées.",
     image: images.aboutHero,
   },
   stats: [
-    { value: 'Depuis 2006', label: 'En exercice' },
-    { value: '20 ans', label: "D'expérience" },
-    { value: '2', label: 'Cabinets' },
-    { value: '100%', label: 'Personnalisé' },
+    { value: '200+', label: 'Projets livrés' },
+    { value: '98%', label: 'Clients satisfaits' },
+    { value: '5 ans', label: "D'expertise" },
+    { value: '24/7', label: 'Support continu' },
   ],
   values: [
     {
       iconName: 'Heart',
-      title: 'Écoute & bienveillance',
+      title: 'Proximité',
       description:
-        'Un entretien approfondi à chaque démarrage pour comprendre votre histoire, vos symptômes et vos objectifs, sans jugement.',
+        'Un interlocuteur unique, disponible, qui connaît votre projet sur le bout des doigts.',
     },
     {
-      iconName: 'Sparkles',
-      title: 'Approches certifiées',
-      description:
-        "Sophrologie caycédienne (ISR, Bernard Santerre) et hypnose ericksonienne (Institut Émergences, Dr Claude Virot) : des méthodes reconnues.",
+      iconName: 'Lightbulb',
+      title: 'Clarté',
+      description: "Pas de jargon inutile. Des explications simples, des livrables concrets.",
     },
     {
       iconName: 'Users',
-      title: 'Sur mesure & pour tous',
+      title: 'Sur mesure',
       description:
-        "Un protocole adapté à chacun : enfants, adolescents, adultes, femmes enceintes, sportifs, professionnels et entreprises.",
+        "Chaque projet est différent. Nous adaptons nos solutions à votre réalité, pas l'inverse.",
     },
   ],
   gallery: images.aboutGallery,
 }
 
 // ============================================================================
-//                          SERVICES — page Séances
+//                          SERVICES — page Services
 // ============================================================================
 
 export const servicesContent = {
   hero: {
-    eyebrow: 'Mes séances',
-    title: "Hypnose et sophrologie au service de votre mieux-être",
+    eyebrow: 'Nos services',
+    title: "Tout ce qu'il faut pour réussir en ligne",
     description:
-      "Des accompagnements en thérapie brève, individuels ou en groupe, adaptés à votre situation et à votre rythme.",
+      "Des prestations complètes, de la conception à l'accompagnement continu, adaptées à toutes les tailles d'entreprise.",
   },
   kpis: [
-    { value: '57 €', label: 'la première séance' },
-    { value: '45-60 min', label: 'par séance' },
-    { value: '2', label: 'cabinets + domicile' },
+    { value: '8', label: 'prestations' },
+    { value: '200+', label: 'projets livrés' },
+    { value: '100%', label: 'sur mesure' },
   ],
-  // Chaque accompagnement : icône, titre, description, 3 points clés, image
+  // Chaque service : icône, titre, description, 3 points clés, image
   list: [
     {
-      iconName: 'Brain',
-      title: 'Hypnothérapie ericksonienne',
-      description: "Une thérapie brève de quelques séances qui mobilise votre inconscient pour activer vos capacités d'auto-guérison et de changement.",
-      points: ['Thérapie brève', 'Praticienne certifiée', 'Action thérapeutique'],
+      iconName: 'Globe',
+      title: 'Création de site vitrine',
+      description: 'Un site moderne, rapide et responsive qui présente clairement votre activité et inspire confiance à vos visiteurs.',
+      points: ['Design sur mesure', 'Mobile-first', 'Optimisé Google'],
       image: images.services[0],
     },
     {
-      iconName: 'Leaf',
-      title: 'Sophrologie caycédienne',
-      description: "Une méthode pédagogique de relaxation du corps et de l'esprit, à pratiquer en autonomie pour gérer le stress et développer vos ressources.",
-      points: ['Relaxation profonde', 'Outils au quotidien', 'Individuel ou en groupe'],
+      iconName: 'Smartphone',
+      title: 'Application web',
+      description: 'Outils métier, plateformes de réservation, espaces clients : des applications pensées pour simplifier votre quotidien.',
+      points: ['Architecture évolutive', 'Sécurité renforcée', 'Hébergement haute dispo'],
       image: images.services[1],
     },
     {
-      iconName: 'Wind',
-      title: 'Stress & anxiété',
-      description: "Apaiser les tensions nerveuses et physiques, gagner en autonomie face au stress et retrouver un état de calme durable.",
-      points: ['Gestion des tensions', 'Lâcher-prise', 'Sérénité retrouvée'],
+      iconName: 'Search',
+      title: 'Référencement naturel (SEO)',
+      description: 'Optimisation technique, contenu stratégique et suivi de positionnement pour gagner en visibilité sur Google.',
+      points: ['Audit technique', 'Stratégie de contenu', 'Suivi mensuel'],
       image: images.services[2],
     },
     {
-      iconName: 'Moon',
-      title: 'Troubles du sommeil',
-      description: "Retrouver un sommeil réparateur en agissant sur les causes de l'insomnie et en installant de nouveaux automatismes apaisants.",
-      points: ['Endormissement facilité', 'Sommeil profond', 'Réveils apaisés'],
+      iconName: 'Palette',
+      title: 'Identité visuelle',
+      description: 'Logo, charte graphique, supports de communication : une image cohérente qui vous ressemble.',
+      points: ['Logo & déclinaisons', 'Charte graphique', 'Supports print & web'],
       image: images.services[3],
     },
     {
-      iconName: 'ShieldCheck',
-      title: 'Arrêt du tabac & addictions',
-      description: "Se libérer du tabac, de l'alcool, du cannabis ou des compulsions grâce à un accompagnement ciblé et respectueux de votre rythme.",
-      points: ['Tabac, alcool, cannabis', 'Compulsions alimentaires', 'Accompagnement sur mesure'],
+      iconName: 'Megaphone',
+      title: 'Communication digitale',
+      description: 'Stratégie de contenu, réseaux sociaux et campagnes pour développer votre audience en ligne.',
+      points: ['Stratégie éditoriale', 'Réseaux sociaux', 'Campagnes Ads'],
       image: images.services[4],
     },
     {
-      iconName: 'HeartPulse',
-      title: 'Gestion de la douleur',
-      description: "Accompagner la douleur, les maladies psychosomatiques et préparer ou soutenir un protocole médical, en complément du suivi.",
-      points: ['Douleurs chroniques', 'Soutien médical', 'Préparation aux soins'],
+      iconName: 'Code',
+      title: 'Développement sur mesure',
+      description: 'Intégrations, automatisations, API : des solutions techniques taillées pour vos besoins spécifiques.',
+      points: ['Intégrations sur mesure', 'API & automatisation', 'Code propre & testé'],
       image: images.services[5],
     },
     {
-      iconName: 'Sparkles',
-      title: 'Confiance & développement personnel',
-      description: "Renforcer l'estime de soi, dépasser ses blocages, développer concentration et confiance pour avancer plus sereinement.",
-      points: ['Estime de soi', 'Concentration', 'Dépassement des blocages'],
+      iconName: 'ShieldCheck',
+      title: 'Maintenance & sécurité',
+      description: 'Mises à jour, sauvegardes, monitoring et corrections pour un site toujours performant et sécurisé.',
+      points: ['Sauvegardes quotidiennes', 'Mises à jour sécu', 'Monitoring 24/7'],
       image: images.services[6],
     },
     {
-      iconName: 'Baby',
-      title: 'Préparation & accompagnement',
-      description: "Préparation à la naissance, accompagnement des sportifs, des examens et des moments de vie qui demandent ressources et ancrage.",
-      points: ['Femmes enceintes', 'Sportifs & examens', 'Enfants & adolescents'],
+      iconName: 'BarChart3',
+      title: 'Analyse & reporting',
+      description: 'Tableaux de bord clairs pour suivre vos performances, comprendre vos visiteurs et ajuster votre stratégie.',
+      points: ['Dashboards clairs', 'Recommandations', 'Suivi mensuel'],
       image: images.services[7],
     },
   ],
 }
 
 // ============================================================================
-//                          CONTACT — page Prendre rendez-vous
+//                          CONTACT — page Contact
 // ============================================================================
 
 export const contactContent = {
   hero: {
-    eyebrow: 'Prendre rendez-vous',
-    title: 'Prenons rendez-vous',
+    eyebrow: 'Contact',
+    title: 'Parlons de votre projet',
     description:
-      "Par téléphone, SMS, e-mail ou directement en ligne via MEDOUCINE et RESALIB. Je vous réponds dans les meilleurs délais.",
+      'Remplissez le formulaire ci-dessous ou contactez-nous directement. Nous répondons sous 24h.',
   },
   // Les coordonnées (phone, email, address) viennent de siteConfig dans seo.ts
-  // Cabinets et plateformes de réservation :
-  booking: [
-    { label: 'Réserver sur MEDOUCINE', url: 'https://www.medoucine.com/consultation/acigne/veronique-jan/4253', note: 'Acigné & Rennes' },
-    { label: 'Réserver sur RESALIB', url: 'https://www.resalib.fr/praticien/67027-veronique-jan-hypnotherapeute-rennes', note: 'Cabinet de Rennes' },
-  ],
-  cabinets: [
-    {
-      name: 'Cabinet d\'Acigné',
-      address: '2 Rue du Calvaire, 35690 Acigné',
-      note: 'Avec Xavier Jan (kinésiologue) et Quentin Sanson (ostéopathe)',
-    },
-    {
-      name: 'Cabinet de Rennes',
-      address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-      note: 'Centre médical SPORMED',
-    },
-  ],
 }
+
+// ============================================================================
+//                       PRESETS — exemples par métier
+// ============================================================================
+//
+// Pour basculer rapidement la template sur un autre domaine, décommente l'un
+// des presets ci-dessous et remplace les exports correspondants.
+// (Tu peux aussi créer un fichier par métier et importer celui qui convient.)
+//
+// ─── PRESET RESTAURANT ────────────────────────────────────────────────────
+// export const heroContent = {
+//   eyebrow: 'Restaurant',
+//   title: 'Une cuisine de saison, généreuse et authentique',
+//   description: 'Tous les jours, des produits frais cuisinés à la minute par notre chef.',
+//   button1: 'Réserver une table',
+//   button2: 'Voir notre carte',
+//   images: [...],
+// }
+// servicesPreviewContent.items = [
+//   { iconName: 'Utensils', title: 'Carte du midi', desc: 'Plat + dessert à 18 €' },
+//   { iconName: 'Wine', title: 'Carte des vins', desc: 'Sélection de 40 références…' },
+//   ...
+// ]
+//
+// ─── PRESET ARTISAN ───────────────────────────────────────────────────────
+// servicesPreviewContent.items = [
+//   { iconName: 'Hammer', title: 'Rénovation', desc: '...' },
+//   { iconName: 'Paintbrush', title: 'Peinture', desc: '...' },
+//   ...
+// ]
+//
+// ─── PRESET AVOCAT / CONSEIL ──────────────────────────────────────────────
+// servicesPreviewContent.items = [
+//   { iconName: 'Scale', title: 'Droit du travail', desc: '...' },
+//   { iconName: 'FileText', title: 'Droit des contrats', desc: '...' },
+//   ...
+// ]

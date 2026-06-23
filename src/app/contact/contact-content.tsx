@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CalendarCheck, Clock, ExternalLink, Mail, MapPin, Phone, Send } from 'lucide-react'
-import Image from 'next/image'
+import { Clock, Mail, MapPin, Phone, Send } from 'lucide-react'
 
 import { PremiumHero } from '@/components/sections/premium-hero'
 import { Button } from '@/components/ui/button'
@@ -32,7 +31,9 @@ export function ContactContent() {
 
   const phone = info.phone || siteConfig.phone
   const email = info.email || siteConfig.email
-  const telHref = `tel:${phone.replace(/\s+/g, '')}`
+  const street = info.street || siteConfig.address.street
+  const postalCode = info.postalCode || siteConfig.address.postalCode
+  const city = info.city || siteConfig.address.city
 
   return (
     <>
@@ -40,25 +41,25 @@ export function ContactContent() {
         eyebrow={hero.eyebrow}
         title={hero.title}
         description={hero.description}
-        breadcrumb="Rendez-vous"
+        breadcrumb="Contact"
         compact
         backgroundImage={siteImages.contactHero}
       >
         {/* Trust row */}
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/80">
           <div className="flex items-center gap-2">
-            <Clock className="size-4 text-primary" aria-hidden />
-            <span>Réponse rapide</span>
+            <Clock className="size-4 text-[oklch(0.78_0.15_285)]" aria-hidden />
+            <span>Réponse sous 24h</span>
           </div>
-          <span className="hidden h-1 w-1 rounded-full bg-border sm:inline" aria-hidden />
+          <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
           <div className="flex items-center gap-2">
-            <CalendarCheck className="size-4 text-primary" aria-hidden />
-            <span>Réservation en ligne</span>
+            <Send className="size-4 text-[oklch(0.78_0.15_285)]" aria-hidden />
+            <span>Devis gratuit</span>
           </div>
-          <span className="hidden h-1 w-1 rounded-full bg-border sm:inline" aria-hidden />
+          <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
           <div className="flex items-center gap-2">
-            <span className="flex size-2 rounded-full bg-primary/70" aria-hidden />
-            <span>2 cabinets + domicile</span>
+            <span className="flex size-2 rounded-full bg-emerald-400 shadow-[0_0_8px_oklch(0.7_0.15_150/0.8)]" aria-hidden />
+            <span>Disponible cette semaine</span>
           </div>
         </div>
       </PremiumHero>
@@ -73,14 +74,14 @@ export function ContactContent() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease }}
             >
-              <div className="relative overflow-hidden rounded-3xl bg-card/90 p-7 shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.25)] backdrop-blur-sm sm:p-9">
+              <div className="relative overflow-hidden rounded-3xl bg-card/90 p-7 shadow-[0_20px_50px_-20px_oklch(0.2_0.02_264/0.25)] backdrop-blur-sm sm:p-9">
                 {/* Bordure dégradée */}
                 <div
                   className="pointer-events-none absolute inset-0 rounded-3xl p-px"
                   aria-hidden
                   style={{
                     background:
-                      'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.4) 0%, oklch(0.93 0.025 305 / 0.55) 50%, oklch(0.42 0.10 303 / 0.4) 100%)',
+                      'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.4) 0%, oklch(0.91 0.012 264 / 0.55) 50%, oklch(0.55 0.2 285 / 0.4) 100%)',
                     WebkitMask:
                       'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                     WebkitMaskComposite: 'xor',
@@ -94,9 +95,9 @@ export function ContactContent() {
                     </span>
                     <div>
                       <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
-                        Me contacter
+                        Envoyer un message
                       </h2>
-                      <p className="text-xs text-muted-foreground">Je vous réponds dans les meilleurs délais</p>
+                      <p className="text-xs text-muted-foreground">Tous les champs sont obligatoires sauf indication</p>
                     </div>
                   </div>
 
@@ -110,9 +111,9 @@ export function ContactContent() {
                         <Input
                           id="firstname"
                           name="firstname"
-                          placeholder="Marie"
+                          placeholder="Jean"
                           autoComplete="given-name"
-                          className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)]"
+                          className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.55_0.2_285/0.1)]"
                         />
                       </div>
                       <div className="space-y-2">
@@ -122,7 +123,7 @@ export function ContactContent() {
                           name="lastname"
                           placeholder="Dupont"
                           autoComplete="family-name"
-                          className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)]"
+                          className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.55_0.2_285/0.1)]"
                         />
                       </div>
                     </div>
@@ -132,9 +133,9 @@ export function ContactContent() {
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="vous@email.fr"
+                        placeholder="jean@entreprise.fr"
                         autoComplete="email"
-                        className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)]"
+                        className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.55_0.2_285/0.1)]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -147,7 +148,7 @@ export function ContactContent() {
                         type="tel"
                         placeholder="06 12 34 56 78"
                         autoComplete="tel"
-                        className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)]"
+                        className="h-11 rounded-xl bg-background/70 transition-shadow focus-visible:shadow-[0_0_0_4px_oklch(0.55_0.2_285/0.1)]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -156,12 +157,12 @@ export function ContactContent() {
                         id="message"
                         name="message"
                         rows={5}
-                        placeholder="Décrivez votre besoin en quelques mots (stress, sommeil, tabac, accompagnement...)"
-                        className="w-full rounded-xl border border-input bg-background/70 px-3.5 py-3 text-sm leading-relaxed text-foreground transition-shadow placeholder:text-muted-foreground focus-visible:border-ring focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)] focus-visible:outline-none"
+                        placeholder="Décrivez votre projet en quelques mots..."
+                        className="w-full rounded-xl border border-input bg-background/70 px-3.5 py-3 text-sm leading-relaxed text-foreground transition-shadow placeholder:text-muted-foreground focus-visible:border-ring focus-visible:shadow-[0_0_0_4px_oklch(0.55_0.2_285/0.1)] focus-visible:outline-none"
                       />
                     </div>
                     <Button type="submit" size="lg" className="w-full group">
-                      Envoyer ma demande
+                      Envoyer le message
                       <Send className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
                     </Button>
                   </form>
@@ -169,7 +170,7 @@ export function ContactContent() {
               </div>
             </motion.div>
 
-            {/* Sidebar : réservation + coordonnées + cabinets */}
+            {/* Sidebar info + map */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -177,66 +178,14 @@ export function ContactContent() {
               transition={{ duration: 0.5, ease, delay: 0.06 }}
               className="space-y-5"
             >
-              {/* Réservation en ligne */}
-              <div className="relative overflow-hidden rounded-3xl bg-card/90 p-7 shadow-[0_10px_30px_-12px_oklch(0.2_0.02_303/0.18)] backdrop-blur-sm">
+              {/* Info card */}
+              <div className="relative overflow-hidden rounded-3xl bg-card/90 p-7 shadow-[0_10px_30px_-12px_oklch(0.2_0.02_264/0.18)] backdrop-blur-sm">
                 <div
                   className="pointer-events-none absolute inset-0 rounded-3xl p-px"
                   aria-hidden
                   style={{
                     background:
-                      'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.35) 0%, oklch(0.93 0.025 305 / 0.55) 50%, oklch(0.42 0.10 303 / 0.35) 100%)',
-                    WebkitMask:
-                      'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                    WebkitMaskComposite: 'xor',
-                    maskComposite: 'exclude',
-                  }}
-                />
-                <div className="relative space-y-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <h2 className="font-display text-base font-semibold tracking-tight text-foreground">
-                      Prendre rendez-vous en ligne
-                    </h2>
-                    <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-border/60">
-                      <Image
-                        src="/photos/badge-medoucine.png"
-                        alt="Praticien recommandé Médoucine"
-                        width={48}
-                        height={48}
-                        className="size-full scale-110 object-cover"
-                      />
-                    </span>
-                  </div>
-                  {contactContent.booking.map((b) => (
-                    <a
-                      key={b.label}
-                      href={b.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between gap-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 px-4 py-3 ring-1 ring-primary/15 transition-colors hover:from-primary/15 hover:to-primary/10"
-                    >
-                      <span className="flex items-center gap-3">
-                        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                          <CalendarCheck className="size-4" aria-hidden />
-                        </span>
-                        <span>
-                          <span className="block text-sm font-semibold text-foreground">{b.label}</span>
-                          <span className="block text-xs text-muted-foreground">{b.note}</span>
-                        </span>
-                      </span>
-                      <ExternalLink className="size-4 shrink-0 text-primary transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Coordonnées + cabinets */}
-              <div className="relative overflow-hidden rounded-3xl bg-card/90 p-7 shadow-[0_10px_30px_-12px_oklch(0.2_0.02_303/0.18)] backdrop-blur-sm">
-                <div
-                  className="pointer-events-none absolute inset-0 rounded-3xl p-px"
-                  aria-hidden
-                  style={{
-                    background:
-                      'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.35) 0%, oklch(0.93 0.025 305 / 0.55) 50%, oklch(0.42 0.10 303 / 0.35) 100%)',
+                      'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.35) 0%, oklch(0.91 0.012 264 / 0.55) 50%, oklch(0.55 0.2 285 / 0.35) 100%)',
                     WebkitMask:
                       'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                     WebkitMaskComposite: 'xor',
@@ -246,18 +195,18 @@ export function ContactContent() {
 
                 <div className="relative space-y-5">
                   <h2 className="font-display text-base font-semibold tracking-tight text-foreground">
-                    Me joindre directement
+                    Nous joindre directement
                   </h2>
 
                   <a
-                    href={telHref}
+                    href={`tel:${phone}`}
                     className="group flex items-start gap-4 -mx-3 rounded-xl px-3 py-2 transition-colors hover:bg-foreground/[0.04]"
                   >
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-105">
                       <Phone className="size-4" aria-hidden />
                     </span>
                     <div>
-                      <p className="text-xs font-medium text-muted-foreground">Téléphone / SMS</p>
+                      <p className="text-xs font-medium text-muted-foreground">Téléphone</p>
                       <p className="text-sm font-semibold text-foreground">{phone}</p>
                     </div>
                   </a>
@@ -275,20 +224,18 @@ export function ContactContent() {
                     </div>
                   </a>
 
-                  {/* Cabinets */}
-                  <div className="space-y-4 border-t border-border/60 pt-5">
-                    {contactContent.cabinets.map((c) => (
-                      <div key={c.name} className="flex items-start gap-4 -mx-3 rounded-xl px-3 py-1">
-                        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20">
-                          <MapPin className="size-4" aria-hidden />
-                        </span>
-                        <div>
-                          <p className="text-sm font-semibold text-foreground">{c.name}</p>
-                          <p className="text-sm text-muted-foreground">{c.address}</p>
-                          <p className="mt-0.5 text-xs text-muted-foreground/80">{c.note}</p>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex items-start gap-4 -mx-3 rounded-xl px-3 py-2">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20">
+                      <MapPin className="size-4" aria-hidden />
+                    </span>
+                    <div>
+                      <p className="text-xs font-medium text-muted-foreground">Adresse</p>
+                      <p className="text-sm font-semibold text-foreground">
+                        {street}
+                        <br />
+                        {postalCode} {city}
+                      </p>
+                    </div>
                   </div>
 
                   <div className="border-t border-border/60 pt-5">
@@ -301,11 +248,48 @@ export function ContactContent() {
                         <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
                       </span>
                       <span className="text-xs font-medium text-foreground">
-                        Consultations sur rendez-vous
+                        Disponible aujourd'hui
                       </span>
-                      <span className="text-xs text-muted-foreground">· visites à domicile (20 km)</span>
+                      <span className="text-xs text-muted-foreground">· Lun-Ven 9h-18h</span>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* Map placeholder amélioré */}
+              <div className="relative overflow-hidden rounded-3xl bg-muted/50 shadow-[0_10px_30px_-12px_oklch(0.2_0.02_264/0.18)] backdrop-blur-sm">
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-3xl p-px"
+                  aria-hidden
+                  style={{
+                    background:
+                      'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.3) 0%, oklch(0.91 0.012 264 / 0.5) 50%, oklch(0.55 0.2 285 / 0.3) 100%)',
+                    WebkitMask:
+                      'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                    WebkitMaskComposite: 'xor',
+                    maskComposite: 'exclude',
+                  }}
+                />
+                {/* Dot grid décoratif */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-40"
+                  aria-hidden
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(oklch(0.55 0.05 264 / 0.2) 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                  }}
+                />
+                <div className="relative flex h-56 flex-col items-center justify-center gap-3 p-6 text-center">
+                  <span className="flex size-12 items-center justify-center rounded-2xl bg-background/70 text-primary ring-1 ring-border/60 backdrop-blur-sm">
+                    <MapPin className="size-5" aria-hidden />
+                  </span>
+                  <p className="text-sm font-medium text-foreground">
+                    Intégrez ici votre carte Google Maps
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    iframe ou API Google Maps
+                  </p>
                 </div>
               </div>
             </motion.div>

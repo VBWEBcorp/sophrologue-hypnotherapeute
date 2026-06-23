@@ -38,13 +38,13 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <HeroSection />
-      <ValuesMarquee />
-      <StorySection />
       <ServicesPreview />
-      <GalleryCarousel />
+      <StorySection />
       <TestimonialsSection />
+      <GalleryCarousel />
       <FaqSection />
       <CtaSection />
+      <ValuesMarquee />
     </>
   )
 }

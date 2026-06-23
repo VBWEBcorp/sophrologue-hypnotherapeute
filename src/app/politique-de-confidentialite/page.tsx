@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
-import { PageHero } from '@/components/sections/page-hero'
+import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { siteConfig } from '@/lib/seo'
-import { images } from '@/lib/site-content'
 
 const description =
   'Politique de confidentialité : découvrez comment nous collectons, utilisons et protégeons vos données personnelles conformément au RGPD.'
@@ -42,15 +41,13 @@ export default function PrivacyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <PageHero
-        eyebrow="Informations légales"
-        title="Politique de confidentialité"
-        image={images.contactHero}
-        breadcrumb="Politique de confidentialité"
-      />
+      <Breadcrumb items={[{ label: 'Politique de confidentialité' }]} />
 
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <h1 className="font-display text-3xl tracking-tight text-foreground sm:text-4xl">
+            Politique de confidentialité
+          </h1>
           <p className="mt-4 text-sm text-muted-foreground">
             Dernière mise à jour : [JJ/MM/AAAA]
           </p>

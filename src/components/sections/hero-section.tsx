@@ -1,22 +1,18 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Star } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
-import { ValuesMarquee } from '@/components/sections/values-marquee'
-import { Button } from '@/components/ui/button'
 import { useContent } from '@/hooks/use-content'
 import { heroContent as defaults } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
-const INTERVAL = 5000
 
 function splitTitle(title: string): { lead: string; accent: string } {
   const words = title.trim().split(/\s+/)
-  if (words.length <= 2) return { lead: '', accent: title }
+  if (words.length <= 1) return { lead: '', accent: title }
   const accentCount = Math.min(2, Math.max(1, Math.floor(words.length / 3)))
   return {
     lead: words.slice(0, words.length - accentCount).join(' '),
@@ -27,158 +23,92 @@ function splitTitle(title: string): { lead: string; accent: string } {
 export function HeroSection() {
   const { data } = useContent('home', { hero: defaults })
   const hero = data.hero ?? defaults
-  const images: string[] = hero.images ?? defaults.images
-  const [current, setCurrent] = useState(0)
+  const image = (hero.images ?? defaults.images)[0]
   const { lead, accent } = splitTitle(hero.title)
 
-  useEffect(() => {
-    if (images.length <= 1) return
-    const id = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length)
-    }, INTERVAL)
-    return () => clearInterval(id)
-  }, [images.length])
-
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/60">
-      {/* Background : carousel d'images plein écran */}
-      <div className="absolute inset-0 -z-10" aria-hidden>
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={images[current]}
-              alt=""
-              fill
-              sizes="100vw"
-              priority={current === 0}
-              className="object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
-        {/* Overlay sombre pour lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+    <section className="relative isolate overflow-hidden">
+      {/* Image de fond plein écran */}
+      <div className="absolute inset-0 -z-20" aria-hidden>
+        <Image src={image} alt="" fill sizes="100vw" priority className="object-cover" />
       </div>
+      {/* Voile noir opaque + dégradé pour la lisibilité */}
+      <div
+        className="absolute inset-0 -z-10"
+        aria-hidden
+        style={{
+          background:
+            'linear-gradient(180deg, oklch(0.18 0.01 110 / 0.78) 0%, oklch(0.18 0.01 110 / 0.66) 55%, oklch(0.16 0.01 110 / 0.82) 100%)',
+        }}
+      />
+      <div className="absolute inset-0 -z-10 bg-black/30" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
+      <div className="relative mx-auto max-w-7xl px-4 py-32 sm:px-6 sm:py-40 lg:px-8 lg:py-48">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease }}
-          className="mx-auto max-w-3xl text-center"
+          initial="hidden"
+          animate="visible"
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }}
+          className="max-w-2xl"
         >
-          {/* Eyebrow */}
-          <p className="font-display text-xs font-semibold tracking-[0.22em] uppercase text-white/70">
+          <motion.span
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
+            className="inline-flex items-center rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-white/90 ring-1 ring-white/20 backdrop-blur-sm"
+          >
             {hero.eyebrow}
-          </p>
+          </motion.span>
 
-          {/* Titre avec mot accentué en serif italic + violet uni */}
-          <h1 className="mt-6 font-display text-balance pb-1 text-4xl leading-[1.15] font-semibold tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
+          <motion.h1
+            variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease } } }}
+            className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4.25rem]"
+          >
             {lead ? (
               <>
                 {lead}{' '}
-                <span className="relative inline-block pb-1 font-serif italic font-normal tracking-[-0.01em] text-[oklch(0.78_0.15_285)]">
-                  {accent}
-                </span>
+                <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">{accent}</span>
               </>
             ) : (
               accent
             )}
-          </h1>
+          </motion.h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-white/75 sm:text-xl">
+          <motion.p
+            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
+            className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
+          >
             {hero.description}
-          </p>
+          </motion.p>
 
-          {/* CTAs */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            {/* CTA primary premium */}
+          <motion.div
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }}
+            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+          >
+            {/* Bouton crème (contraste sur fond sombre) */}
             <Link
               href="/contact"
-              className="group/cta relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-xl px-5 text-sm font-medium text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.48_0.22_285/0.5)] transition-all hover:shadow-[0_12px_32px_-8px_oklch(0.48_0.22_285/0.6)] active:translate-y-px"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card px-7 text-[0.95rem] font-medium text-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              <span
-                className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.42_0.22_280)] dark:from-primary dark:via-primary dark:to-[oklch(0.65_0.18_280)]"
-                aria-hidden
-              />
-              <span
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover/cta:translate-x-full"
-                aria-hidden
-              />
-              <span
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                aria-hidden
-              />
-              <span className="relative">{hero.button1}</span>
-              <ArrowRight
-                className="relative size-4 transition-transform duration-300 group-hover/cta:translate-x-0.5"
-                aria-hidden
-              />
+              {hero.button1}
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
             </Link>
-
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-11 rounded-xl border-white/25 bg-white/10 px-5 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
-              asChild
+            {/* Bouton contour blanc */}
+            <Link
+              href="/services"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
             >
-              <Link href="/services">{hero.button2}</Link>
-            </Button>
-          </div>
+              {hero.button2}
+            </Link>
+          </motion.div>
 
-          {/* Social proof : rating + avatars */}
-          <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-5">
-            <div className="flex -space-x-2">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="size-7 rounded-full ring-2 ring-black/30"
-                  style={{
-                    background: `linear-gradient(135deg, oklch(${0.55 + i * 0.05} 0.18 ${260 + i * 15} / 0.85), oklch(${0.65 + i * 0.04} 0.15 ${285 + i * 10} / 0.65))`,
-                  }}
-                  aria-hidden
-                />
-              ))}
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <div className="flex items-center gap-0.5 text-amber-300">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} className="size-3.5 fill-current" aria-hidden />
-                ))}
-              </div>
-              <span className="font-medium text-white">4.9/5</span>
-              <span className="text-white/70">· 200+ clients satisfaits</span>
-            </div>
-          </div>
+          {/* Réassurance */}
+          <motion.div
+            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
+            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
+          >
+            <span>Hypnose ericksonienne &amp; sophrologie caycédienne</span>
+            <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
+            <span>Acigné · Rennes · domicile</span>
+          </motion.div>
         </motion.div>
-
-        {/* Indicateurs carousel */}
-        {images.length > 1 && (
-          <div className="mt-12 flex justify-center gap-2">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Image ${i + 1}`}
-                onClick={() => setCurrent(i)}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === current ? 'w-8 bg-white' : 'w-4 bg-white/35 hover:bg-white/55'
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="relative">
-        <ValuesMarquee variant="dark" />
       </div>
     </section>
   )

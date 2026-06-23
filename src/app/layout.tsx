@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Instrument_Serif, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
+import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
 
 import { RootWrapper } from '@/components/layout/root-wrapper'
 import { ThemeScript } from '@/components/theme/theme-script'
@@ -13,18 +13,19 @@ const inter = Inter({
   display: 'swap',
 })
 
-const jakarta = Plus_Jakarta_Sans({
+// Serif éditorial (titres + mots accentués en italique) — DA type Aurea Studio
+const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   display: 'swap',
 })
 
-// Serif italic — pour mots accentués dans les titres (style éditorial premium)
-const instrumentSerif = Instrument_Serif({
+const fraunces_serif = Fraunces({
   subsets: ['latin'],
   variable: '--font-serif',
-  weight: ['400'],
+  weight: ['400', '500'],
   style: ['normal', 'italic'],
   display: 'swap',
 })
@@ -89,7 +90,7 @@ export default function RootLayout({
     <html
       lang="fr"
       dir="ltr"
-      className={`${inter.variable} ${jakarta.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${fraunces_serif.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

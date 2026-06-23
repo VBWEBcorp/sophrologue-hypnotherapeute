@@ -57,7 +57,7 @@ function ServiceRow({
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.75, ease }}
         whileHover={{ y: -4 }}
-        className="group relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_20px_50px_-20px_oklch(0.2_0.02_264/0.25)] ring-1 ring-border/60"
+        className="group relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.25)] ring-1 ring-border/60"
       >
         {/* Wrapper interne avec parallax Y au scroll */}
         <motion.div className="absolute inset-0 -inset-y-10" style={{ y: imageY }}>
@@ -186,7 +186,7 @@ export function ServicesContent() {
         eyebrow={hero.eyebrow}
         title={hero.title}
         description={hero.description}
-        breadcrumb="Services"
+        breadcrumb="Séances"
         compact
         backgroundImage={siteImages.servicesHero}
       >
@@ -194,13 +194,13 @@ export function ServicesContent() {
           {servicesContent.kpis.map((kpi, i, arr) => (
             <div key={kpi.label} className="flex items-center gap-x-8">
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-2xl font-semibold tracking-tight text-white">
+                <span className="font-display text-2xl tracking-tight text-foreground">
                   {kpi.value}
                 </span>
-                <span className="text-white/70">{kpi.label}</span>
+                <span className="text-muted-foreground">{kpi.label}</span>
               </div>
               {i < arr.length - 1 && (
-                <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
+                <span className="hidden h-1 w-1 rounded-full bg-border sm:inline" aria-hidden />
               )}
             </div>
           ))}

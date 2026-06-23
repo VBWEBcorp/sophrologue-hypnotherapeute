@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { ArrowRight, ChevronDown, MapPin, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -10,18 +10,31 @@ import { Logo } from '@/components/layout/logo'
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 import { cn } from '@/lib/utils'
 
-interface NavLink {
+interface NavChild {
   to: string
   label: string
 }
 
+interface NavLink {
+  to: string
+  label: string
+  children?: NavChild[]
+}
+
+// Sous-menu "Mes cabinets" (comme sur le site d'origine)
+const CABINETS_CHILDREN: NavChild[] = [
+  { to: '/cabinets/rennes', label: 'Rennes' },
+  { to: '/cabinets/acigne', label: 'Acigné' },
+]
+
 const defaultLinks: NavLink[] = [
   { to: '/', label: 'Accueil' },
   { to: '/a-propos', label: 'À propos' },
-  { to: '/services', label: 'Services' },
-  { to: '/gallery', label: 'Galerie' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/hypnotherapie', label: 'Hypnothérapie' },
+  { to: '/seances-hypnose', label: "Séances d'hypnose" },
+  { to: '/sophrologie', label: 'Sophrologie' },
+  { to: '/cabinets', label: 'Mes cabinets', children: CABINETS_CHILDREN },
+  { to: '/blog', label: 'Nos actualités' },
 ]
 
 export function Navbar() {
@@ -44,13 +57,17 @@ export function Navbar() {
         const dynamicLinks: NavLink[] = [
           { to: '/', label: 'Accueil' },
           { to: '/a-propos', label: 'À propos' },
-          { to: '/services', label: 'Services' },
+          { to: '/hypnotherapie', label: 'Hypnothérapie' },
+          { to: '/seances-hypnose', label: "Séances d'hypnose" },
+          { to: '/sophrologie', label: 'Sophrologie' },
+          { to: '/cabinets', label: 'Mes cabinets', children: CABINETS_CHILDREN },
         ]
 
-        if (gallery?.enabled !== false) dynamicLinks.push({ to: '/gallery', label: 'Galerie' })
-        if (blog?.enabled !== false) dynamicLinks.push({ to: '/blog', label: 'Blog' })
+        // "Nos actualités" = blog (masqué si désactivé dans le CMS)
+        if (blog?.enabled !== false) dynamicLinks.push({ to: '/blog', label: 'Nos actualités' })
+        // Galerie : ajoutée seulement si activée (absente de la nav d'origine)
+        if (gallery?.enabled === true) dynamicLinks.push({ to: '/gallery', label: 'Galerie' })
 
-        dynamicLinks.push({ to: '/contact', label: 'Contact' })
         setLinks(dynamicLinks)
       } catch {
         // Liens par défaut conservés en cas d'erreur
@@ -80,14 +97,14 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
-      <div className="mx-auto max-w-6xl px-3 sm:px-4 lg:px-6">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
         {/* Wrapper avec bordure dégradée premium */}
         <div
           className={cn(
             'relative rounded-2xl transition-all duration-500',
             scrolled
-              ? 'shadow-[0_20px_50px_-20px_oklch(0.2_0.02_264/0.25),0_0_0_1px_oklch(0.55_0.2_285/0.08)]'
-              : 'shadow-[0_8px_24px_-12px_oklch(0.2_0.02_264/0.12)]'
+              ? 'shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.25),0_0_0_1px_oklch(0.42_0.10_303/0.08)]'
+              : 'shadow-[0_8px_24px_-12px_oklch(0.2_0.02_303/0.12)]'
           )}
         >
           {/* Halo gradient subtil derrière la navbar quand on scroll */}
@@ -105,7 +122,7 @@ export function Navbar() {
             aria-hidden
             style={{
               background:
-                'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.35) 0%, oklch(0.91 0.012 264 / 0.4) 35%, oklch(0.91 0.012 264 / 0.4) 65%, oklch(0.55 0.2 285 / 0.35) 100%)',
+                'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.35) 0%, oklch(0.93 0.025 305 / 0.4) 35%, oklch(0.93 0.025 305 / 0.4) 65%, oklch(0.42 0.10 303 / 0.35) 100%)',
               WebkitMask:
                 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
               WebkitMaskComposite: 'xor',
@@ -117,49 +134,79 @@ export function Navbar() {
             <Logo />
 
             <nav
-              className="hidden items-center gap-0.5 lg:flex"
+              className="hidden items-center gap-0.5 xl:flex"
               aria-label="Navigation principale"
               onMouseLeave={() => setHoveredKey(null)}
             >
               {links.map((l) => {
                 const isActive = pathname === l.to
                 const isHovered = hoveredKey === l.to
+                const hasChildren = Boolean(l.children?.length)
                 return (
-                  <Link
+                  <div
                     key={l.to}
-                    href={l.to}
+                    className="group/nav relative"
                     onMouseEnter={() => setHoveredKey(l.to)}
-                    className={cn(
-                      'group relative whitespace-nowrap rounded-xl px-3 py-1.5 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
-                      isActive
-                        ? 'text-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
-                    )}
                   >
-                    {/* Hover background qui suit la souris */}
-                    {isHovered && !isActive && (
-                      <motion.span
-                        layoutId="nav-hover-pill"
-                        className="absolute inset-0 rounded-xl bg-foreground/[0.07] ring-1 ring-foreground/[0.04]"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                        aria-hidden
-                      />
-                    )}
+                    <Link
+                      href={l.to}
+                      className={cn(
+                        'group relative flex items-center gap-1 whitespace-nowrap rounded-xl px-2.5 py-1.5 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
+                        isActive
+                          ? 'text-foreground'
+                          : 'text-muted-foreground hover:text-foreground'
+                      )}
+                    >
+                      {/* Hover background qui suit la souris */}
+                      {isHovered && !isActive && (
+                        <motion.span
+                          layoutId="nav-hover-pill"
+                          className="absolute inset-0 rounded-xl bg-foreground/[0.07] ring-1 ring-foreground/[0.04]"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          aria-hidden
+                        />
+                      )}
 
-                    <span className={cn('relative', isActive && 'font-semibold')}>
-                      {l.label}
-                    </span>
+                      <span className={cn('relative', isActive && 'font-semibold')}>
+                        {l.label}
+                      </span>
 
-                    {/* Underline fin animé sous le lien actif (style Linear/Vercel) */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active-underline"
-                        className="absolute inset-x-3 bottom-0.5 h-[2px] rounded-full bg-primary"
-                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                        aria-hidden
-                      />
+                      {hasChildren && (
+                        <ChevronDown
+                          className="relative size-3 transition-transform duration-300 group-hover/nav:rotate-180"
+                          aria-hidden
+                        />
+                      )}
+
+                      {/* Underline fin animé sous le lien actif (style Linear/Vercel) */}
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-active-underline"
+                          className="absolute inset-x-3 bottom-0.5 h-[2px] rounded-full bg-primary"
+                          transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                          aria-hidden
+                        />
+                      )}
+                    </Link>
+
+                    {/* Sous-menu déroulant */}
+                    {hasChildren && (
+                      <div className="invisible absolute left-1/2 top-full z-50 w-44 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
+                        <div className="relative overflow-hidden rounded-xl bg-background/95 p-1.5 shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.3)] ring-1 ring-border/60 backdrop-blur-xl">
+                          {l.children!.map((c) => (
+                            <Link
+                              key={c.to}
+                              href={c.to}
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
+                            >
+                              <MapPin className="size-3.5 text-primary/70" aria-hidden />
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                  </Link>
+                  </div>
                 )
               })}
             </nav>
@@ -170,11 +217,11 @@ export function Navbar() {
               {/* CTA premium : gradient + shimmer + arrow */}
               <Link
                 href="/contact"
-                className="group/cta relative hidden h-8 items-center gap-1.5 overflow-hidden rounded-xl px-3 text-[13px] font-medium text-primary-foreground shadow-[0_4px_14px_-4px_oklch(0.48_0.22_285/0.5)] transition-all hover:shadow-[0_6px_20px_-4px_oklch(0.48_0.22_285/0.6)] active:translate-y-px sm:inline-flex"
+                className="group/cta relative hidden h-8 items-center gap-1.5 overflow-hidden rounded-xl px-3 text-[13px] font-medium text-primary-foreground shadow-[0_4px_14px_-4px_oklch(0.34_0.10_303/0.5)] transition-all hover:shadow-[0_6px_20px_-4px_oklch(0.34_0.10_303/0.6)] active:translate-y-px sm:inline-flex"
               >
                 {/* Fond gradient */}
                 <span
-                  className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.42_0.22_280)] dark:from-primary dark:via-primary dark:to-[oklch(0.65_0.18_280)]"
+                  className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.30_0.07_303)] dark:from-primary dark:via-primary dark:to-[oklch(0.40_0.09_303)]"
                   aria-hidden
                 />
                 {/* Shimmer animé au hover */}
@@ -187,7 +234,7 @@ export function Navbar() {
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
                   aria-hidden
                 />
-                <span className="relative">Nous contacter</span>
+                <span className="relative">Prendre un RDV</span>
                 <ArrowRight
                   className="relative size-3.5 transition-transform duration-300 group-hover/cta:translate-x-0.5"
                   aria-hidden
@@ -197,7 +244,7 @@ export function Navbar() {
               {/* Burger mobile */}
               <button
                 type="button"
-                className="relative inline-flex size-8 items-center justify-center rounded-xl text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 lg:hidden"
+                className="relative inline-flex size-8 items-center justify-center rounded-xl text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 xl:hidden"
                 aria-expanded={open}
                 aria-controls="mobile-nav"
                 aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -242,7 +289,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mt-2 overflow-hidden rounded-2xl bg-background/95 shadow-[0_30px_60px_-20px_oklch(0.2_0.02_264/0.25)] backdrop-blur-xl lg:hidden"
+              className="relative mt-2 overflow-hidden rounded-2xl bg-background/95 shadow-[0_30px_60px_-20px_oklch(0.2_0.02_303/0.25)] backdrop-blur-xl xl:hidden"
             >
               {/* Bordure dégradée mobile */}
               <div
@@ -250,7 +297,7 @@ export function Navbar() {
                 aria-hidden
                 style={{
                   background:
-                    'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.3) 0%, oklch(0.91 0.012 264 / 0.4) 50%, oklch(0.55 0.2 285 / 0.3) 100%)',
+                    'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.3) 0%, oklch(0.93 0.025 305 / 0.4) 50%, oklch(0.42 0.10 303 / 0.3) 100%)',
                   WebkitMask:
                     'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                   WebkitMaskComposite: 'xor',
@@ -285,11 +332,28 @@ export function Navbar() {
                         <span>{l.label}</span>
                         {isActive && (
                           <span
-                            className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_oklch(0.55_0.2_285/0.7)]"
+                            className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_oklch(0.42_0.10_303/0.7)]"
                             aria-hidden
                           />
                         )}
                       </Link>
+
+                      {/* Sous-items (Mes cabinets → Rennes / Acigné) */}
+                      {l.children?.length ? (
+                        <div className="mt-1 ml-3 flex flex-col gap-0.5 border-l border-border/60 pl-3">
+                          {l.children.map((c) => (
+                            <Link
+                              key={c.to}
+                              href={c.to}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
+                            >
+                              <MapPin className="size-3.5 text-primary/70" aria-hidden />
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : null}
                     </motion.div>
                   )
                 })}
@@ -307,17 +371,17 @@ export function Navbar() {
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="group/cta relative flex h-10 w-full items-center justify-center gap-1.5 overflow-hidden rounded-xl text-sm font-medium text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.48_0.22_285/0.5)]"
+                    className="group/cta relative flex h-10 w-full items-center justify-center gap-1.5 overflow-hidden rounded-xl text-sm font-medium text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.34_0.10_303/0.5)]"
                   >
                     <span
-                      className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.42_0.22_280)] dark:to-[oklch(0.65_0.18_280)]"
+                      className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.30_0.07_303)] dark:to-[oklch(0.40_0.09_303)]"
                       aria-hidden
                     />
                     <span
                       className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
                       aria-hidden
                     />
-                    <span className="relative">Nous contacter</span>
+                    <span className="relative">Prendre un RDV</span>
                     <ArrowRight className="relative size-4" aria-hidden />
                   </Link>
                 </motion.div>

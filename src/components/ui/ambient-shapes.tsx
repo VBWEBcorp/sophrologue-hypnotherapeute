@@ -50,7 +50,7 @@ function Orb({
   opacity?: number
 }) {
   const colors = {
-    violet: 'oklch(0.55 0.2 285 / 0.4)',
+    violet: 'oklch(0.42 0.10 303 / 0.4)',
     indigo: 'oklch(0.55 0.2 260 / 0.35)',
     cyan: 'oklch(0.7 0.13 210 / 0.3)',
     rose: 'oklch(0.65 0.18 0 / 0.25)',
@@ -77,7 +77,7 @@ function Blob({
   opacity?: number
 }) {
   const colors = {
-    violet: 'oklch(0.55 0.2 285)',
+    violet: 'oklch(0.42 0.10 303)',
     indigo: 'oklch(0.55 0.2 260)',
     cyan: 'oklch(0.7 0.13 210)',
   }

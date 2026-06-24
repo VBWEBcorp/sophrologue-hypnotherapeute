@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useContent } from '@/hooks/use-content'
-import { heroContent as defaults } from '@/lib/site-content'
+import { heroContent as defaults, images } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -38,77 +38,110 @@ export function HeroSection() {
         aria-hidden
         style={{
           background:
-            'linear-gradient(180deg, oklch(0.18 0.01 110 / 0.78) 0%, oklch(0.18 0.01 110 / 0.66) 55%, oklch(0.16 0.01 110 / 0.82) 100%)',
+            'linear-gradient(180deg, oklch(0.18 0.01 110 / 0.80) 0%, oklch(0.18 0.01 110 / 0.68) 55%, oklch(0.16 0.01 110 / 0.84) 100%)',
         }}
       />
       <div className="absolute inset-0 -z-10 bg-black/30" aria-hidden />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-32 sm:px-6 sm:py-40 lg:px-8 lg:py-48">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }}
-          className="max-w-2xl"
-        >
-          <motion.span
-            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
-            className="inline-flex items-center rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-white/90 ring-1 ring-white/20 backdrop-blur-sm"
-          >
-            {hero.eyebrow}
-          </motion.span>
-
-          <motion.h1
-            variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease } } }}
-            className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4.25rem]"
-          >
-            {lead ? (
-              <>
-                {lead}{' '}
-                <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">{accent}</span>
-              </>
-            ) : (
-              accent
-            )}
-          </motion.h1>
-
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
-            className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
-          >
-            {hero.description}
-          </motion.p>
-
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          {/* Texte */}
           <motion.div
-            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            initial="hidden"
+            animate="visible"
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }}
+            className="max-w-2xl"
           >
-            {/* Bouton crème (contraste sur fond sombre) */}
-            <Link
-              href="/contact"
-              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card px-7 text-[0.95rem] font-medium text-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+            <motion.span
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
+              className="inline-flex items-center rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-white/90 ring-1 ring-white/20 backdrop-blur-sm"
             >
-              {hero.button1}
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
-            </Link>
-            {/* Bouton contour blanc */}
-            <Link
-              href="/services"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+              {hero.eyebrow}
+            </motion.span>
+
+            <motion.h1
+              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease } } }}
+              className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4rem]"
             >
-              {hero.button2}
-            </Link>
+              {lead ? (
+                <>
+                  {lead}{' '}
+                  <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">{accent}</span>
+                </>
+              ) : (
+                accent
+              )}
+            </motion.h1>
+
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
+              className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
+            >
+              {hero.description}
+            </motion.p>
+
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }}
+              className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            >
+              {/* Bouton crème (contraste sur fond sombre) */}
+              <Link
+                href="/contact"
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card px-7 text-[0.95rem] font-medium text-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              >
+                {hero.button1}
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+              </Link>
+              {/* Bouton contour blanc */}
+              <Link
+                href="/services"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+              >
+                {hero.button2}
+              </Link>
+            </motion.div>
+
+            {/* Réassurance */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
+              className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
+            >
+              <span>Hypnose ericksonienne &amp; sophrologie caycédienne</span>
+              <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
+              <span>Acigné · Rennes · domicile</span>
+            </motion.div>
           </motion.div>
 
-          {/* Réassurance */}
+          {/* Portrait circulaire de Véronique */}
           <motion.div
-            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
-            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease, delay: 0.15 }}
+            className="flex justify-center lg:justify-end"
           >
-            <span>Hypnose ericksonienne &amp; sophrologie caycédienne</span>
-            <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
-            <span>Acigné · Rennes · domicile</span>
+            <div className="relative">
+              {/* Halo violet doux */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-8 -z-10 rounded-full blur-3xl"
+                style={{ background: 'radial-gradient(circle, oklch(0.55 0.12 305 / 0.45) 0%, transparent 70%)' }}
+              />
+              {/* Anneau décoratif extérieur */}
+              <div className="rounded-full p-1.5 ring-1 ring-white/25">
+                <div className="relative aspect-square w-60 overflow-hidden rounded-full shadow-[0_30px_60px_-15px_oklch(0.12_0.02_305/0.6)] ring-4 ring-white/15 sm:w-72 lg:w-[24rem]">
+                  <Image
+                    src={images.story}
+                    alt="Véronique Jan, hypnothérapeute et sophrologue"
+                    fill
+                    sizes="(min-width:1024px) 24rem, 18rem"
+                    priority
+                    className="object-cover object-center"
+                  />
+                </div>
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

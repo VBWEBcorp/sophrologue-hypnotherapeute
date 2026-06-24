@@ -141,7 +141,7 @@ export function Navbar() {
             }}
           />
 
-          <div className="flex h-14 items-center justify-between gap-2 rounded-2xl bg-background/70 pl-3 pr-1.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/55 sm:pl-4">
+          <div className="flex h-14 items-center justify-between gap-2 rounded-2xl bg-background/95 pl-3 pr-1.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/85 sm:pl-4">
             <Logo />
 
             <nav
@@ -165,7 +165,7 @@ export function Navbar() {
                         'group relative flex items-center gap-1 whitespace-nowrap rounded-xl px-2.5 py-1.5 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
                         isActive
                           ? 'text-foreground'
-                          : 'text-muted-foreground hover:text-foreground'
+                          : 'text-foreground/70 hover:text-foreground'
                       )}
                     >
                       {/* Hover background qui suit la souris */}

@@ -30,7 +30,7 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
   const { lead, accent } = splitTitle(hero.title)
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/60 bg-[oklch(0.975_0.012_285)] dark:bg-[oklch(0.16_0.02_285)]">
+    <section className="relative isolate overflow-hidden border-b border-border/60 bg-[oklch(0.965_0.013_85)] dark:bg-[oklch(0.225_0.028_305)]">
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
@@ -116,18 +116,18 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
               aria-hidden
               style={{
                 background:
-                  'radial-gradient(ellipse at center, oklch(0.55 0.2 285 / 0.3) 0%, transparent 70%)',
+                  'radial-gradient(ellipse at center, oklch(0.42 0.10 303 / 0.3) 0%, transparent 70%)',
               }}
             />
 
-            <div className="relative overflow-hidden rounded-2xl bg-background/40 p-1.5 shadow-[0_30px_60px_-20px_oklch(0.2_0.02_264/0.3)] backdrop-blur-xl ring-1 ring-border/60">
+            <div className="relative overflow-hidden rounded-2xl bg-background/40 p-1.5 shadow-[0_30px_60px_-20px_oklch(0.2_0.02_303/0.3)] backdrop-blur-xl ring-1 ring-border/60">
               {/* Bordure dégradée */}
               <div
                 className="pointer-events-none absolute inset-0 rounded-2xl p-px"
                 aria-hidden
                 style={{
                   background:
-                    'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.4) 0%, oklch(0.91 0.012 264 / 0.5) 50%, oklch(0.55 0.2 285 / 0.4) 100%)',
+                    'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.4) 0%, oklch(0.93 0.025 305 / 0.5) 50%, oklch(0.42 0.10 303 / 0.4) 100%)',
                   WebkitMask:
                     'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                   WebkitMaskComposite: 'xor',
@@ -156,7 +156,7 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5, ease }}
-              className="absolute -bottom-4 -left-4 hidden rounded-2xl bg-background/90 px-4 py-3 shadow-[0_20px_40px_-12px_oklch(0.2_0.02_264/0.25)] backdrop-blur-xl ring-1 ring-border/60 sm:block lg:-bottom-6 lg:-left-6"
+              className="absolute -bottom-4 -left-4 hidden rounded-2xl bg-background/90 px-4 py-3 shadow-[0_20px_40px_-12px_oklch(0.2_0.02_303/0.25)] backdrop-blur-xl ring-1 ring-border/60 sm:block lg:-bottom-6 lg:-left-6"
             >
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
@@ -165,15 +165,15 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
                       key={i}
                       className="size-7 rounded-full ring-2 ring-background"
                       style={{
-                        background: `linear-gradient(135deg, oklch(${0.55 + i * 0.05} 0.18 ${260 + i * 15} / 0.8), oklch(${0.65 + i * 0.04} 0.15 ${285 + i * 10} / 0.6))`,
+                        background: `linear-gradient(135deg, oklch(${0.55 + i * 0.05} 0.18 ${100 + i * 10} / 0.8), oklch(${0.65 + i * 0.04} 0.15 ${120 + i * 8} / 0.6))`,
                       }}
                       aria-hidden
                     />
                   ))}
                 </div>
                 <div className="text-xs">
-                  <div className="font-semibold text-foreground">Une équipe à votre écoute</div>
-                  <div className="text-muted-foreground">Réponse sous 24h</div>
+                  <div className="font-semibold text-foreground">À votre écoute</div>
+                  <div className="text-muted-foreground">Acigné & Rennes</div>
                 </div>
               </div>
             </motion.div>
@@ -203,7 +203,7 @@ function ValuesTimeline({ values }: { values: any[] }) {
       <motion.div
         aria-hidden
         style={{ height: lineHeight }}
-        className="absolute left-4 top-0 w-px bg-gradient-to-b from-primary via-primary to-[oklch(0.6_0.18_260)] md:left-1/2 md:-translate-x-1/2"
+        className="absolute left-4 top-0 w-px bg-gradient-to-b from-primary via-primary to-[oklch(0.45_0.10_303)] md:left-1/2 md:-translate-x-1/2"
       />
 
       <ul className="space-y-12 md:space-y-16">
@@ -220,7 +220,7 @@ function ValuesTimeline({ values }: { values: any[] }) {
                 transition={{ duration: 0.4, ease, delay: 0.15 }}
                 className="absolute left-4 top-6 z-10 -translate-x-1/2 md:left-1/2"
               >
-                <span className="relative flex size-10 items-center justify-center rounded-full bg-background ring-1 ring-primary/30 shadow-[0_0_20px_oklch(0.55_0.2_285/0.4)] dark:shadow-[0_0_20px_oklch(0.55_0.2_285/0.5)]">
+                <span className="relative flex size-10 items-center justify-center rounded-full bg-background ring-1 ring-primary/30 shadow-[0_0_20px_oklch(0.42_0.10_303/0.4)] dark:shadow-[0_0_20px_oklch(0.42_0.10_303/0.5)]">
                   {/* Overlay gradient sur fond opaque */}
                   <span
                     className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/15 to-primary/5"
@@ -241,14 +241,14 @@ function ValuesTimeline({ values }: { values: any[] }) {
                   isRight ? 'md:ml-[calc(50%+2.5rem)]' : 'md:mr-[calc(50%+2.5rem)]'
                 }`}
               >
-                <div className="group relative overflow-hidden rounded-2xl bg-card/80 p-6 shadow-[0_8px_24px_-12px_oklch(0.2_0.02_264/0.15)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_oklch(0.2_0.02_264/0.25)]">
+                <div className="group relative overflow-hidden rounded-2xl bg-card/80 p-6 shadow-[0_8px_24px_-12px_oklch(0.2_0.02_303/0.15)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_oklch(0.2_0.02_303/0.25)]">
                   {/* Bordure dégradée premium */}
                   <div
                     className="pointer-events-none absolute inset-0 rounded-2xl p-px transition-opacity duration-500 group-hover:opacity-100"
                     aria-hidden
                     style={{
                       background:
-                        'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.35) 0%, oklch(0.91 0.012 264 / 0.6) 50%, oklch(0.55 0.2 285 / 0.35) 100%)',
+                        'linear-gradient(135deg, oklch(0.42 0.10 303 / 0.35) 0%, oklch(0.93 0.025 305 / 0.6) 50%, oklch(0.42 0.10 303 / 0.35) 100%)',
                       WebkitMask:
                         'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
                       WebkitMaskComposite: 'xor',
@@ -295,7 +295,7 @@ export function AboutContent() {
 
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <SectionTitle eyebrow="Nos valeurs" title="Ce qui nous guide au quotidien" />
+          <SectionTitle eyebrow="Ma pratique" title="Ce qui guide mon accompagnement" />
           <ValuesTimeline values={values} />
         </div>
       </section>

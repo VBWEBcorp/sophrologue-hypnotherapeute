@@ -65,7 +65,7 @@ const quickActions = [
 const ease = [0.22, 1, 0.36, 1] as const
 
 const formatDate = (d?: string) =>
-  d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'
+  d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) : '–'
 
 export default function AdminDashboardPage() {
   const [user, setUser] = useState<AdminUser | null>(null)

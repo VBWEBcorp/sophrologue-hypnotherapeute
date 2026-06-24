@@ -19,13 +19,11 @@ interface FaqItem {
 
 function FaqAccordionItem({
   item,
-  index,
   isOpen,
   onToggle,
   reduceMotion,
 }: {
   item: FaqItem
-  index: number
   isOpen: boolean
   onToggle: () => void
   reduceMotion: boolean | null
@@ -53,7 +51,7 @@ function FaqAccordionItem({
           aria-hidden
           style={{
             background:
-              'linear-gradient(135deg, oklch(0.55 0.2 285 / 0.35) 0%, oklch(0.91 0.012 264 / 0.5) 50%, oklch(0.55 0.2 285 / 0.35) 100%)',
+              'linear-gradient(135deg, oklch(0.42 0.08 303 / 0.4) 0%, oklch(0.93 0.025 305 / 0.5) 50%, oklch(0.42 0.08 303 / 0.4) 100%)',
             WebkitMask:
               'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
             WebkitMaskComposite: 'xor',
@@ -68,10 +66,7 @@ function FaqAccordionItem({
           aria-expanded={isOpen}
           className="relative flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-foreground/[0.02] sm:px-6 sm:py-5"
         >
-          <span className="flex items-baseline gap-3 font-display text-[15px] font-semibold tracking-tight text-foreground sm:text-base">
-            <span className="font-display text-xs font-semibold tracking-[0.2em] text-primary/70">
-              0{index + 1}
-            </span>
+          <span className="font-display text-[15px] font-semibold tracking-tight text-foreground sm:text-base">
             {item.question}
           </span>
           <motion.span
@@ -116,7 +111,7 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="border-b border-border/60 bg-[oklch(0.975_0.012_285)] dark:bg-[oklch(0.16_0.02_285)]">
+    <section className="border-b border-border/60 bg-[oklch(0.965_0.013_85)] dark:bg-[oklch(0.225_0.028_305)]">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionTitle
           eyebrow={faq.eyebrow}
@@ -138,7 +133,6 @@ export function FaqSection() {
             <FaqAccordionItem
               key={i}
               item={item}
-              index={i}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               reduceMotion={reduceMotion}

@@ -6,6 +6,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, User, Tag, Clock } from 'lucide-react'
 
+import { images } from '@/lib/site-content'
+
 interface BlogPost {
   _id: string
   title: string
@@ -93,23 +95,23 @@ export default function BlogPostContent({
     month: 'long',
     year: 'numeric',
   })
+  // Image de couverture (repli sur une ambiance si l'article n'en a pas)
+  const cover = post.coverImage || images.homeGallery[0]
 
   return (
     <article className="min-h-screen">
       {/* Cover image */}
-      {post.coverImage && (
-        <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[480px] overflow-hidden bg-muted">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-        </div>
-      )}
+      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[480px] overflow-hidden bg-muted">
+        <Image
+          src={cover}
+          alt={post.title}
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+      </div>
 
       {/* Content */}
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -117,7 +119,7 @@ export default function BlogPostContent({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease }}
-          className={post.coverImage ? '-mt-20 relative z-10' : 'pt-16'}
+          className="-mt-20 relative z-10"
         >
           {/* Back link */}
           <Link

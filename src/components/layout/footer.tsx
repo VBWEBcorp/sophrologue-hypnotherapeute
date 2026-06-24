@@ -1,14 +1,24 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Facebook, Linkedin, Star } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { siteConfig } from '@/lib/seo'
 import { NewsletterSignup } from '@/components/newsletter-signup'
 
+const socialLinks = [
+  { label: 'Facebook', href: siteConfig.social.facebook, Icon: Facebook },
+  { label: 'LinkedIn', href: siteConfig.social.linkedin, Icon: Linkedin },
+  { label: 'Avis Google', href: siteConfig.social.google, Icon: Star },
+]
+
 const navLinks = [
-  { label: 'Accueil', to: '/' },
   { label: 'À propos', to: '/a-propos' },
-  { label: 'Services', to: '/services' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'Hypnothérapie', to: '/hypnotherapie' },
+  { label: "Séances d'hypnose", to: '/seances-hypnose' },
+  { label: 'Sophrologie', to: '/sophrologie' },
+  { label: 'Mes cabinets', to: '/cabinets' },
+  { label: 'Actualités', to: '/blog' },
+  { label: 'Prendre rendez-vous', to: '/contact' },
 ]
 
 const legalLinks = [
@@ -20,28 +30,51 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-zinc-950 text-zinc-300">
+    <footer className="bg-[oklch(0.25_0.055_305)] text-stone-300">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Top: brand + nav columns */}
         <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-16">
           {/* Brand */}
           <div className="space-y-4">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 font-display text-base font-semibold tracking-tight text-white"
-            >
-              <span className="flex size-7 items-center justify-center rounded-lg bg-white text-zinc-950">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-3.5">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                  <path d="M2 12h20" />
-                </svg>
+            <Link href="/" aria-label={siteConfig.name} className="inline-flex items-center gap-2.5">
+              <span className="relative inline-flex size-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/25">
+                <Image
+                  src="/photos/veronique-jan.png"
+                  alt={siteConfig.name}
+                  fill
+                  sizes="40px"
+                  className="object-cover object-center"
+                />
               </span>
-              {siteConfig.name}
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-lg font-semibold tracking-tight text-white">
+                  {siteConfig.name}
+                </span>
+                <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.16em] text-zinc-400">
+                  Sophrologue · Hypnothérapeute
+                </span>
+              </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-zinc-400">
               {siteConfig.description}
             </p>
+
+            {/* Réseaux sociaux */}
+            <div className="flex items-center gap-2.5 pt-1">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="flex size-9 items-center justify-center rounded-full bg-white/10 text-zinc-200 ring-1 ring-white/15 transition-colors hover:bg-white/20 hover:text-white"
+                >
+                  <Icon className="size-4" aria-hidden />
+                </a>
+              ))}
+            </div>
 
             {/* Newsletter */}
             <div className="pt-2">
@@ -149,7 +182,7 @@ export function Footer() {
       <div className="bg-red-600 text-white">
         <div className="mx-auto max-w-6xl px-4 py-4 text-center sm:px-6 lg:px-8">
           <p className="text-sm font-bold uppercase tracking-wide">
-            Maquette de démonstration — Propriété exclusive de{' '}
+            Maquette de démonstration, propriété exclusive de{' '}
             <a
               href={siteConfig.url}
               className="underline underline-offset-2 transition-opacity hover:opacity-80"

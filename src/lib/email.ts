@@ -78,7 +78,7 @@ export async function sendNewsletterWelcome(to: string): Promise<{ sent: boolean
     `Merci de votre inscription à la newsletter de ${brand} !\n` +
     `Vous recevrez désormais nos actualités, conseils et nouveautés directement par e-mail.\n\n` +
     `À très bientôt,\nL'équipe ${brand}\n\n` +
-    `—\n` +
+    `--\n` +
     `Vous recevez cet e-mail car cette adresse a été inscrite sur ${siteConfig.url}. ` +
     `Si vous n'êtes pas à l'origine de cette inscription, ignorez simplement ce message.`
 
@@ -126,7 +126,7 @@ function buildCampaignEmail(subject: string, message: string, unsubUrl: string):
   const bodyHtml = paragraphs.map((p) => `<p style="margin:0 0 14px;">${p}</p>`).join('')
 
   const text =
-    `${message}\n\n—\n${brand}\n` +
+    `${message}\n\n--\n${brand}\n` +
     `Se désinscrire : ${unsubUrl}`
 
   const html = `<!doctype html>
@@ -220,7 +220,7 @@ function buildBlogEmail(post: BlogNotice, unsubUrl: string): { subject: string; 
   const text =
     `${post.title}\n\n` +
     (post.excerpt ? `${post.excerpt}\n\n` : '') +
-    `Lire l'article : ${articleUrl}\n\n—\n${brand}\n` +
+    `Lire l'article : ${articleUrl}\n\n--\n${brand}\n` +
     `Se désinscrire : ${unsubUrl}`
 
   const html = `<!doctype html>

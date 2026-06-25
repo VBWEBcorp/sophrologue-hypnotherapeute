@@ -111,7 +111,7 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="border-b border-border/60 bg-[oklch(0.965_0.013_85)] dark:bg-[oklch(0.225_0.028_305)]">
+    <section className="border-b border-border/60 bg-background">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionTitle
           eyebrow={faq.eyebrow}

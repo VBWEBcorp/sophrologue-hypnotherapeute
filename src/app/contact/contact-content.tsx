@@ -198,11 +198,11 @@ export function ContactContent() {
                     </h2>
                     <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-border/60">
                       <Image
-                        src="/photos/badge-medoucine.png"
+                        src="/photos/badge-medoucine-v2.png"
                         alt="Praticien recommandé Médoucine"
                         width={48}
                         height={48}
-                        className="size-full scale-110 object-cover"
+                        className="size-full object-cover"
                       />
                     </span>
                   </div>

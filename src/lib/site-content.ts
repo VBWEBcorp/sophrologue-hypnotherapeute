@@ -139,6 +139,31 @@ export const servicesPreviewContent = {
   ],
 }
 
+// « Comment se déroule un accompagnement » — 3 étapes (façon parcours)
+export const howItWorksContent = {
+  eyebrow: 'Le déroulé',
+  title: 'Comment se déroule un accompagnement',
+  description:
+    "Un cheminement simple et rassurant, à votre rythme, du premier contact jusqu'à votre autonomie retrouvée.",
+  steps: [
+    {
+      iconName: 'HeartHandshake',
+      title: 'Premier échange',
+      desc: "On fait connaissance lors d'un entretien approfondi : votre histoire, vos symptômes et vos objectifs, sans jugement.",
+    },
+    {
+      iconName: 'Sparkles',
+      title: 'Séances sur mesure',
+      desc: "Un protocole personnalisé en hypnose ericksonienne et sophrologie caycédienne, construit pour vous et avec vous.",
+    },
+    {
+      iconName: 'Smile',
+      title: 'Autonomie & mieux-être',
+      desc: "Vous repartez avec des outils concrets à pratiquer au quotidien pour entretenir votre équilibre durablement.",
+    },
+  ],
+}
+
 export const testimonialsContent = {
   eyebrow: 'Témoignages',
   title: 'Ils ont retrouvé leur équilibre',

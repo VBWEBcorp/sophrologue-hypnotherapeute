@@ -1,14 +1,27 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { useContent } from '@/hooks/use-content'
-import { heroContent as defaults, images } from '@/lib/site-content'
+import { siteConfig } from '@/lib/seo'
+import { heroContent as defaults } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
+
+// Image de fond plein écran du hero (ambiance apaisante) — Unsplash
+const HERO_BG =
+  'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=2000&q=80'
+
+// Petites photos pour la preuve sociale (cluster d'avatars) — Unsplash
+const SOCIAL_AVATARS = [
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80',
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80',
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80',
+]
 
 function splitTitle(title: string): { lead: string; accent: string } {
   const words = title.trim().split(/\s+/)
@@ -23,29 +36,29 @@ function splitTitle(title: string): { lead: string; accent: string } {
 export function HeroSection() {
   const { data } = useContent('home', { hero: defaults })
   const hero = data.hero ?? defaults
-  const image = (hero.images ?? defaults.images)[0]
   const { lead, accent } = splitTitle(hero.title)
+  const telHref = `tel:${siteConfig.phone.replace(/\s+/g, '')}`
 
   return (
-    <section className="relative isolate overflow-hidden">
-      {/* Image de fond plein écran */}
-      <div className="absolute inset-0 -z-20" aria-hidden>
-        <Image src={image} alt="" fill sizes="100vw" priority className="object-cover" />
-      </div>
-      {/* Voile noir opaque + dégradé pour la lisibilité */}
-      <div
-        className="absolute inset-0 -z-10"
-        aria-hidden
-        style={{
-          background:
-            'linear-gradient(180deg, oklch(0.18 0.01 110 / 0.80) 0%, oklch(0.18 0.01 110 / 0.68) 55%, oklch(0.16 0.01 110 / 0.84) 100%)',
-        }}
-      />
-      <div className="absolute inset-0 -z-10 bg-black/30" aria-hidden />
+    <section className="px-3 pt-3 sm:px-4 sm:pt-4">
+      {/* Carte hero arrondie, plein cadre (inspiration : hero encadré) */}
+      <div className="relative isolate overflow-hidden rounded-[1.75rem] sm:rounded-[2.25rem]">
+        {/* Image de fond */}
+        <div className="absolute inset-0 -z-20" aria-hidden>
+          <Image src={HERO_BG} alt="" fill sizes="100vw" priority className="object-cover" />
+        </div>
+        {/* Voile sombre + dégradé pour la lisibilité */}
+        <div
+          className="absolute inset-0 -z-10"
+          aria-hidden
+          style={{
+            background:
+              'linear-gradient(100deg, oklch(0.18 0.02 305 / 0.88) 0%, oklch(0.18 0.02 305 / 0.62) 48%, oklch(0.18 0.02 305 / 0.30) 100%)',
+          }}
+        />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          {/* Texte */}
+        <div className="relative mx-auto flex min-h-[clamp(34rem,80vh,46rem)] max-w-7xl flex-col justify-between px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+          {/* Bloc texte principal */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -61,12 +74,12 @@ export function HeroSection() {
 
             <motion.h1
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease } } }}
-              className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4rem]"
+              className="mt-6 font-display text-balance text-[2.75rem] font-bold leading-[1.02] tracking-[-0.025em] text-white sm:text-6xl lg:text-[4.25rem]"
             >
               {lead ? (
                 <>
                   {lead}{' '}
-                  <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">{accent}</span>
+                  <span className="font-serif italic font-normal text-[oklch(0.85_0.07_305)]">{accent}</span>
                 </>
               ) : (
                 accent
@@ -84,61 +97,46 @@ export function HeroSection() {
               variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }}
               className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
             >
-              {/* Bouton crème (contraste sur fond sombre) */}
-              <Link
-                href="/contact"
-                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card px-7 text-[0.95rem] font-medium text-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+              {/* CTA principal : appeler (pilule colorée, façon référence) */}
+              <a
+                href={telHref}
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-medium text-primary-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
               >
-                {hero.button1}
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
-              </Link>
-              {/* Bouton contour blanc */}
+                <Phone className="size-4" aria-hidden />
+                Appeler&nbsp;: {siteConfig.phone}
+              </a>
+              {/* CTA secondaire : contour clair */}
               <Link
                 href="/services"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
               >
                 {hero.button2}
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
               </Link>
-            </motion.div>
-
-            {/* Réassurance */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } } }}
-              className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70"
-            >
-              <span>Hypnose ericksonienne &amp; sophrologie caycédienne</span>
-              <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:inline" aria-hidden />
-              <span>Acigné · Rennes · domicile</span>
             </motion.div>
           </motion.div>
 
-          {/* Portrait circulaire de Véronique */}
+          {/* Preuve sociale, ancrée en bas (façon référence) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease, delay: 0.15 }}
-            className="flex justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease, delay: 0.35 }}
+            className="mt-12 flex items-center gap-4"
           >
-            <div className="relative">
-              {/* Halo violet doux */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -inset-8 -z-10 rounded-full blur-3xl"
-                style={{ background: 'radial-gradient(circle, oklch(0.55 0.12 305 / 0.45) 0%, transparent 70%)' }}
-              />
-              {/* Anneau décoratif extérieur */}
-              <div className="rounded-full p-1.5 ring-1 ring-white/25">
-                <div className="relative aspect-square w-60 overflow-hidden rounded-full shadow-[0_30px_60px_-15px_oklch(0.12_0.02_305/0.6)] ring-4 ring-white/15 sm:w-72 lg:w-[24rem]">
-                  <Image
-                    src={images.story}
-                    alt="Véronique Jan, hypnothérapeute et sophrologue"
-                    fill
-                    sizes="(min-width:1024px) 24rem, 18rem"
-                    priority
-                    className="object-cover object-center"
-                  />
-                </div>
-              </div>
+            <div className="flex -space-x-3">
+              {SOCIAL_AVATARS.map((src, i) => (
+                <span
+                  key={src}
+                  className="relative inline-block size-11 overflow-hidden rounded-full ring-2 ring-white/80"
+                  style={{ zIndex: SOCIAL_AVATARS.length - i }}
+                >
+                  <Image src={src} alt="" fill sizes="44px" className="object-cover" />
+                </span>
+              ))}
+            </div>
+            <div className="text-sm leading-tight text-white/85">
+              <p className="font-semibold text-white">Plus de 1 200 accompagnements</p>
+              <p className="text-white/70">depuis 2006 à Acigné &amp; Rennes</p>
             </div>
           </motion.div>
         </div>

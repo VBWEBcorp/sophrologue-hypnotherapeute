@@ -4,6 +4,7 @@ import { CtaSection } from '@/components/sections/cta-section'
 import { FaqSection } from '@/components/sections/faq-section'
 import { GalleryCarousel } from '@/components/sections/gallery-carousel'
 import { HeroSection } from '@/components/sections/hero-section'
+import { HowItWorks } from '@/components/sections/how-it-works'
 import { ServicesPreview } from '@/components/sections/services-preview'
 import { StorySection } from '@/components/sections/story-section'
 import { TestimonialsSection } from '@/components/sections/testimonials-section'
@@ -41,6 +42,7 @@ export default function HomePage() {
       <ValuesMarquee />
       <StorySection />
       <ServicesPreview />
+      <HowItWorks />
       <GalleryCarousel />
       <TestimonialsSection />
       <FaqSection />

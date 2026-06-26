@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, ChevronDown, MapPin, Menu, X } from 'lucide-react'
+import { CalendarDays, ChevronDown, MapPin, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -225,31 +225,26 @@ export function Navbar() {
             <div className="flex shrink-0 items-center gap-1.5">
               <ThemeToggle />
 
-              {/* CTA premium : gradient + shimmer + arrow */}
+              {/* CTA premium : pilule arrondie + icône agenda + shimmer */}
               <Link
                 href="/contact"
-                className="group/cta relative hidden h-8 items-center gap-1.5 overflow-hidden rounded-xl px-3 text-[13px] font-medium text-primary-foreground shadow-[0_4px_14px_-4px_oklch(0.34_0.10_303/0.5)] transition-all hover:shadow-[0_6px_20px_-4px_oklch(0.34_0.10_303/0.6)] active:translate-y-px sm:inline-flex"
+                className="group/cta relative hidden h-9 items-center gap-2 overflow-hidden rounded-full px-4 text-[13px] font-semibold text-primary-foreground shadow-[0_6px_18px_-5px_oklch(0.34_0.10_303/0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-6px_oklch(0.34_0.10_303/0.7)] active:translate-y-0 sm:inline-flex"
               >
                 {/* Fond gradient */}
                 <span
-                  className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.30_0.07_303)] dark:from-primary dark:via-primary dark:to-[oklch(0.40_0.09_303)]"
+                  className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.30_0.07_303)] dark:to-[oklch(0.40_0.09_303)]"
                   aria-hidden
                 />
                 {/* Shimmer animé au hover */}
                 <span
-                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover/cta:translate-x-full"
+                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover/cta:translate-x-full"
                   aria-hidden
                 />
-                {/* Highlight haut */}
-                <span
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                <CalendarDays
+                  className="relative size-4 transition-transform duration-300 group-hover/cta:scale-110"
                   aria-hidden
                 />
                 <span className="relative">Prendre un RDV</span>
-                <ArrowRight
-                  className="relative size-3.5 transition-transform duration-300 group-hover/cta:translate-x-0.5"
-                  aria-hidden
-                />
               </Link>
 
               {/* Burger mobile */}
@@ -388,7 +383,7 @@ export function Navbar() {
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="group/cta relative flex h-10 w-full items-center justify-center gap-1.5 overflow-hidden rounded-xl text-sm font-medium text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.34_0.10_303/0.5)]"
+                    className="group/cta relative flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-full text-sm font-semibold text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.34_0.10_303/0.5)]"
                   >
                     <span
                       className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[oklch(0.30_0.07_303)] dark:to-[oklch(0.40_0.09_303)]"
@@ -398,8 +393,8 @@ export function Navbar() {
                       className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"
                       aria-hidden
                     />
+                    <CalendarDays className="relative size-4" aria-hidden />
                     <span className="relative">Prendre un RDV</span>
-                    <ArrowRight className="relative size-4" aria-hidden />
                   </Link>
                 </motion.div>
               </div>

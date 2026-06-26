@@ -51,21 +51,26 @@ export function StorySection() {
             </p>
           </motion.div>
 
-          <motion.dl
-            variants={fadeUp(12)}
-            className="mt-10 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-8 border-t border-border/70 pt-10 sm:grid-cols-4"
-          >
-            {aboutContent.stats.map((stat) => (
-              <div key={stat.label}>
-                <dt className="font-display text-2xl tracking-[-0.01em] text-foreground sm:text-[1.75rem]">
+          <dl className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {aboutContent.stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 22, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.5, ease, delay: i * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group/stat rounded-2xl bg-card p-5 text-center shadow-[var(--shadow-xs)] ring-1 ring-border/60 transition-[box-shadow,border-color] duration-300 hover:shadow-[var(--shadow-md)] hover:ring-primary/30"
+              >
+                <dt className="font-display text-2xl tracking-[-0.01em] text-foreground transition-colors duration-300 group-hover/stat:text-primary sm:text-[1.85rem]">
                   {stat.value}
                 </dt>
-                <dd className="mt-1 text-xs leading-snug text-muted-foreground sm:text-sm">
+                <dd className="mt-1.5 text-xs leading-snug text-muted-foreground sm:text-[13px]">
                   {stat.label}
                 </dd>
-              </div>
+              </motion.div>
             ))}
-          </motion.dl>
+          </dl>
 
           <motion.div variants={fadeUp(8)} className="mt-10">
             <Link

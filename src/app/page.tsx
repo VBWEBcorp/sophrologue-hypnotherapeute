@@ -45,8 +45,8 @@ export default function HomePage() {
       <HowItWorks />
       <GalleryCarousel />
       <TestimonialsSection />
-      <FaqSection />
       <CtaSection />
+      <FaqSection />
     </>
   )
 }

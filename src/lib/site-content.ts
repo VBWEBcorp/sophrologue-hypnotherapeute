@@ -248,7 +248,7 @@ export const aboutContent = {
     image: images.aboutHero,
   },
   stats: [
-    { value: 'Depuis 2006', label: 'En exercice' },
+    { value: '1 200+', label: 'Accompagnements' },
     { value: '20 ans', label: "D'expérience" },
     { value: '2', label: 'Cabinets' },
     { value: '100%', label: 'Personnalisé' },

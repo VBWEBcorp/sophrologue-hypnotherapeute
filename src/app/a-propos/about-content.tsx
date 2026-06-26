@@ -83,19 +83,20 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
               {hero.description}
             </p>
 
-            {/* Stats inline */}
-            <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+            {/* Stats — panneau unifié avec séparateurs */}
+            <div className="mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm sm:grid-cols-4">
               {defaults.stats.map((s, i) => (
                 <motion.div
                   key={s.label}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease }}
+                  className="relative border-border/50 px-4 py-4 [&:nth-child(-n+2)]:border-b [&:nth-child(odd)]:border-r sm:border-b-0 sm:border-r sm:last:border-r-0"
                 >
-                  <div className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  <div className="font-display text-2xl font-semibold tracking-tight text-foreground whitespace-nowrap">
                     {s.value}
                   </div>
-                  <div className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                  <div className="mt-1 text-xs leading-snug text-muted-foreground sm:text-[13px]">
                     {s.label}
                   </div>
                 </motion.div>

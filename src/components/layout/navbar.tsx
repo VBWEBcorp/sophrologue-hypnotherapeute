@@ -114,8 +114,8 @@ export function Navbar() {
           className={cn(
             'relative rounded-2xl transition-all duration-500',
             scrolled
-              ? 'shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.25),0_0_0_1px_oklch(0.42_0.10_303/0.08)]'
-              : 'shadow-[0_8px_24px_-12px_oklch(0.2_0.02_303/0.12)]'
+              ? 'shadow-[0_20px_50px_-20px_oklch(0.2_0.02_303/0.28),0_0_0_1px_oklch(0.42_0.10_303/0.10)]'
+              : 'shadow-[0_12px_30px_-14px_oklch(0.2_0.02_303/0.22)]'
           )}
         >
           {/* Halo gradient subtil derrière la navbar quand on scroll */}
@@ -141,7 +141,7 @@ export function Navbar() {
             }}
           />
 
-          <div className="flex h-14 items-center justify-between gap-2 rounded-2xl bg-background/95 pl-3 pr-1.5 backdrop-blur-xl supports-[backdrop-filter]:bg-background/85 sm:pl-4">
+          <div className="flex h-12 items-center justify-between gap-2 rounded-2xl bg-card/95 pl-3 pr-1.5 ring-1 ring-border/70 backdrop-blur-xl supports-[backdrop-filter]:bg-card/80 sm:pl-4">
             <Logo />
 
             <nav
@@ -228,7 +228,9 @@ export function Navbar() {
               {/* CTA premium : pilule arrondie + icône agenda + shimmer */}
               <Link
                 href="/contact"
-                className="group/cta relative hidden h-9 items-center gap-2 overflow-hidden rounded-full px-4 text-[13px] font-semibold text-primary-foreground shadow-[0_6px_18px_-5px_oklch(0.34_0.10_303/0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-6px_oklch(0.34_0.10_303/0.7)] active:translate-y-0 sm:inline-flex"
+                aria-label="Prendre un rendez-vous"
+                title="Prendre un rendez-vous"
+                className="group/cta relative hidden size-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-primary-foreground shadow-[0_5px_14px_-5px_oklch(0.34_0.10_303/0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_9px_22px_-6px_oklch(0.34_0.10_303/0.65)] active:translate-y-0 sm:inline-flex"
               >
                 {/* Fond gradient */}
                 <span
@@ -241,10 +243,9 @@ export function Navbar() {
                   aria-hidden
                 />
                 <CalendarDays
-                  className="relative size-4 transition-transform duration-300 group-hover/cta:scale-110"
+                  className="relative size-[17px] transition-transform duration-300 group-hover/cta:scale-110"
                   aria-hidden
                 />
-                <span className="relative">Prendre un RDV</span>
               </Link>
 
               {/* Burger mobile */}

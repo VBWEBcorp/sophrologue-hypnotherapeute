@@ -40,7 +40,7 @@ export function HeroSection() {
   const telHref = `tel:${siteConfig.phone.replace(/\s+/g, '')}`
 
   return (
-    <section className="px-3 pt-3 sm:px-4 sm:pt-4">
+    <section className="px-3 pt-20 sm:px-4 sm:pt-24">
       {/* Carte hero arrondie, plein cadre (inspiration : hero encadré) */}
       <div className="relative isolate overflow-hidden rounded-[1.75rem] sm:rounded-[2.25rem]">
         {/* Image de fond */}

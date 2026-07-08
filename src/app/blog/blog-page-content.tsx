@@ -30,6 +30,17 @@ interface BlogSettings {
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+/** Détache le(s) dernier(s) mot(s) du titre pour l'accent italique serif (signature de la marque). */
+function splitTitle(title: string): { lead: string; accent: string } {
+  const words = title.trim().split(/\s+/)
+  if (words.length <= 1) return { lead: '', accent: title }
+  const n = Math.min(2, Math.max(1, Math.floor(words.length / 3)))
+  return {
+    lead: words.slice(0, words.length - n).join(' '),
+    accent: words.slice(words.length - n).join(' '),
+  }
+}
+
 interface Props {
   initialSettings: BlogSettings
   initialPosts: BlogPost[]
@@ -88,6 +99,10 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
   const showFeatured = !hasActiveFilters && filteredPosts.length > 0 && !!filteredPosts[0].coverImage
   const gridPosts = showFeatured ? filteredPosts.slice(1) : filteredPosts
 
+  const { lead: titleLead, accent: titleAccent } = splitTitle(
+    settings.title || 'Nos dernières actualités'
+  )
+
   if (!settings?.enabled) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -125,11 +140,20 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
             transition={{ duration: 0.6, ease }}
             className="text-center max-w-3xl mx-auto"
           >
-            <p className="font-display text-xs font-semibold tracking-[0.22em] text-white/70 uppercase mb-4">
+            <span className="inline-flex items-center rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-white/90 ring-1 ring-white/20 backdrop-blur-sm">
               {settings.eyebrow || 'Blog'}
-            </p>
-            <h1 className="font-display text-4xl tracking-tight text-white sm:text-5xl lg:text-6xl font-bold">
-              {settings.title || 'Nos dernières actualités'}
+            </span>
+            <h1 className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4rem]">
+              {titleLead ? (
+                <>
+                  {titleLead}{' '}
+                  <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">
+                    {titleAccent}
+                  </span>
+                </>
+              ) : (
+                titleAccent
+              )}
             </h1>
             <p className="mt-5 text-lg text-white/70 leading-relaxed sm:text-xl max-w-2xl mx-auto">
               {settings.description || 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.'}
@@ -151,7 +175,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
                     className={cn(
                       'shrink-0 px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors',
                       activeCategory === 'all'
-                        ? 'bg-primary text-white'
+                        ? 'bg-primary text-primary-foreground'
                         : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     )}
                   >
@@ -164,7 +188,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
                       className={cn(
                         'shrink-0 px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors',
                         activeCategory === cat
-                          ? 'bg-primary text-white'
+                          ? 'bg-primary text-primary-foreground'
                           : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       )}
                     >
@@ -215,7 +239,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
       )}
 
       {/* Posts */}
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         {/* Result count + reset */}
         {posts.length > 0 && (
           <div className="mb-6 flex items-center justify-between gap-3">
@@ -246,7 +270,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
             {hasActiveFilters ? (
               <button
                 onClick={resetFilters}
-                className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-[oklch(0.26_0.055_305)] dark:hover:bg-primary/85"
               >
                 <X className="size-4" />
                 Réinitialiser les filtres
@@ -261,12 +285,13 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
             {showFeatured && (
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, ease }}
                 className="mb-12"
               >
                 <Link href={`/blog/${filteredPosts[0].slug}`} className="group block">
-                  <div className="grid md:grid-cols-2 gap-6 rounded-2xl border border-border/50 bg-card overflow-hidden hover:shadow-lg hover:border-primary/20 transition-all">
+                  <div className="grid md:grid-cols-2 gap-6 overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
                     <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden bg-muted">
                       <Image
                         src={filteredPosts[0].coverImage}
@@ -318,16 +343,17 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
 
             {/* Posts grid */}
             {gridPosts.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {gridPosts.map((post, i) => (
                   <motion.article
                     key={post._id}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, ease, delay: i * 0.06 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.4, ease, delay: (i % 3) * 0.06 }}
                   >
                     <Link href={`/blog/${post.slug}`} className="group block h-full">
-                      <div className="h-full rounded-2xl border border-border/50 bg-card overflow-hidden transition-all hover:shadow-lg hover:border-primary/20">
+                      <div className="flex h-full flex-col overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
                         {post.coverImage && (
                           <div className="relative aspect-[16/9] overflow-hidden bg-muted">
                             <Image

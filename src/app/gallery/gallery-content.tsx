@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 
 interface GalleryImage {
@@ -22,6 +23,17 @@ interface GallerySettings {
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+/** Détache le(s) dernier(s) mot(s) du titre pour l'accent italique serif (signature de la marque). */
+function splitTitle(title: string): { lead: string; accent: string } {
+  const words = title.trim().split(/\s+/)
+  if (words.length <= 1) return { lead: '', accent: title }
+  const n = Math.min(2, Math.max(1, Math.floor(words.length / 3)))
+  return {
+    lead: words.slice(0, words.length - n).join(' '),
+    accent: words.slice(words.length - n).join(' '),
+  }
+}
+
 interface Props {
   initialSettings: GallerySettings
   initialImages: GalleryImage[]
@@ -39,6 +51,10 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
       </div>
     )
   }
+
+  const { lead: titleLead, accent: titleAccent } = splitTitle(
+    settings.title || 'Nos réalisations'
+  )
 
   return (
     <div className="min-h-screen">
@@ -68,11 +84,20 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
             transition={{ duration: 0.6, ease }}
             className="text-center max-w-3xl mx-auto"
           >
-            <p className="font-display text-xs font-semibold tracking-[0.22em] text-white/70 uppercase mb-4">
+            <span className="inline-flex items-center rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-white/90 ring-1 ring-white/20 backdrop-blur-sm">
               {settings.eyebrow || 'Galerie'}
-            </p>
-            <h1 className="font-display text-4xl tracking-tight text-white sm:text-5xl lg:text-6xl font-bold">
-              {settings.title || 'Nos réalisations'}
+            </span>
+            <h1 className="mt-6 font-display text-balance text-[2.75rem] leading-[1.05] tracking-[-0.02em] text-white sm:text-6xl lg:text-[4rem]">
+              {titleLead ? (
+                <>
+                  {titleLead}{' '}
+                  <span className="font-serif italic font-normal text-[oklch(0.82_0.07_305)]">
+                    {titleAccent}
+                  </span>
+                </>
+              ) : (
+                titleAccent
+              )}
             </h1>
             <p className="mt-5 text-lg text-white/70 leading-relaxed sm:text-xl max-w-2xl mx-auto">
               {settings.description || 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.'}
@@ -82,24 +107,20 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
       </section>
 
       {/* Gallery Grid */}
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         {images.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {images.map((image, i) => (
               <motion.div
                 key={image._id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease, delay: i * 0.06 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.4, ease, delay: (i % 3) * 0.06 }}
                 className="group cursor-pointer"
                 onClick={() => setLightbox(image)}
               >
-                <div className="rounded-2xl border border-border/50 bg-card overflow-hidden transition-all hover:shadow-lg hover:border-primary/20">
+                <div className="overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
                   <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                     <Image
                       src={image.imageUrl}
@@ -126,7 +147,7 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
@@ -140,45 +161,50 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
       </section>
 
       {/* Lightbox */}
-      {lightbox && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setLightbox(null)}
-        >
+      <AnimatePresence>
+        {lightbox && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3, ease }}
-            className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden bg-card shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setLightbox(null)}
           >
-            <div className="relative w-full" style={{ maxHeight: '70vh' }}>
-              <img
-                src={lightbox.imageUrl}
-                alt={lightbox.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto max-h-[70vh] object-contain bg-black"
-              />
-            </div>
-            <div className="p-5">
-              <h3 className="font-display text-lg font-bold text-foreground">{lightbox.title}</h3>
-              {lightbox.description && (
-                <p className="text-sm text-muted-foreground mt-1">{lightbox.description}</p>
-              )}
-            </div>
-            <button
-              onClick={() => setLightbox(null)}
-              className="absolute top-3 right-3 size-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 8 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: 8 }}
+              transition={{ duration: 0.3, ease }}
+              className="relative max-h-[85vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-card shadow-2xl ring-1 ring-white/10"
+              onClick={(e) => e.stopPropagation()}
             >
-              ✕
-            </button>
+              <div className="relative w-full" style={{ maxHeight: '70vh' }}>
+                <img
+                  src={lightbox.imageUrl}
+                  alt={lightbox.title}
+                  decoding="async"
+                  className="h-auto max-h-[70vh] w-full bg-black object-contain"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-lg font-semibold text-foreground">{lightbox.title}</h3>
+                {lightbox.description && (
+                  <p className="mt-1 text-sm text-muted-foreground">{lightbox.description}</p>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => setLightbox(null)}
+                aria-label="Fermer"
+                className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-black/50 text-white ring-1 ring-white/15 backdrop-blur-sm transition-colors hover:bg-black/70"
+              >
+                <X className="size-4" aria-hidden />
+              </button>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, User, Tag, Clock } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import { images } from '@/lib/site-content'
 
 interface BlogPost {
@@ -25,6 +26,17 @@ interface BlogPost {
 }
 
 const ease = [0.22, 1, 0.36, 1] as const
+
+/** Détache le(s) dernier(s) mot(s) du titre pour l'accent italique serif (signature de la marque). */
+function splitTitle(title: string): { lead: string; accent: string } {
+  const words = title.trim().split(/\s+/)
+  if (words.length <= 1) return { lead: '', accent: title }
+  const n = Math.min(2, Math.max(1, Math.floor(words.length / 3)))
+  return {
+    lead: words.slice(0, words.length - n).join(' '),
+    accent: words.slice(words.length - n).join(' '),
+  }
+}
 
 function estimateReadTime(html: string) {
   const text = html.replace(/<[^>]*>/g, '')
@@ -97,6 +109,7 @@ export default function BlogPostContent({
   })
   // Image de couverture (repli sur une ambiance si l'article n'en a pas)
   const cover = post.coverImage || images.homeGallery[0]
+  const { lead: titleLead, accent: titleAccent } = splitTitle(post.title)
 
   return (
     <article className="min-h-screen">
@@ -154,8 +167,15 @@ export default function BlogPostContent({
               )}
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
-              {post.title}
+            <h1 className="font-display text-balance text-3xl leading-tight tracking-[-0.02em] text-foreground sm:text-4xl lg:text-5xl">
+              {titleLead ? (
+                <>
+                  {titleLead}{' '}
+                  <span className="font-serif italic font-normal">{titleAccent}</span>
+                </>
+              ) : (
+                titleAccent
+              )}
             </h1>
 
             {post.excerpt && (
@@ -192,19 +212,13 @@ export default function BlogPostContent({
             <p className="text-sm text-muted-foreground">
               Découvrez nos autres articles ou contactez-nous pour discuter de votre projet.
             </p>
-            <div className="flex items-center justify-center gap-3 pt-2">
-              <Link
-                href="/blog"
-                className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-              >
-                Tous les articles
-              </Link>
-              <Link
-                href="/contact"
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 transition-colors"
-              >
-                Nous contacter
-              </Link>
+            <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row">
+              <Button variant="outline" asChild>
+                <Link href="/blog">Tous les articles</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/contact">Nous contacter</Link>
+              </Button>
             </div>
           </div>
         </motion.div>
@@ -246,7 +260,7 @@ export default function BlogPostContent({
           font-style: italic;
         }
         .blog-content a {
-          color: hsl(var(--primary));
+          color: var(--primary);
           text-decoration: underline;
           text-underline-offset: 4px;
         }
@@ -264,7 +278,7 @@ export default function BlogPostContent({
           margin-bottom: 0.4rem;
         }
         .blog-content blockquote {
-          border-left: 3px solid hsl(var(--primary));
+          border-left: 3px solid var(--primary);
           padding: 0.75rem 1.25rem;
           margin: 1.5rem 0;
           font-style: italic;

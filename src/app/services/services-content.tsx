@@ -209,7 +209,7 @@ export function ServicesContent() {
 
       {/* Rangées alternées image + texte */}
       <section className="border-b border-border/60 bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="space-y-16 lg:space-y-20">
             {services.map((s: any, i: number) => (
               <ServiceRow key={s.title || i} service={s} index={i} />

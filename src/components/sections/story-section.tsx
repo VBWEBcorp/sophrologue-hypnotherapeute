@@ -19,7 +19,7 @@ export function StorySection() {
   const story = data.story ?? defaults
 
   return (
-    <section className="bg-[oklch(0.913_0.024_80)] dark:bg-[oklch(0.215_0.027_305)]">
+    <section className="border-y border-border/50 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
       <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 sm:py-28 lg:py-32">
         <motion.div
           initial="hidden"
@@ -30,7 +30,7 @@ export function StorySection() {
         >
           <motion.span
             variants={fadeUp(10)}
-            className="inline-flex items-center rounded-full bg-card px-3.5 py-1.5 text-xs font-medium tracking-wide text-foreground/70 shadow-[var(--shadow-xs)] ring-1 ring-border/70"
+            className="inline-flex items-center rounded-full bg-secondary px-3.5 py-1.5 text-xs font-medium tracking-wide text-secondary-foreground shadow-[var(--shadow-xs)] ring-1 ring-border/50"
           >
             {story.eyebrow}
           </motion.span>
@@ -60,7 +60,7 @@ export function StorySection() {
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, ease, delay: i * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="group/stat rounded-2xl bg-card p-5 text-center shadow-[var(--shadow-xs)] ring-1 ring-border/60 transition-[box-shadow,border-color] duration-300 hover:shadow-[var(--shadow-md)] hover:ring-primary/30"
+                className="group/stat rounded-2xl bg-background p-5 text-center shadow-[var(--shadow-xs)] ring-1 ring-border/60 transition-[box-shadow,border-color] duration-300 hover:shadow-[var(--shadow-md)] hover:ring-primary/30"
               >
                 <dt className="font-display text-2xl tracking-[-0.01em] text-foreground transition-colors duration-300 group-hover/stat:text-primary sm:text-[1.85rem]">
                   {stat.value}

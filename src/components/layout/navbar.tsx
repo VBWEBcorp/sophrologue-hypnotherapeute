@@ -162,10 +162,10 @@ export function Navbar() {
                     <Link
                       href={l.to}
                       className={cn(
-                        'group relative flex items-center gap-1 whitespace-nowrap rounded-xl px-2.5 py-1.5 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
+                        'group relative flex items-center gap-1 whitespace-nowrap rounded-xl px-2.5 py-1.5 text-[13px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
                         isActive
                           ? 'text-foreground'
-                          : 'text-foreground/70 hover:text-foreground'
+                          : 'text-foreground/90 hover:text-foreground'
                       )}
                     >
                       {/* Hover background qui suit la souris */}

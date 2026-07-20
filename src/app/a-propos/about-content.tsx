@@ -30,7 +30,7 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
   const { lead, accent } = splitTitle(hero.title)
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/60 bg-[oklch(0.965_0.013_85)] dark:bg-[oklch(0.225_0.028_305)]">
+    <section className="relative isolate overflow-hidden border-b border-border/60 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}

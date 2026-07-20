@@ -199,7 +199,7 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
               onClick={handleSave}
               disabled={saving}
               size="sm"
-              className={saved ? 'bg-emerald-600 hover:bg-emerald-600' : ''}
+              className={saved ? 'bg-primary hover:bg-primary' : ''}
             >
               {saved ? (
                 <><Check className="size-3.5" /> Sauvegardé</>
@@ -370,7 +370,7 @@ export default function BlogPostEditor({ params }: { params: Promise<{ slug: str
           </div>
           <div className="p-5">
             {post.newsletterSentAt ? (
-              <p className="flex items-center gap-2 text-sm text-emerald-600">
+              <p className="flex items-center gap-2 text-sm text-primary">
                 <Check className="size-4 shrink-0" />
                 Abonnés déjà notifiés le {new Date(post.newsletterSentAt).toLocaleDateString('fr-FR')}.
               </p>

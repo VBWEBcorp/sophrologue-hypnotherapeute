@@ -4,24 +4,13 @@ import { PageEditor } from '@/components/admin/page-editor'
 import { FieldEditor, SectionEditor, ImageField } from '@/components/admin/field-editor'
 import { Button } from '@/components/ui/button'
 import { Plus, Trash2, Sparkles, Briefcase } from 'lucide-react'
+import { servicesContent } from '@/lib/site-content'
 
+// Défauts alignés sur le vrai contenu du front (site-content.ts) — voir accueil.
+// `image: ''` laisse la page utiliser l'image d'illustration par défaut.
 const defaults = {
-  hero: {
-    eyebrow: 'Services',
-    title: 'Tout ce qu\'il faut pour réussir en ligne',
-    description: 'Des prestations complètes, de la conception à l\'accompagnement continu, adaptées à toutes les tailles d\'entreprise.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80',
-  },
-  services: [
-    { title: 'Création de site vitrine', description: 'Un site moderne, rapide et responsive qui présente clairement votre activité et inspire confiance à vos visiteurs.' },
-    { title: 'Application web', description: 'Outils métier, plateformes de réservation, espaces clients : des applications pensées pour simplifier votre quotidien.' },
-    { title: 'Référencement naturel (SEO)', description: 'Optimisation technique, contenu stratégique et suivi de positionnement pour gagner en visibilité sur Google.' },
-    { title: 'Identité visuelle', description: 'Logo, charte graphique, supports de communication : une image cohérente qui vous ressemble.' },
-    { title: 'Communication digitale', description: 'Stratégie de contenu, réseaux sociaux et campagnes pour développer votre audience en ligne.' },
-    { title: 'Développement sur mesure', description: 'Intégrations, automatisations, API : des solutions techniques taillées pour vos besoins spécifiques.' },
-    { title: 'Maintenance & sécurité', description: 'Mises à jour, sauvegardes, monitoring et corrections pour un site toujours performant et sécurisé.' },
-    { title: 'Analyse & reporting', description: 'Tableaux de bord clairs pour suivre vos performances, comprendre vos visiteurs et ajuster votre stratégie.' },
-  ],
+  hero: { ...servicesContent.hero, image: '' },
+  services: servicesContent.list,
 }
 
 export default function AdminServicesPage() {

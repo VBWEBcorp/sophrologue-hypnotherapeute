@@ -230,7 +230,7 @@ export default function AdminBlogPage() {
               <p className="text-2xl font-bold leading-none text-foreground">{publishedCount}</p>
               <p className="mt-1.5 text-xs text-muted-foreground">Publiés</p>
             </div>
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
               <Eye className="size-[18px]" />
             </span>
           </div>
@@ -241,7 +241,7 @@ export default function AdminBlogPage() {
               <p className="text-2xl font-bold leading-none text-foreground">{draftCount}</p>
               <p className="mt-1.5 text-xs text-muted-foreground">Brouillons</p>
             </div>
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground">
               <EyeOff className="size-[18px]" />
             </span>
           </div>
@@ -361,11 +361,11 @@ export default function AdminBlogPage() {
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-foreground truncate">{post.title}</p>
                       {post.published ? (
-                        <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                        <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                           Publié
                         </span>
                       ) : (
-                        <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-amber-600 bg-amber-500/10 px-1.5 py-0.5 rounded">
+                        <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
                           Brouillon
                         </span>
                       )}
@@ -564,7 +564,7 @@ export default function AdminBlogPage() {
           <Button
             onClick={handleSaveSettings}
             disabled={saving}
-            className={cn('w-full gap-2', saved && 'bg-emerald-600 hover:bg-emerald-600')}
+            className={cn('w-full gap-2', saved && 'bg-primary hover:bg-primary')}
           >
             {saved ? (
               <><Check className="size-4" /> Sauvegardé</>

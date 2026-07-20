@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=75"
+          src="https://images.unsplash.com/photo-1502252430442-aac78f397426?auto=format&fit=crop&w=1920&q=75"
           alt=""
           fill
           sizes="100vw"
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
       {/* Decorative ambient glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-32 -left-32 size-[480px] rounded-full bg-primary/20 blur-[140px]" />
-        <div className="absolute -bottom-40 -right-20 size-[420px] rounded-full bg-sky-400/15 blur-[140px]" />
+        <div className="absolute -bottom-40 -right-20 size-[420px] rounded-full bg-primary/12 blur-[140px]" />
       </div>
 
       <div className="flex min-h-screen flex-col">
@@ -170,28 +170,6 @@ export default function AdminLoginPage() {
                     </>
                   )}
                 </Button>
-
-                <div className="relative flex items-center gap-3 py-1">
-                  <span className="h-px flex-1 bg-white/15" />
-                  <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/40">ou</span>
-                  <span className="h-px flex-1 bg-white/15" />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    localStorage.setItem('authToken', 'demo-token')
-                    localStorage.setItem(
-                      'authUser',
-                      JSON.stringify({ email: 'demo@template.com', name: 'Demo', role: 'admin' })
-                    )
-                    router.push('/admin/dashboard')
-                  }}
-                  className="group flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 text-sm font-medium text-white transition-all hover:border-white/25 hover:bg-white/10"
-                >
-                  Accès démo
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </button>
               </form>
             </div>
           </motion.div>

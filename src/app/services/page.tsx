@@ -15,7 +15,7 @@ const services = [
   { title: 'Sophrologie caycédienne', desc: "Une méthode pédagogique de relaxation du corps et de l'esprit pour gérer le stress et développer vos ressources." },
   { title: 'Gestion du stress & de l\'anxiété', desc: "Apaiser les tensions nerveuses et physiques, gagner en autonomie face au stress et retrouver le calme." },
   { title: 'Troubles du sommeil', desc: "Retrouver un sommeil réparateur en agissant sur les causes de l'insomnie." },
-  { title: 'Arrêt du tabac & addictions', desc: "Se libérer du tabac, de l'alcool, du cannabis ou des compulsions, à votre rythme." },
+  { title: 'Accompagnement à l’arrêt du tabac', desc: "Se libérer du tabac et des compulsions, à votre rythme." },
   { title: 'Gestion de la douleur', desc: "Accompagner la douleur, les maladies psychosomatiques et soutenir un protocole médical." },
   { title: 'Confiance & développement personnel', desc: "Renforcer l'estime de soi, dépasser ses blocages, développer concentration et confiance." },
   { title: 'Préparation & accompagnement', desc: "Préparation à la naissance, accompagnement des sportifs, des examens, des enfants et adolescents." },

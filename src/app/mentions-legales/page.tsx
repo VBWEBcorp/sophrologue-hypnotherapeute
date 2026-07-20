@@ -3,8 +3,11 @@ import Link from 'next/link'
 
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 import { PageHero } from '@/components/sections/page-hero'
-import { siteConfig } from '@/lib/seo'
+import { legalConfig, siteConfig } from '@/lib/seo'
 import { images } from '@/lib/site-content'
+
+/** Affiche la valeur, ou une mention neutre tant qu'elle n'est pas fournie. */
+const orTBD = (v: string) => v || '(information à communiquer)'
 
 const description =
   "Mentions légales du site : informations sur l'éditeur, l'hébergement, la propriété intellectuelle et les conditions d'utilisation."
@@ -45,7 +48,7 @@ export default function LegalPage() {
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <p className="mt-4 text-sm text-muted-foreground">
-            Dernière mise à jour : [JJ/MM/AAAA]
+            Dernière mise à jour : {legalConfig.lastUpdated}
           </p>
 
           <article className="mt-10 space-y-10 text-sm leading-relaxed text-muted-foreground [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-foreground">
@@ -56,21 +59,23 @@ export default function LegalPage() {
                 Le site accessible à l&apos;adresse <strong>{siteConfig.url}</strong> est édité par :
               </p>
               <ul className="list-inside list-disc space-y-1 pl-1">
-                <li><strong>Raison sociale :</strong> {siteConfig.name}</li>
-                <li><strong>Forme juridique :</strong> [SARL / SAS / EI / Auto-entrepreneur - à compléter]</li>
-                <li><strong>Capital social :</strong> [Montant] € (si applicable)</li>
-                <li><strong>SIRET :</strong> [N° SIRET à compléter]</li>
-                <li><strong>RCS :</strong> [Ville] B [N° RCS] (si applicable)</li>
-                <li><strong>N° TVA intracommunautaire :</strong> [FR XX XXXXXXXXX - à compléter]</li>
+                <li><strong>Éditrice :</strong> {legalConfig.editorName}</li>
+                <li><strong>Activité :</strong> {legalConfig.editorRole} — profession libérale exercée à titre individuel</li>
+                <li><strong>Statut juridique :</strong> {orTBD(legalConfig.legalForm)}</li>
+                <li><strong>SIRET :</strong> {orTBD(legalConfig.siret)}</li>
+                <li><strong>Code APE / NAF :</strong> {legalConfig.apeCode}</li>
                 <li>
-                  <strong>Siège social :</strong> {siteConfig.address.street},{' '}
-                  {siteConfig.address.postalCode} {siteConfig.address.city}
+                  <strong>TVA :</strong>{' '}
+                  {legalConfig.vatNumber || 'Non assujettie à la TVA — article 293 B du Code général des impôts (à confirmer)'}
+                </li>
+                <li>
+                  <strong>Adresse professionnelle :</strong> {legalConfig.editorAddress}
                 </li>
                 <li><strong>Téléphone :</strong> {siteConfig.phone}</li>
                 <li><strong>Email :</strong> {siteConfig.email}</li>
               </ul>
               <p>
-                <strong>Directeur de la publication :</strong> [Nom et prénom du responsable - à compléter]
+                <strong>Directrice de la publication :</strong> {legalConfig.publicationDirector}
               </p>
             </section>
 
@@ -78,15 +83,16 @@ export default function LegalPage() {
               <h2>2. Hébergement</h2>
               <p>Le site est hébergé par :</p>
               <ul className="list-inside list-disc space-y-1 pl-1">
-                <li><strong>Raison sociale :</strong> [Vercel Inc. / OVHcloud / autre - à compléter]</li>
-                <li><strong>Adresse :</strong> [Adresse de l&apos;hébergeur]</li>
-                <li><strong>Site web :</strong> [URL de l&apos;hébergeur]</li>
+                <li><strong>Hébergeur :</strong> {orTBD(legalConfig.host.name)}</li>
+                <li><strong>Adresse :</strong> {orTBD(legalConfig.host.address)}</li>
+                <li><strong>Site web :</strong> {orTBD(legalConfig.host.url)}</li>
               </ul>
               <h3 className="pt-2">Services techniques complémentaires</h3>
               <ul className="list-inside list-disc space-y-1 pl-1">
-                <li><strong>Base de données :</strong> MongoDB Atlas (MongoDB Inc.) - Serveurs en Union européenne</li>
-                <li><strong>Stockage de fichiers :</strong> Cloudflare R2 (Cloudflare Inc.) - Stockage objet compatible S3, serveurs en Europe</li>
-                <li><strong>CDN et sécurité réseau :</strong> Cloudflare (Cloudflare Inc.) - Réseau de diffusion de contenu mondial</li>
+                <li><strong>Base de données :</strong> MongoDB Atlas (MongoDB Inc.) — serveurs en Union européenne</li>
+                <li><strong>Stockage de fichiers :</strong> Cloudflare R2 (Cloudflare, Inc.) — stockage objet compatible S3, serveurs en Europe</li>
+                <li><strong>CDN et sécurité réseau :</strong> Cloudflare (Cloudflare, Inc.) — réseau de diffusion de contenu</li>
+                <li><strong>Envoi d&apos;e-mails :</strong> Resend (Resend, Inc.) — acheminement des e-mails de la newsletter et des notifications</li>
               </ul>
             </section>
 
@@ -190,13 +196,14 @@ export default function LegalPage() {
                 Les présentes mentions légales sont régies par le droit français.
                 En cas de litige, et après l&apos;échec de toute tentative de
                 résolution amiable dans un délai de 30 jours, les tribunaux
-                compétents du ressort de [Ville - à compléter] seront seuls
-                compétents.
+                compétents du ressort de {legalConfig.jurisdictionCity} seront
+                seuls compétents.
               </p>
               <p>
                 Conformément à l&apos;article L.612-1 du Code de la consommation,
-                le consommateur a le droit de recourir gratuitement à un médiateur
-                de la consommation. Médiateur : [Nom et coordonnées du médiateur - à compléter].
+                tout consommateur a le droit de recourir gratuitement à un médiateur
+                de la consommation en vue de la résolution amiable d&apos;un litige.
+                {' '}{legalConfig.mediator}
               </p>
               <p>
                 Plateforme de règlement en ligne des litiges de la Commission européenne :{' '}
@@ -214,11 +221,15 @@ export default function LegalPage() {
             <section className="space-y-3">
               <h2>9. Crédits</h2>
               <ul className="list-inside list-disc space-y-1 pl-1">
-                <li><strong>Conception et développement :</strong> [À compléter]</li>
-                <li><strong>Design :</strong> [À compléter]</li>
-                <li><strong>Crédits photos :</strong> [À compléter - ex: Unsplash, photographe, etc.]</li>
+                <li>
+                  <strong>Conception, design et développement :</strong>{' '}
+                  <a href={legalConfig.agencyUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4 hover:text-primary/80">
+                    {legalConfig.agency}
+                  </a>
+                </li>
+                <li><strong>Crédits photos :</strong> {legalConfig.editorName} ; visuels d&apos;illustration : Unsplash (licence Unsplash)</li>
                 <li><strong>Icônes :</strong> Lucide Icons (licence ISC)</li>
-                <li><strong>Polices :</strong> Inter et Plus Jakarta Sans (Google Fonts, licence Open Font)</li>
+                <li><strong>Polices :</strong> Inter, Fraunces et JetBrains Mono (Google Fonts, licence SIL Open Font)</li>
               </ul>
             </section>
 

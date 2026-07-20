@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { SubpageContent } from '@/components/sections/subpage-content'
+import { SubpageRenderer } from '@/components/sections/subpage-renderer'
 import { breadcrumbJsonLd, serviceJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 import { subpages } from '@/lib/subpages'
 
@@ -31,7 +31,7 @@ export default function HypnotherapiePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SubpageContent data={data} />
+      <SubpageRenderer pageId="sub-hypnotherapie" fallback={data} />
     </>
   )
 }

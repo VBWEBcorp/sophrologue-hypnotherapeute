@@ -40,8 +40,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  // Le titre par défaut porte le mot-clé principal : les fiches Google ont été
+  // recentrées sur l'hypnose, le site doit envoyer le même signal.
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} — Hypnothérapeute à Rennes et Acigné`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -50,14 +52,14 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: siteConfig.name,
+    title: `${siteConfig.name} — Hypnothérapeute à Rennes et Acigné`,
     description: siteConfig.description,
     images: [{ url: siteConfig.ogImage }],
   },
   twitter: {
     card: 'summary_large_image',
     site: siteConfig.twitterHandle,
-    title: siteConfig.name,
+    title: `${siteConfig.name} — Hypnothérapeute à Rennes et Acigné`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },

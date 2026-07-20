@@ -210,14 +210,14 @@ export default function BlogPostContent({
           <div className="border-t border-border/60 py-12 text-center space-y-4">
             <p className="text-lg font-semibold text-foreground">Cet article vous a plu ?</p>
             <p className="text-sm text-muted-foreground">
-              Découvrez nos autres articles ou contactez-nous pour discuter de votre projet.
+              Découvrez mes autres articles ou prenez rendez-vous pour en parler ensemble.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row">
               <Button variant="outline" asChild>
                 <Link href="/blog">Tous les articles</Link>
               </Button>
               <Button asChild>
-                <Link href="/contact">Nous contacter</Link>
+                <Link href="/contact">Prendre rendez-vous</Link>
               </Button>
             </div>
           </div>

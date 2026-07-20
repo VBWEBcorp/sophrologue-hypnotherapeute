@@ -22,9 +22,9 @@ interface ToastApi {
 const ToastContext = createContext<{ toast: ToastApi } | null>(null)
 
 const VARIANTS: Record<ToastType, { icon: typeof CheckCircle2; cls: string; iconCls: string }> = {
-  success: { icon: CheckCircle2, cls: 'border-emerald-500/30 bg-emerald-50 text-emerald-800', iconCls: 'text-emerald-600' },
+  success: { icon: CheckCircle2, cls: 'border-primary/30 bg-primary/5 text-foreground', iconCls: 'text-primary' },
   error: { icon: AlertCircle, cls: 'border-red-500/30 bg-red-50 text-red-800', iconCls: 'text-red-600' },
-  info: { icon: Info, cls: 'border-blue-500/30 bg-blue-50 text-blue-800', iconCls: 'text-blue-600' },
+  info: { icon: Info, cls: 'border-border bg-muted text-foreground', iconCls: 'text-muted-foreground' },
 }
 
 function ToastCard({ item, onClose }: { item: ToastItem; onClose: () => void }) {

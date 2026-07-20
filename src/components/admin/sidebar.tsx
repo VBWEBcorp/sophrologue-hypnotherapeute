@@ -5,11 +5,14 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import {
   LayoutDashboard,
-  Images,
   LogOut,
   Home,
   Users,
+  Brain,
+  Sparkles,
+  Leaf,
   Briefcase,
+  MapPin,
   Phone,
   MessageSquare,
   PanelLeftClose,
@@ -21,9 +24,9 @@ import {
   Megaphone,
   FilePen,
   ChevronDown,
-  Mail,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { siteConfig } from '@/lib/seo'
 import { useSidebar } from '@/components/admin/sidebar-context'
 
 const navItems = [
@@ -33,15 +36,19 @@ const navItems = [
 const pageEditItems = [
   { href: '/admin/pages/accueil', label: 'Accueil', icon: Home },
   { href: '/admin/pages/a-propos', label: 'À propos', icon: Users },
+  { href: '/admin/pages/hypnotherapie', label: 'Hypnothérapie', icon: Brain },
+  { href: '/admin/pages/seances-hypnose', label: "Séances d'hypnose", icon: Sparkles },
+  { href: '/admin/pages/sophrologie', label: 'Sophrologie', icon: Leaf },
   { href: '/admin/pages/services', label: 'Services', icon: Briefcase },
-  { href: '/admin/pages/contact', label: 'Contact', icon: Phone },
+  { href: '/admin/pages/cabinets', label: 'Mes cabinets', icon: MapPin },
+  { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', icon: MapPin },
+  { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", icon: MapPin },
   { href: '/admin/pages/temoignages', label: 'Témoignages', icon: MessageSquare },
+  { href: '/admin/pages/contact', label: 'Contact', icon: Phone },
 ]
 
 const moduleItems = [
-  { href: '/admin/gallery', label: 'Galerie', icon: Images },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
-  { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
   { href: '/admin/marketing', label: 'Marketing', icon: Megaphone },
 ]
 
@@ -115,8 +122,8 @@ export function AdminSidebar() {
       )}>
         {(!collapsed || isMobile) && (
           <div>
-            <p className="text-sm font-bold text-white leading-tight">Admin</p>
-            <p className="text-[10px] text-zinc-400">Gestion du site</p>
+            <p className="text-sm font-bold text-white leading-tight">{siteConfig.name}</p>
+            <p className="text-[10px] text-zinc-400">Espace d&apos;administration</p>
           </div>
         )}
         {isMobile ? (

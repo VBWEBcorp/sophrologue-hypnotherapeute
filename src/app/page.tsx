@@ -10,23 +10,30 @@ import { StorySection } from '@/components/sections/story-section'
 import { TestimonialsSection } from '@/components/sections/testimonials-section'
 import { ValuesMarquee } from '@/components/sections/values-marquee'
 import {
-  localBusinessJsonLd,
+  cabinetJsonLd,
   organizationJsonLd,
+  practitionerJsonLd,
   webPageJsonLd,
   webSiteJsonLd,
 } from '@/components/seo/json-ld'
 import { siteConfig } from '@/lib/seo'
 
 export const metadata: Metadata = {
+  title: 'Hypnothérapeute et sophrologue à Rennes et Acigné',
+  description: siteConfig.description,
   alternates: { canonical: '/' },
 }
 
+// Les deux cabinets sont déclarés dès l'accueil : c'est la page qui reçoit le
+// plus de liens, et Google doit y voir les deux établissements des fiches.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     webSiteJsonLd(),
     organizationJsonLd(),
-    localBusinessJsonLd(),
+    practitionerJsonLd(),
+    cabinetJsonLd('rennes'),
+    cabinetJsonLd('acigne'),
     webPageJsonLd(siteConfig.name, siteConfig.description, '/'),
   ],
 }

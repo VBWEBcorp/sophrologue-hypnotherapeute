@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { CalendarCheck, Clock, ExternalLink, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { CalendarCheck, CheckCircle2, Clock, ExternalLink, Mail, MapPin, Phone, Send } from 'lucide-react'
 import Image from 'next/image'
 
 import { PremiumHero } from '@/components/sections/premium-hero'
@@ -33,6 +34,37 @@ export function ContactContent() {
   const phone = info.phone || siteConfig.phone
   const email = info.email || siteConfig.email
   const telHref = `tel:${phone.replace(/\s+/g, '')}`
+
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'pending' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const payload = Object.fromEntries(new FormData(form).entries())
+    setStatus('loading')
+    setErrorMsg('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setErrorMsg(data.error || 'Une erreur est survenue. Merci de réessayer.')
+        setStatus('error')
+        return
+      }
+      setStatus(data.configured === false ? 'pending' : 'success')
+      form.reset()
+    } catch {
+      setErrorMsg('Connexion impossible. Réessayez ou appelez-moi directement.')
+      setStatus('error')
+    }
+  }
+
+  const submitted = status === 'success' || status === 'pending'
 
   return (
     <>
@@ -100,9 +132,23 @@ export function ContactContent() {
                     </div>
                   </div>
 
+                  {submitted ? (
+                    <div className="mt-7 flex flex-col items-center rounded-2xl border border-primary/20 bg-primary/5 px-6 py-10 text-center">
+                      <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <CheckCircle2 className="size-6" aria-hidden />
+                      </span>
+                      <h3 className="mt-4 font-display text-lg text-foreground">Merci pour votre message</h3>
+                      <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                        {status === 'pending'
+                          ? 'La messagerie du site sera active très prochainement. Pour me joindre dès maintenant, réservez en ligne ou appelez le '
+                          : 'Je vous réponds dans les meilleurs délais. Pour un rendez-vous immédiat, vous pouvez aussi réserver en ligne ou appeler le '}
+                        <a href={telHref} className="font-medium text-primary hover:underline">{phone}</a>.
+                      </p>
+                    </div>
+                  ) : (
                   <form
                     className="mt-7 space-y-5"
-                    onSubmit={(e) => e.preventDefault()}
+                    onSubmit={handleSubmit}
                   >
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div className="space-y-2">
@@ -160,11 +206,19 @@ export function ContactContent() {
                         className="w-full rounded-xl border border-input bg-background/70 px-3.5 py-3 text-sm leading-relaxed text-foreground transition-shadow placeholder:text-muted-foreground focus-visible:border-ring focus-visible:shadow-[0_0_0_4px_oklch(0.42_0.10_303/0.1)] focus-visible:outline-none"
                       />
                     </div>
-                    <Button type="submit" size="lg" className="w-full group">
-                      Envoyer ma demande
-                      <Send className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+                    {status === 'error' && (
+                      <p className="rounded-xl border border-red-500/30 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+                        {errorMsg}
+                      </p>
+                    )}
+                    <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full group">
+                      {status === 'loading' ? 'Envoi en cours…' : 'Envoyer ma demande'}
+                      {status !== 'loading' && (
+                        <Send className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+                      )}
                     </Button>
                   </form>
+                  )}
                 </div>
               </div>
             </motion.div>

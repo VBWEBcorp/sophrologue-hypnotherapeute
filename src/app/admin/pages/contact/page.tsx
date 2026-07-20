@@ -3,20 +3,18 @@
 import { PageEditor } from '@/components/admin/page-editor'
 import { FieldEditor, SectionEditor, ImageField } from '@/components/admin/field-editor'
 import { Sparkles, Phone } from 'lucide-react'
+import { contactContent } from '@/lib/site-content'
+import { siteConfig } from '@/lib/seo'
 
+// Défauts alignés sur le vrai contenu du front (site-content.ts + siteConfig).
 const defaults = {
-  hero: {
-    eyebrow: 'Contact',
-    title: 'Parlons de votre projet',
-    description: 'Remplissez le formulaire ci-dessous ou contactez-nous directement. Nous répondons sous 24h.',
-    image: 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1920&q=80',
-  },
+  hero: { ...contactContent.hero, image: '' },
   info: {
-    phone: '',
-    email: '',
-    street: '',
-    postalCode: '',
-    city: '',
+    phone: siteConfig.phone,
+    email: siteConfig.email,
+    street: siteConfig.address.street,
+    postalCode: siteConfig.address.postalCode,
+    city: siteConfig.address.city,
   },
 }
 

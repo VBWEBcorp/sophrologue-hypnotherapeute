@@ -1,8 +1,8 @@
-import { ArrowUpRight, Facebook, Linkedin, Star } from 'lucide-react'
+import { Accessibility, ArrowUpRight, Clock, Facebook, Linkedin, MapPin, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { siteConfig } from '@/lib/seo'
+import { accessibility, cabinets, legalConfig, siteConfig } from '@/lib/seo'
 import { NewsletterSignup } from '@/components/newsletter-signup'
 
 const socialLinks = [
@@ -155,12 +155,42 @@ export function Footer() {
                   {siteConfig.phone}
                 </a>
               </li>
-              <li className="text-zinc-500">
-                {siteConfig.address.street}
-                <br />
-                {siteConfig.address.postalCode} {siteConfig.address.city}
+              {/* Les deux cabinets */}
+              {cabinets.map((c) => (
+                <li key={c.id} className="flex gap-2 text-zinc-500">
+                  <MapPin className="mt-0.5 size-3.5 shrink-0 text-zinc-600" aria-hidden />
+                  <span>
+                    <span className="text-zinc-400">{c.name}</span>
+                    <br />
+                    {c.street}, {c.postalCode} {c.city}
+                  </span>
+                </li>
+              ))}
+              {/* Horaires — identiques aux fiches Google */}
+              <li className="flex gap-2 text-zinc-500">
+                <Clock className="mt-0.5 size-3.5 shrink-0 text-zinc-600" aria-hidden />
+                <span>
+                  {siteConfig.hours.map((h) => (
+                    <span key={h.days} className="block">
+                      {h.days} :{' '}
+                      {h.open && h.close ? `${h.open} – ${h.close}` : 'Fermé'}
+                    </span>
+                  ))}
+                </span>
               </li>
             </ul>
+
+            {/* Accessibilité PMR */}
+            {accessibility.wheelchair && (
+              <div className="mt-5 flex items-center gap-2.5">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/15">
+                  <Accessibility className="size-5 text-white" aria-hidden />
+                </span>
+                <p className="text-xs leading-snug text-zinc-400">
+                  {accessibility.label}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -184,10 +214,12 @@ export function Footer() {
           <p className="text-sm font-bold uppercase tracking-wide">
             Maquette de démonstration, propriété exclusive de{' '}
             <a
-              href={siteConfig.url}
+              href={legalConfig.agencyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline underline-offset-2 transition-opacity hover:opacity-80"
             >
-              {siteConfig.url.replace(/^https?:\/\/(www\.)?/, '').toUpperCase()}
+              {legalConfig.agency}.FR
             </a>
           </p>
           <p className="mt-1 text-xs leading-relaxed text-white/90">

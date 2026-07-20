@@ -11,6 +11,11 @@ const defaults = {
   title: testimonialsContent.title,
   description: testimonialsContent.description,
   testimonials: testimonialsContent.items,
+  /**
+   * Note globale affichée dans le badge — vraie note des deux fiches Google.
+   * Laisser à null couperait le badge ; ne jamais y mettre une note inventée.
+   */
+  googleRating: testimonialsContent.googleRating as string | null,
 }
 
 function GoogleLogo() {
@@ -91,32 +96,41 @@ function MarqueeRow({
 export function TestimonialsSection() {
   const { data } = useContent('testimonials', defaults)
   const testimonials = data.testimonials ?? defaults.testimonials
+  const googleRating = data.googleRating ?? defaults.googleRating
 
-  const mid = Math.ceil(testimonials.length / 2)
-  const topRow = testimonials.slice(0, mid)
-  const bottomRow = testimonials.slice(mid)
+  // Avec peu d'avis, découper en deux moitiés donnerait des rangées trop
+  // courtes pour remplir la largeur (la marquee laisserait un trou avant de
+  // reboucler). On fait donc porter tous les avis à chaque rangée, la seconde
+  // décalée de la moitié, pour deux lignes pleines qui ne défilent pas à
+  // l'identique — une vers la gauche, l'autre vers la droite.
+  const half = Math.floor(testimonials.length / 2)
+  const topRow = testimonials
+  const bottomRow = [...testimonials.slice(half), ...testimonials.slice(0, half)]
 
   return (
     <section className="overflow-hidden border-y border-border/60 bg-[oklch(0.965_0.013_85)] dark:bg-[oklch(0.225_0.028_305)]">
       <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8 lg:pt-20">
-        <div className="flex justify-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-card px-4 py-2 shadow-sm">
-            <GoogleLogo />
-            <div className="flex items-center gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="size-4 fill-amber-400 text-amber-400"
-                  aria-hidden
-                />
-              ))}
+        {/* Le badge de note ne s'affiche que si la note réelle a été renseignée. */}
+        {googleRating && (
+          <div className="flex justify-center">
+            <div className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-card px-4 py-2 shadow-sm">
+              <GoogleLogo />
+              <div className="flex items-center gap-0.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-4 fill-amber-400 text-amber-400"
+                    aria-hidden
+                  />
+                ))}
+              </div>
+              <span className="text-xs font-semibold text-foreground">
+                {googleRating} sur Google
+              </span>
             </div>
-            <span className="text-xs font-semibold text-foreground">
-              5,0 sur Google
-            </span>
           </div>
-        </div>
-        <div className="mt-6">
+        )}
+        <div className={googleRating ? 'mt-6' : ''}>
           <SectionTitle
             eyebrow={data.eyebrow ?? defaults.eyebrow}
             title={data.title ?? defaults.title}
@@ -125,10 +139,24 @@ export function TestimonialsSection() {
         </div>
       </div>
 
-      <div className="mt-10 space-y-6 pb-14 lg:pb-20">
-        <MarqueeRow items={topRow} direction="left" />
-        {bottomRow.length > 0 && <MarqueeRow items={bottomRow} direction="right" />}
-      </div>
+      {testimonials.length > 0 ? (
+        <div className="mt-10 space-y-6 pb-14 lg:pb-20">
+          <MarqueeRow items={topRow} direction="left" />
+          {bottomRow.length > 0 && <MarqueeRow items={bottomRow} direction="right" />}
+        </div>
+      ) : (
+        <div className="mx-auto max-w-6xl px-4 pb-14 pt-8 text-center sm:px-6 lg:px-8 lg:pb-20">
+          <a
+            href={testimonialsContent.fallbackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 rounded-full border border-border/70 bg-card px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-card/70"
+          >
+            <GoogleLogo />
+            {testimonialsContent.fallbackLabel}
+          </a>
+        </div>
+      )}
     </section>
   )
 }

@@ -45,6 +45,12 @@ const previewPaths: Record<string, string> = {
   services: '/services',
   contact: '/contact',
   testimonials: '/#temoignages',
+  'sub-hypnotherapie': '/hypnotherapie',
+  'sub-seances-hypnose': '/seances-hypnose',
+  'sub-sophrologie': '/sophrologie',
+  'sub-cabinets': '/cabinets',
+  'sub-cabinet-rennes': '/cabinets/rennes',
+  'sub-cabinet-acigne': '/cabinets/acigne',
 }
 
 /* ── Repli/dépli global des sections ────────────────────────── */
@@ -209,12 +215,12 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
                 <p className="flex items-center gap-1.5 text-[11px] font-medium">
                   {dirty ? (
                     <>
-                      <span className="size-1.5 rounded-full bg-amber-500" />
-                      <span className="text-amber-600">Modifications non enregistrées</span>
+                      <span className="size-1.5 rounded-full bg-primary" />
+                      <span className="text-primary">Modifications non enregistrées</span>
                     </>
                   ) : (
                     <>
-                      <span className="size-1.5 rounded-full bg-emerald-500" />
+                      <span className="size-1.5 rounded-full bg-muted-foreground/40" />
                       <span className="text-muted-foreground">À jour</span>
                     </>
                   )}
@@ -236,7 +242,6 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
                 onClick={handleSave}
                 disabled={saving || !dirty}
                 size="sm"
-                className={saved ? 'bg-emerald-600 hover:bg-emerald-600' : ''}
               >
                 {saved ? (
                   <>
@@ -278,8 +283,8 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
                 <div className="flex items-center justify-between gap-2 border-b border-border/60 px-3 py-2">
                   <div className="flex min-w-0 items-center gap-2">
                     <span className="relative flex size-2 shrink-0">
-                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/60" />
-                      <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" />
+                      <span className="relative inline-flex size-2 rounded-full bg-primary" />
                     </span>
                     <span className="truncate text-xs font-semibold text-foreground">Aperçu en direct</span>
                   </div>

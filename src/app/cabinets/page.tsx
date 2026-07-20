@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { SubpageContent } from '@/components/sections/subpage-content'
+import { SubpageRenderer } from '@/components/sections/subpage-renderer'
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 import { subpages } from '@/lib/subpages'
 
@@ -30,7 +30,7 @@ export default function CabinetsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SubpageContent data={data} />
+      <SubpageRenderer pageId="sub-cabinets" fallback={data} />
     </>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Phone } from 'lucide-react'
+import { ArrowRight, Phone, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,17 +11,10 @@ import { heroContent as defaults } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-// Image de fond plein écran du hero (ambiance apaisante) — Unsplash
+// Image de fond plein écran du hero : nature apaisante (rayons de soleil en
+// forêt), même univers que le reste du site et que l'ancien héro forêt.
 const HERO_BG =
-  'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=2000&q=80'
-
-// Petites photos pour la preuve sociale (cluster d'avatars) — Unsplash
-const SOCIAL_AVATARS = [
-  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80',
-  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80',
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80',
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80',
-]
+  'https://images.unsplash.com/photo-1530563937443-1f02f662fa5c?auto=format&fit=crop&w=2000&q=80'
 
 function splitTitle(title: string): { lead: string; accent: string } {
   const words = title.trim().split(/\s+/)
@@ -123,20 +116,14 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease, delay: 0.35 }}
             className="mt-12 flex items-center gap-4"
           >
-            <div className="flex -space-x-3">
-              {SOCIAL_AVATARS.map((src, i) => (
-                <span
-                  key={src}
-                  className="relative inline-block size-11 overflow-hidden rounded-full ring-2 ring-white/80"
-                  style={{ zIndex: SOCIAL_AVATARS.length - i }}
-                >
-                  <Image src={src} alt="" fill sizes="44px" className="object-cover" />
-                </span>
+            <div className="flex items-center gap-0.5" aria-hidden>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="size-5 fill-amber-400 text-amber-400" />
               ))}
             </div>
             <div className="text-sm leading-tight text-white/85">
-              <p className="font-semibold text-white">Plus de 1 200 accompagnements</p>
-              <p className="text-white/70">depuis 2006 à Acigné &amp; Rennes</p>
+              <p className="font-semibold text-white">5,0 sur Google</p>
+              <p className="text-white/70">Hypnothérapeute &amp; sophrologue depuis 2006</p>
             </div>
           </motion.div>
         </div>

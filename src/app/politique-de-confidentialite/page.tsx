@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 import { PageHero } from '@/components/sections/page-hero'
-import { siteConfig } from '@/lib/seo'
+import { legalConfig, siteConfig } from '@/lib/seo'
 import { images } from '@/lib/site-content'
 
 const description =
@@ -52,15 +52,16 @@ export default function PrivacyPage() {
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <p className="mt-4 text-sm text-muted-foreground">
-            Dernière mise à jour : [JJ/MM/AAAA]
+            Dernière mise à jour : {legalConfig.lastUpdated}
           </p>
 
           <article className="mt-10 space-y-10 text-sm leading-relaxed text-muted-foreground [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-foreground">
 
             <section className="space-y-3">
               <p>
-                La société {siteConfig.name} (&quot;nous&quot;, &quot;notre&quot;,{' '}
-                &quot;nos&quot;) accorde une grande importance à la protection de
+                {siteConfig.name}, {legalConfig.editorRole.toLowerCase()} exerçant
+                à titre individuel (&quot;nous&quot;, &quot;notre&quot;,{' '}
+                &quot;nos&quot;), accorde une grande importance à la protection de
                 vos données personnelles. La présente politique de
                 confidentialité décrit les données que nous collectons, pourquoi
                 nous les collectons et comment nous les utilisons, conformément
@@ -74,16 +75,16 @@ export default function PrivacyPage() {
               <h2>1. Responsable du traitement</h2>
               <p>Le responsable du traitement des données est :</p>
               <ul className="list-inside list-disc space-y-1 pl-1">
-                <li><strong>Raison sociale :</strong> {siteConfig.name}</li>
-                <li>
-                  <strong>Adresse :</strong> {siteConfig.address.street}, {siteConfig.address.postalCode}{' '}
-                  {siteConfig.address.city}
-                </li>
+                <li><strong>Responsable :</strong> {legalConfig.editorName} — {legalConfig.editorRole}</li>
+                <li><strong>SIRET :</strong> {legalConfig.siret}</li>
+                <li><strong>Adresse :</strong> {legalConfig.editorAddress}</li>
                 <li><strong>Email :</strong> {siteConfig.email}</li>
                 <li><strong>Téléphone :</strong> {siteConfig.phone}</li>
               </ul>
               <p>
-                Délégué à la protection des données (DPO) : [Nom du DPO ou &quot;non désigné&quot;]
+                Délégué à la protection des données (DPO) : non désigné — la
+                désignation n&apos;est pas obligatoire au regard de la nature et du
+                volume des traitements réalisés (article 37 du RGPD).
               </p>
             </section>
 
@@ -101,13 +102,18 @@ export default function PrivacyPage() {
                 <li>Numéro de téléphone (optionnel)</li>
                 <li>Objet et contenu du message</li>
               </ul>
-              <h3 className="pt-2">b) Données collectées via l&apos;espace administration</h3>
+              <h3 className="pt-2">b) Données collectées via l&apos;inscription à la newsletter</h3>
+              <ul className="list-inside list-disc space-y-1 pl-1">
+                <li>Adresse email</li>
+                <li>Date d&apos;inscription et source (page d&apos;origine de l&apos;inscription)</li>
+              </ul>
+              <h3 className="pt-2">c) Données collectées via l&apos;espace administration</h3>
               <ul className="list-inside list-disc space-y-1 pl-1">
                 <li>Adresse email du compte administrateur</li>
                 <li>Mot de passe (stocké sous forme de hash chiffré, jamais en clair)</li>
                 <li>Nom d&apos;affichage</li>
               </ul>
-              <h3 className="pt-2">c) Données collectées automatiquement</h3>
+              <h3 className="pt-2">d) Données collectées automatiquement</h3>
               <ul className="list-inside list-disc space-y-1 pl-1">
                 <li>Adresse IP</li>
                 <li>Type de navigateur et système d&apos;exploitation</li>
@@ -115,6 +121,24 @@ export default function PrivacyPage() {
                 <li>Source de trafic (referrer)</li>
                 <li>Préférences de thème (clair/sombre)</li>
               </ul>
+
+              <h3 className="pt-2">e) Données de santé</h3>
+              <p>
+                En tant que praticienne du bien-être, {siteConfig.name} est amenée
+                à traiter des données de santé <strong>dans le cadre des consultations</strong>
+                {' '}(dossier de suivi). Ces données, dites « sensibles » au sens de
+                l&apos;article 9 du RGPD, sont recueillies directement auprès du patient,
+                avec son consentement, et sont couvertes par le secret professionnel.
+              </p>
+              <p>
+                <strong>Ce site internet ne collecte aucune donnée de santé.</strong>{' '}
+                Le formulaire de contact ne doit pas être utilisé pour transmettre des
+                informations relatives à votre santé. La prise de rendez-vous en ligne
+                s&apos;effectue via des plateformes tierces (RESALIB et MEDOUCINE), qui
+                agissent en tant que responsables de traitement indépendants : les données
+                que vous y saisissez sont régies par leurs propres politiques de
+                confidentialité.
+              </p>
             </section>
 
             <section className="space-y-3">
@@ -135,9 +159,14 @@ export default function PrivacyPage() {
                       <td className="py-2.5">3 ans après le dernier contact</td>
                     </tr>
                     <tr>
-                      <td className="py-2.5 pr-4">Établir un devis ou une proposition commerciale</td>
+                      <td className="py-2.5 pr-4">Prise de rendez-vous et échanges préalables à une consultation</td>
                       <td className="py-2.5 pr-4">Mesures précontractuelles (art. 6.1.b)</td>
                       <td className="py-2.5">3 ans après le dernier contact</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4">Envoi de la newsletter (actualités, conseils)</td>
+                      <td className="py-2.5 pr-4">Consentement (art. 6.1.a RGPD)</td>
+                      <td className="py-2.5">Jusqu&apos;au retrait du consentement (lien de désinscription)</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 pr-4">Gestion de l&apos;espace d&apos;administration</td>
@@ -177,16 +206,16 @@ export default function PrivacyPage() {
                   </thead>
                   <tbody className="divide-y divide-border/40">
                     <tr>
-                      <td className="py-2.5 pr-4">Framework web</td>
-                      <td className="py-2.5 pr-4">Next.js (Vercel Inc.)</td>
-                      <td className="py-2.5 pr-4">Rendu des pages, routage, API</td>
+                      <td className="py-2.5 pr-4">Hébergement</td>
+                      <td className="py-2.5 pr-4">Netlify, Inc.</td>
+                      <td className="py-2.5 pr-4">Hébergement du site, rendu des pages et API</td>
                       <td className="py-2.5">USA (clauses contractuelles types)</td>
                     </tr>
                     <tr>
-                      <td className="py-2.5 pr-4">Hébergement</td>
-                      <td className="py-2.5 pr-4">[Vercel / OVH / autre - à compléter]</td>
-                      <td className="py-2.5 pr-4">Hébergement du site et des API</td>
-                      <td className="py-2.5">[À compléter]</td>
+                      <td className="py-2.5 pr-4">Framework web</td>
+                      <td className="py-2.5 pr-4">Next.js (open source)</td>
+                      <td className="py-2.5 pr-4">Rendu des pages, routage, API</td>
+                      <td className="py-2.5">Exécuté chez l&apos;hébergeur</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 pr-4">Base de données</td>
@@ -199,6 +228,12 @@ export default function PrivacyPage() {
                       <td className="py-2.5 pr-4">Cloudflare R2 (Cloudflare Inc.)</td>
                       <td className="py-2.5 pr-4">Hébergement des images uploadées</td>
                       <td className="py-2.5">Europe (auto, région la plus proche)</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 pr-4">Envoi d&apos;e-mails</td>
+                      <td className="py-2.5 pr-4">Resend (Resend, Inc.)</td>
+                      <td className="py-2.5 pr-4">Acheminement de la newsletter et des notifications</td>
+                      <td className="py-2.5">USA (clauses contractuelles types)</td>
                     </tr>
                     <tr>
                       <td className="py-2.5 pr-4">Optimisation d&apos;images</td>
@@ -240,7 +275,7 @@ export default function PrivacyPage() {
             <section className="space-y-3">
               <h2>6. Transferts de données hors Union européenne</h2>
               <p>
-                Certains de nos sous-traitants techniques (Vercel, MongoDB Atlas, Cloudflare)
+                Certains de nos sous-traitants techniques (Netlify, MongoDB Atlas, Cloudflare, Resend)
                 peuvent traiter des données aux États-Unis. Ces transferts sont encadrés par :
               </p>
               <ul className="list-inside list-disc space-y-1 pl-1">
@@ -359,10 +394,15 @@ export default function PrivacyPage() {
             <section className="space-y-3">
               <h2>10. Données des mineurs</h2>
               <p>
-                Ce site ne s&apos;adresse pas aux mineurs de moins de 16 ans. Nous ne collectons
-                pas sciemment de données personnelles de mineurs. Si un représentant légal
-                constate qu&apos;un mineur nous a transmis des données sans consentement parental,
-                il peut nous contacter pour en demander la suppression immédiate.
+                Les services en ligne de ce site (contact, newsletter) ne s&apos;adressent pas
+                aux mineurs de moins de 15 ans, âge du consentement numérique en France
+                (article 45 de la loi Informatique et Libertés). Nous ne collectons pas
+                sciemment en ligne de données personnelles de mineurs sans l&apos;accord du
+                titulaire de l&apos;autorité parentale. Les consultations de mineurs se font,
+                elles, avec l&apos;accord et en présence d&apos;un représentant légal. Si un
+                représentant légal constate qu&apos;un mineur nous a transmis des données en
+                ligne sans son consentement, il peut nous contacter pour en demander la
+                suppression immédiate.
               </p>
             </section>
 

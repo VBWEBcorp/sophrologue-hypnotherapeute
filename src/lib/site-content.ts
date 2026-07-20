@@ -15,13 +15,36 @@
 // Remplace ces URLs Unsplash par les vraies photos (cabinets, portrait,
 // ambiances). Garde le format auto+fit pour la performance.
 
+// Pool de visuels NATURE APAISANTE — références Unsplash vérifiées (forêt,
+// brume, eau calme, rayons de soleil), sans personne ni posture de yoga, dans
+// l'esprit de l'ancien site (héro forêt). À remplacer à terme par les vraies
+// photos de la praticienne (séances, cabinets, salles d'attente) via l'admin.
+const un = (id: string, w = 1200) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
+const unc = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=400&h=500&fit=crop&q=75`
+
+// Identifiants vérifiés (description Unsplash entre parenthèses)
+const NATURE = {
+  forestAerial: '1503435980610-a51f3ddfee50', // forêt vue du ciel
+  forestSunRays: '1530563937443-1f02f662fa5c', // rayons de soleil en forêt
+  riverTrees: '1421790500381-fc9b5996f343', // rivière bordée d'arbres
+  pinesMist: '1502252430442-aac78f397426', // pins dans la brume
+  greenTrees: '1542273917363-3b1817f69a2d', // arbres verts vus du ciel
+  forestDay: '1603976328262-4c1b46d7e6e8', // forêt verte en journée
+  treesSunRays: '1448375240586-882707db888b', // arbres et rayons de soleil
+  cloudsLake: '1581713872605-b9dfbc84eaa4', // nuages au-dessus du lac
+  waterTrees: '1465189684280-6a8fa9b19a7a', // plan d'eau entouré d'arbres
+  fogLake: '1561765781-f7de2b8c56a5', // brume sur le lac
+  sunWater: '1724265663533-23caa99840d1', // soleil à travers les arbres sur l'eau
+}
+
 export const images = {
-  // Hero homepage — 3 images qui défilent en carousel
-  // [0] = vraie photo de séance ; suivantes = ambiances apaisantes
+  // Hero homepage — [0] = vraie photo de séance ; suivantes = nature apaisante
   heroCarousel: [
     '/photos/seance-hypnose.png',
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1920&q=80',
+    un(NATURE.forestSunRays, 1920),
+    un(NATURE.waterTrees, 1920),
   ],
 
   // Section "À propos" sur la home — portrait de Véronique Jan
@@ -30,58 +53,56 @@ export const images = {
   // Page À propos — image principale du hero (portrait praticienne)
   aboutHero: '/photos/veronique-jan.png',
 
-  // Page Services — image de fond du hero (ambiance détente)
-  servicesHero:
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1920&q=80',
+  // Page Services — image de fond du hero (nature apaisante)
+  servicesHero: un(NATURE.pinesMist, 1920),
 
   // Page Contact — image de fond du hero
-  contactHero:
-    'https://images.unsplash.com/photo-1528319725582-ddc096101511?auto=format&fit=crop&w=1920&q=80',
+  contactHero: un(NATURE.fogLake, 1920),
 
   // Page À propos — galerie 4 images
   aboutGallery: [
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=600&q=80',
+    un(NATURE.greenTrees, 600),
+    un(NATURE.forestDay, 600),
+    un(NATURE.waterTrees, 600),
+    un(NATURE.treesSunRays, 600),
   ],
 
   // Page Services — 8 images illustrant chaque accompagnement
   services: [
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1455642305367-68834a1da7ab?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=1200&q=80',
+    un(NATURE.forestAerial),
+    un(NATURE.forestSunRays),
+    un(NATURE.riverTrees),
+    un(NATURE.pinesMist),
+    un(NATURE.forestDay),
+    un(NATURE.treesSunRays),
+    un(NATURE.cloudsLake),
+    un(NATURE.waterTrees),
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
   ctaScrollColumns: {
     col1: [
-      'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1545389336-cf090694435e?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop&q=75',
+      unc(NATURE.forestAerial),
+      unc(NATURE.riverTrees),
+      unc(NATURE.cloudsLake),
+      unc(NATURE.waterTrees),
     ],
     col2: [
-      'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1528319725582-ddc096101511?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=400&h=500&fit=crop&q=75',
-      'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&h=500&fit=crop&q=75',
+      unc(NATURE.forestSunRays),
+      unc(NATURE.pinesMist),
+      unc(NATURE.fogLake),
+      unc(NATURE.treesSunRays),
     ],
   },
 
   // GalleryCarousel sur la home
   homeGallery: [
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=720&q=80',
-    'https://images.unsplash.com/photo-1528319725582-ddc096101511?auto=format&fit=crop&w=720&q=80',
+    un(NATURE.forestSunRays, 720),
+    un(NATURE.riverTrees, 720),
+    un(NATURE.forestDay, 720),
+    un(NATURE.waterTrees, 720),
+    un(NATURE.greenTrees, 720),
+    un(NATURE.cloudsLake, 720),
   ],
 }
 
@@ -90,10 +111,10 @@ export const images = {
 // ============================================================================
 
 export const heroContent = {
-  eyebrow: 'Hypnothérapeute & Sophrologue · Acigné · Rennes',
+  eyebrow: 'Hypnothérapeute & Sophrologue · Rennes · Acigné',
   title: 'Hypnose thérapeutique et Sophrologie',
   description:
-    "Praticienne certifiée depuis 2006, je vous accompagne avec l'hypnose ericksonienne et la sophrologie caycédienne pour gérer le stress, l'anxiété, les phobies, le sommeil, la douleur et les addictions, pour retrouver votre équilibre.",
+    "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose ericksonienne et la sophrologie caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil et la douleur, et retrouver votre équilibre.",
   button1: 'Prendre rendez-vous',
   button2: 'Découvrir les séances',
   images: images.heroCarousel,
@@ -133,8 +154,8 @@ export const servicesPreviewContent = {
     },
     {
       iconName: 'ShieldCheck',
-      title: 'Arrêt du tabac & addictions',
-      desc: "Un accompagnement ciblé pour vous libérer du tabac, de l'alcool ou des compulsions, à votre rythme.",
+      title: 'Accompagnement à l’arrêt du tabac',
+      desc: "Un accompagnement ciblé pour vous libérer du tabac et des compulsions alimentaires, à votre rythme.",
     },
   ],
 }
@@ -164,21 +185,77 @@ export const howItWorksContent = {
   ],
 }
 
+/**
+ * ⚠️ AVIS — NE RIEN INVENTER ICI.
+ *
+ * Cette liste ne doit contenir que de véritables avis Google, recopiés mot pour
+ * mot depuis les deux fiches (Rennes et Acigné), avec le prénom/nom réellement
+ * affiché par leur auteur. Publier des avis fictifs constitue une pratique
+ * commerciale trompeuse (art. L121-2 du code de la consommation) et se voit
+ * immédiatement quand on compare le site à la fiche Google.
+ *
+ * Tant que les vrais avis n'ont pas été collés ici, la section ne s'affiche pas
+ * et le site renvoie simplement vers les fiches Google.
+ *
+ * Format attendu :
+ *   { name: 'Justine Callerais', company: 'Avis Google · Acigné', text: '…', stars: 5 }
+ */
 export const testimonialsContent = {
-  eyebrow: 'Témoignages',
+  eyebrow: 'Avis',
   title: 'Ils ont retrouvé leur équilibre',
   description:
-    "Des personnes accompagnées à Acigné et à Rennes qui ont franchi une étape importante.",
+    "Des avis déposés sur mes fiches Google (5,0/5 à Rennes comme à Acigné). Un aperçu ci-dessous ; l'intégralité est consultable sur Google.",
+  /** Note globale réelle des deux fiches Google, réaffichée dans le badge. */
+  googleRating: '5,0',
+  /** Lien de repli / « voir plus », vers la page avis du site. */
+  fallbackUrl: 'https://www.sophrologue-hypnotherapeute-jan.fr/page-avis',
+  fallbackLabel: 'Voir tous les avis Google',
+  /**
+   * Avis Google authentiques (fiche de Rennes), recopiés mot pour mot.
+   * Sélection volontairement variée : un motif de consultation par avis
+   * (tabac, sommeil, angoisses, conduite, confiance, première séance) pour
+   * couvrir les mots-clés des fiches sans répéter « à l'écoute » six fois.
+   * Noms abrégés à l'initiale du nom de famille (données de santé).
+   * ⚠️ Ne publier ici que de vrais avis, jamais de texte réécrit ou inventé.
+   */
   items: [
-    { name: 'Sandrine M.', company: 'Gestion du stress', text: "Après quelques séances, j'ai appris à gérer mon stress au quotidien. Véronique est à l'écoute, bienveillante et très professionnelle.", stars: 5 },
-    { name: 'Julien P.', company: 'Arrêt du tabac', text: "J'ai arrêté de fumer après 20 ans de tabac. Je ne pensais pas que ce serait possible aussi sereinement.", stars: 5 },
-    { name: 'Claire D.', company: 'Sommeil', text: "Mes troubles du sommeil se sont nettement améliorés. La sophrologie m'a donné des outils que j'utilise tous les jours.", stars: 5 },
-    { name: 'Marc L.', company: 'Anxiété', text: "Un accompagnement vraiment personnalisé. J'ai retrouvé confiance et une vraie sérénité face à mes angoisses.", stars: 5 },
-    { name: 'Émilie R.', company: 'Préparation à la naissance', text: "La sophrologie m'a beaucoup aidée pendant ma grossesse et le jour J. Merci pour votre douceur.", stars: 5 },
-    { name: 'Thomas B.', company: 'Phobies', text: "Ma phobie me gâchait la vie. Grâce à l'hypnose, j'ai pu la dépasser en quelques séances seulement.", stars: 5 },
-    { name: 'Nathalie G.', company: 'Confiance en soi', text: "J'ai gagné en confiance et en estime de moi. Les séances sont un vrai moment pour soi.", stars: 5 },
-    { name: 'Pauline V.', company: 'Gestion du poids', text: "Un accompagnement bienveillant qui m'a aidée à reprendre une relation apaisée avec l'alimentation.", stars: 5 },
-  ],
+    {
+      name: 'Nadège G.',
+      company: 'Arrêt du tabac',
+      text: "Première approche favorable. Consultée pour un sevrage au tabac, Mme Jan a su me mettre à l'aise et prendre en compte mes besoins. Il ne s'agit pas de magie, je ne vais pas arrêter du jour au lendemain mais cette première consultation me donne de l'espoir.",
+      stars: 5,
+    },
+    {
+      name: 'Nolwenn B.',
+      company: 'Sommeil',
+      text: "Un grand merci à Véronique Jan pour son professionnalisme et sa bienveillance. Elle m'a vraiment aidé dans mes problèmes de sommeil et de somnambulisme. Je n'ai pas eu une seule crise depuis que j'ai réalisée mes séances avec elle. Je recommande vivement Madame Jan",
+      stars: 5,
+    },
+    {
+      name: 'Karine M.',
+      company: 'Gestion des angoisses',
+      text: "Madame JAN est très à l'écoute de ses patients, les outils qu'elle donne pour gérer ses angoisses fonctionnent très bien. Elle prend son temps, toujours bienveillante, c'est une personne formidable que je recommande à 100%.",
+      stars: 5,
+    },
+    {
+      name: 'Muriel L.',
+      company: 'Hypnose & conduite',
+      text: "Madame Jan est bienveillante, à l'écoute, perspicace dans son analyse et j'ai de plus beaucoup apprécié ses explications sur ce qu'était l'hypnose et son fonctionnement. J'espère sincèrement que la poursuite des séances me fera retrouver la sérénité sur la route !",
+      stars: 5,
+    },
+    {
+      name: 'Sylvie B.',
+      company: 'Confiance en soi',
+      text: "Une écoute, des échanges qui mettent en confiance et favorisent les bienfaits de l'hypnose. Mme Jan explique, conseille, nous fait nous interroger sur le pourquoi de ces séances et nous offre la possibilité de trouver les clés qui vont nous permettre d'avancer. Je recommande vivement Mme Jan.",
+      stars: 5,
+    },
+    {
+      name: 'Nathalie T.',
+      company: 'Première séance',
+      text: "1ere expérience avec un hypnothérapeute ce jour. Merci à Mme JAN pour son écoute, son professionnalisme et ses explications qui m'ont permis de bien vivre cette première consultation. Je me suis sentie moins tendue en sortant et j'espère qu'elle pourra m'aider.",
+      stars: 5,
+    },
+  ] as { name: string; company: string; text: string; stars: number }[],
 }
 
 export const galleryContent = {
@@ -220,12 +297,17 @@ export const faqContent = {
     {
       question: "Combien coûte une séance ?",
       answer:
-        "La première séance est à 57 € (entretien + séance technique). Les séances suivantes débutent à 50 €, selon le cabinet, la durée et l'éventuel déplacement. Un tarif spécifique est proposé pour les enfants, sur demande.",
+        "Une séance d'hypnose est facturée entre 57 et 65 €, une séance de sophrologie entre 45 et 57 €, selon la localité, la durée et l'éventuel déplacement. Un tarif spécifique est proposé pour les enfants, selon l'âge. Le règlement se fait par chèque, espèces ou virement ; la carte bancaire n'est pas acceptée.",
     },
     {
       question: "Où se déroulent les séances ?",
       answer:
-        "Je consulte dans deux cabinets : à Acigné (2 Rue du Calvaire) et à Rennes (centre SPORMED, 2A Rue du Bourg Nouveau). Je propose aussi des visites à domicile dans un rayon de 20 km, ainsi que des consultations en visio pour les patients déjà suivis.",
+        "Je consulte dans deux cabinets : à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau), et à Acigné (2 Rue du Calvaire). Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet, et la téléconsultation est possible à partir de la deuxième séance.",
+    },
+    {
+      question: "Quels sont vos horaires ?",
+      answer:
+        "Les deux cabinets sont ouverts du lundi au vendredi de 8h00 à 21h30, et le samedi de 8h00 à 20h00. Fermé le dimanche. Par téléphone ou SMS, je vous rappelle dans la demi-journée.",
     },
     {
       question: "À qui s'adressent les séances ?",
@@ -248,7 +330,7 @@ export const aboutContent = {
     image: images.aboutHero,
   },
   stats: [
-    { value: '1 200+', label: 'Accompagnements' },
+    { value: '5,0', label: 'Avis Google' },
     { value: '20 ans', label: "D'expérience" },
     { value: '2', label: 'Cabinets' },
     { value: '100%', label: 'Personnalisé' },
@@ -288,8 +370,8 @@ export const servicesContent = {
       "Des accompagnements en thérapie brève, individuels ou en groupe, adaptés à votre situation et à votre rythme.",
   },
   kpis: [
-    { value: '57 €', label: 'la première séance' },
-    { value: '45-60 min', label: 'par séance' },
+    { value: 'dès 45 €', label: 'la séance' },
+    { value: '45 min – 1h', label: 'par séance' },
     { value: '2', label: 'cabinets + domicile' },
   ],
   // Chaque accompagnement : icône, titre, description, 3 points clés, image
@@ -324,9 +406,9 @@ export const servicesContent = {
     },
     {
       iconName: 'ShieldCheck',
-      title: 'Arrêt du tabac & addictions',
-      description: "Se libérer du tabac, de l'alcool, du cannabis ou des compulsions grâce à un accompagnement ciblé et respectueux de votre rythme.",
-      points: ['Tabac, alcool, cannabis', 'Compulsions alimentaires', 'Accompagnement sur mesure'],
+      title: 'Accompagnement à l’arrêt du tabac',
+      description: "Se libérer du tabac et des compulsions grâce à un accompagnement ciblé et respectueux de votre rythme.",
+      points: ['Arrêt du tabac', 'Compulsions alimentaires', 'Accompagnement sur mesure'],
       image: images.services[4],
     },
     {
@@ -362,24 +444,30 @@ export const contactContent = {
     eyebrow: 'Prendre rendez-vous',
     title: 'Prenons rendez-vous',
     description:
-      "Par téléphone, SMS, e-mail ou directement en ligne via MEDOUCINE et RESALIB. Je vous réponds dans les meilleurs délais.",
+      "Par téléphone, SMS, e-mail ou directement en ligne via RESALIB et MEDOUCINE. Je vous rappelle dans la demi-journée.",
   },
   // Les coordonnées (phone, email, address) viennent de siteConfig dans seo.ts
-  // Cabinets et plateformes de réservation :
+  // RESALIB est cité en premier : c'est la plateforme retenue par Google pour
+  // le bouton « Prendre rendez-vous » des deux fiches.
   booking: [
-    { label: 'Réserver sur MEDOUCINE', url: 'https://www.medoucine.com/consultation/acigne/veronique-jan/4253', note: 'Acigné & Rennes' },
     { label: 'Réserver sur RESALIB', url: 'https://www.resalib.fr/praticien/67027-veronique-jan-hypnotherapeute-rennes', note: 'Cabinet de Rennes' },
+    { label: 'Réserver sur MEDOUCINE', url: 'https://www.medoucine.com/consultation/acigne/veronique-jan/4253', note: 'Acigné & Rennes' },
   ],
   cabinets: [
+    {
+      name: 'Cabinet de Rennes',
+      address: '2A Rue du Bourg Nouveau, 35000 Rennes',
+      note: 'Centre médical SPORMED / Sport Santé Institut — quartier Rennes Atalante',
+    },
     {
       name: 'Cabinet d\'Acigné',
       address: '2 Rue du Calvaire, 35690 Acigné',
       note: 'Avec Xavier Jan (kinésiologue) et Quentin Sanson (ostéopathe)',
     },
-    {
-      name: 'Cabinet de Rennes',
-      address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-      note: 'Centre médical SPORMED',
-    },
+  ],
+  hours: [
+    { days: 'Lundi – Vendredi', value: '08h00 – 21h30' },
+    { days: 'Samedi', value: '08h00 – 20h00' },
+    { days: 'Dimanche', value: 'Fermé' },
   ],
 }

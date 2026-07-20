@@ -76,49 +76,56 @@ export type Subpage = {
 const u = (id: string) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`
 
+// Fonds/illustrations : nature apaisante (identifiants Unsplash vérifiés,
+// sans personne ni yoga). À remplacer par de vraies photos de cabinet le moment venu.
+
 export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ HYPNOTHÉRAPIE ════════════════════════════
   hypnotherapie: {
     slug: 'hypnotherapie',
-    metaTitle: 'Hypnothérapie ericksonienne',
+    metaTitle: 'Hypnothérapie ericksonienne à Rennes et Acigné',
     metaDescription:
-      "Hypnothérapie ericksonienne à Acigné et Rennes : une thérapie brève et certifiée pour gérer le stress, l'anxiété, les phobies, le sommeil, la douleur et les addictions.",
+      "Hypnothérapie ericksonienne à Rennes et Acigné : une thérapie brève pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur et l'arrêt du tabac.",
     hero: {
       eyebrow: 'Hypnothérapie',
-      title: 'Hypnothérapie ericksonienne à Acigné & Rennes',
+      title: 'Hypnothérapie ericksonienne à Rennes & Acigné',
       description:
         "Une thérapie brève et certifiée qui mobilise vos ressources conscientes et inconscientes pour activer vos capacités de changement.",
       breadcrumb: 'Hypnothérapie',
-      backgroundImage: u('1455642305367-68834a1da7ab'),
+      backgroundImage: u('1530563937443-1f02f662fa5c'),
     },
     sections: [
       {
         kind: 'split',
         eyebrow: 'La méthode',
         title: "Qu'est-ce que l'hypnose thérapeutique ?",
-        image: u('1506126613408-eca07ce68773'),
+        image: u('1421790500381-fc9b5996f343'),
         paragraphs: [
           "L'hypnose ericksonienne est une thérapie brève de quelques séances. Elle vous met en contact avec vos ressources conscientes et inconscientes pour activer vos propres capacités de mieux-être et de guérison.",
-          "Contrairement à l'hypnose de spectacle, l'hypnothérapie n'a aucun objectif de divertissement : je suis une praticienne certifiée dédiée à une action thérapeutique, formée à l'Institut Émergences du Dr Claude Virot, à Rennes.",
+          "On me cherche souvent sous le nom d'hypnotiseur à Rennes ou à Acigné. Le terme exact est hypnothérapeute : contrairement à l'hypnotiseur de spectacle, l'hypnothérapie n'a aucun objectif de divertissement. Je suis une praticienne certifiée dédiée à une action thérapeutique, formée à l'Institut Émergences du Dr Claude Virot, à Rennes.",
         ],
         bullets: ['Thérapie brève', 'Praticienne certifiée', 'Action thérapeutique', 'À votre rythme'],
       },
       {
         kind: 'checklist',
         eyebrow: 'Indications',
-        title: "Ce que l'hypnose peut accompagner",
-        description: "L'hypnose thérapeutique aide à dépasser de nombreux troubles :",
+        title: "Ce sur quoi les séances d'hypnose agissent",
+        description: "Les séances d'hypnose travaillent sur :",
+        // Formulations reprises de la praticienne elle-même : « agissent sur »
+        // plutôt que « peuvent aider à », et « accompagnement à l'arrêt du
+        // tabac » plutôt que « addiction ».
         items: [
-          'États dépressifs',
-          'Douleurs physiques',
-          'Maladies psychosomatiques',
-          'Troubles anxieux et angoisses',
-          'Troubles du sommeil',
-          'Phobies',
-          'Sevrage (tabac, alcool, cannabis, drogues dures)',
-          'Troubles alimentaires et compulsions',
-          'Acouphènes',
-          'Préparation aux actes médicaux',
+          'Le stress, l’anxiété et la dépression',
+          'Un blocage, une situation stressante ou une phobie',
+          'La gestion de la douleur',
+          'La préparation d’une échéance anxiogène (examens, entretiens, épreuve sportive…)',
+          'L’accompagnement de protocoles médicaux (chimiothérapie, rééducation cardiaque, anneau gastrique…)',
+          'Le sommeil, à retrouver ou à améliorer',
+          'Le renforcement ou la consolidation d’une psychothérapie',
+          'L’accompagnement à l’arrêt du tabac et les compulsions alimentaires',
+          'La perte de poids',
+          'Les troubles nerveux et les troubles obsessionnels compulsifs (TOC)',
+          'Les acouphènes',
         ],
       },
       {
@@ -146,7 +153,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "De l'entretien initial au travail en état d'hypnose : voici comment se passe concrètement une séance.",
       breadcrumb: "Séances d'hypnose",
-      backgroundImage: u('1512290923902-8a9f81dc236c'),
+      backgroundImage: u('1502252430442-aac78f397426'),
     },
     sections: [
       {
@@ -178,42 +185,50 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ SOPHROLOGIE ══════════════════════════════
   sophrologie: {
     slug: 'sophrologie',
-    metaTitle: 'Sophrologie caycédienne',
+    metaTitle: 'Sophrologie à Rennes et Acigné',
     metaDescription:
-      "Sophrologie caycédienne à Acigné et Rennes : une méthode douce de relaxation pour gérer le stress, l'anxiété, le sommeil et développer confiance et sérénité. Tarifs et séances.",
+      "Sophrologie caycédienne à Rennes et Acigné : techniques et exercices psycho-corporels pour apaiser le système nerveux, relâcher le corps et gérer le stress en autonomie. Tarifs et séances.",
     hero: {
       eyebrow: 'Sophrologie',
       title: 'La sophrologie pour apaiser stress et angoisses',
       description:
         "Une méthode douce de relaxation du corps et de l'esprit, que vous apprenez à pratiquer en autonomie au quotidien.",
       breadcrumb: 'Sophrologie',
-      backgroundImage: u('1518611012118-696072aa579a'),
+      backgroundImage: u('1561765781-f7de2b8c56a5'),
     },
     sections: [
       {
         kind: 'split',
         eyebrow: 'La méthode',
         title: "Qu'est-ce que la sophrologie ?",
-        image: u('1545389336-cf090694435e'),
+        image: u('1465189684280-6a8fa9b19a7a'),
         reverse: true,
+        // Définition dictée par la praticienne : commencer par « techniques et
+        // exercices psycho-corporels », puis le détail, puis l'autonomisation.
         paragraphs: [
-          "La sophrologie est une méthode pédagogique qui associe des techniques de relaxation du corps et de l'esprit, mise au point par le Dr Caycedo, neuropsychiatre.",
-          "Après l'avoir apprise avec une professionnelle, vous pouvez gérer seul·e votre stress au quotidien : relâcher les tensions physiques et psychologiques, activer vos ressources et développer confiance et concentration.",
+          "La sophrologie est un ensemble de techniques et d'exercices psycho-corporels destinés à apaiser le système nerveux et à relâcher le corps. Elle a été mise au point par le Dr Caycedo, neuropsychiatre.",
+          "Concrètement, elle associe des exercices de respiration, de relaxation et de visualisation, qui permettent de relâcher les tensions physiques et psychologiques, d'activer vos ressources et de développer confiance et concentration.",
+          "Après quelques séances, le patient s'autonomise : il repart avec un savoir-faire qu'il peut réutiliser seul, chaque fois qu'il en a besoin.",
         ],
       },
       {
+        // Apports repris de la page d'accueil actuelle de la praticienne, pour
+        // qu'elle retrouve exactement son contenu.
         kind: 'checklist',
         eyebrow: 'Bienfaits',
-        title: 'Les bienfaits de la sophrologie',
+        title: 'Les apports et bienfaits de la sophrologie',
         items: [
-          "Gestion du stress et de l'anxiété",
-          'Amélioration du bien-être',
-          'Relaxation et détente',
-          'Confiance en soi',
+          'Apprendre à gérer ses tensions nerveuses et physiques',
+          "S'autonomiser dans la gestion du stress et de l'anxiété",
+          'Fortifier ses ressources physiques et psychiques',
+          'Optimiser son équilibre et gagner en calme',
+          'Développer sa concentration et sa mémoire',
+          'Renforcer la confiance en soi',
           'Gestion du poids et des compulsions alimentaires',
           'Accompagnement de la boulimie et de l’anorexie',
-          'Dépassement des blocages',
-          'Développement de la concentration',
+          'Dépasser ses blocages',
+          'Préparer un objectif personnel, sportif ou professionnel',
+          'Un outil de développement personnel',
         ],
       },
       {
@@ -227,13 +242,16 @@ export const subpages: Record<string, Subpage> = {
         ],
       },
       {
+        // Tarifs repris à l'identique du site actuel de la praticienne.
         kind: 'pricing',
         eyebrow: 'Tarifs',
         title: 'Mes tarifs',
+        description:
+          'Règlement par chèque, espèces ou virement. La carte bancaire n’est pas acceptée.',
         items: [
-          { price: '57 €', label: 'Première séance', note: 'Entretien + séance technique' },
-          { price: 'dès 50 €', label: 'Séances suivantes', note: 'Selon le cabinet, la durée et le déplacement' },
-          { price: 'Sur demande', label: 'Enfants', note: 'Tarif spécifique selon la situation' },
+          { price: '57 – 65 €', label: 'Séance d’hypnose', note: 'Selon la localité, la durée et le déplacement' },
+          { price: '45 – 57 €', label: 'Séance de sophrologie', note: 'Selon la localité, la durée et le déplacement' },
+          { price: 'Sur consultation', label: 'Enfants', note: 'Tarif spécifique selon l’âge' },
         ],
       },
     ],
@@ -242,16 +260,16 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ MES CABINETS (overview) ══════════════════
   cabinets: {
     slug: 'cabinets',
-    metaTitle: 'Mes cabinets à Acigné & Rennes',
+    metaTitle: 'Mes cabinets à Rennes & Acigné',
     metaDescription:
-      "Véronique Jan vous accueille dans deux cabinets, à Acigné (2 Rue du Calvaire) et à Rennes (centre SPORMED), ainsi qu'à domicile dans un rayon de 20 km et en visio.",
+      "Véronique Jan vous accueille dans deux cabinets, à Rennes (centre médical SPORMED) et à Acigné (2 Rue du Calvaire), ainsi qu'à domicile dans un rayon de 20 km et en téléconsultation.",
     hero: {
       eyebrow: 'Mes cabinets',
-      title: 'Mes cabinets à Acigné & Rennes',
+      title: 'Mes cabinets à Rennes & Acigné',
       description:
         "Deux lieux pour vous accueillir, ainsi que des visites à domicile dans un rayon de 20 km et des consultations en visio pour les patients suivis.",
       breadcrumb: 'Mes cabinets',
-      backgroundImage: u('1528319725582-ddc096101511'),
+      backgroundImage: u('1581713872605-b9dfbc84eaa4'),
     },
     sections: [
       {
@@ -284,9 +302,9 @@ export const subpages: Record<string, Subpage> = {
         eyebrow: 'Autres modalités',
         title: 'Je me déplace aussi vers vous',
         items: [
-          { iconName: 'Home', title: 'À domicile', desc: 'Visites à domicile dans un rayon de 20 km autour des cabinets.' },
-          { iconName: 'Smartphone', title: 'En visio', desc: 'Consultations à distance pour les patients déjà suivis.' },
-          { iconName: 'Heart', title: 'Hôpital & entreprise', desc: 'Interventions auprès des professionnels de santé, sportifs et entreprises.' },
+          { iconName: 'Home', title: 'À domicile', desc: 'Visites à domicile dans un rayon de 20 km autour de chaque cabinet.' },
+          { iconName: 'Smartphone', title: 'En téléconsultation', desc: 'Consultations à distance à partir de la deuxième séance, pour les patients suivis.' },
+          { iconName: 'Heart', title: 'Structures & entreprises', desc: 'Interventions en milieu hospitalier, structures médicales et sportives, entreprises et EHPAD.' },
         ],
       },
     ],
@@ -295,26 +313,26 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ CABINET DE RENNES ════════════════════════
   'cabinet-rennes': {
     slug: 'cabinets/rennes',
-    metaTitle: 'Cabinet de Rennes (SPORMED)',
+    metaTitle: 'Hypnothérapeute à Rennes — cabinet SPORMED',
     metaDescription:
-      "Cabinet de sophrologie et d'hypnose à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes). Réservation en ligne sur RESALIB.",
+      "Hypnose et sophrologie à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes), quartier Rennes Atalante. Réservation en ligne sur RESALIB.",
     hero: {
       eyebrow: 'Mes cabinets · Rennes',
       title: 'Cabinet de Rennes',
       description:
         "Je vous reçois au cœur de Rennes, au sein du centre médical SPORMED.",
       breadcrumb: 'Rennes',
-      backgroundImage: u('1518611012118-696072aa579a'),
+      backgroundImage: u('1503435980610-a51f3ddfee50'),
     },
     sections: [
       {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Au centre médical SPORMED',
-        image: u('1497366216548-37526070297c'),
+        image: u('1448375240586-882707db888b'),
         paragraphs: [
-          '2A Rue du Bourg Nouveau, 35000 Rennes.',
-          "Le cabinet est installé au sein du centre médical SPORMED, un environnement professionnel dédié à la santé et au bien-être, facile d'accès.",
+          '2A Rue du Bourg Nouveau, 35000 Rennes — quartier Rennes Atalante.',
+          "Le cabinet est installé au sein du centre médical SPORMED, également appelé Sport Santé Institut : un environnement professionnel dédié à la santé et au bien-être, facile d'accès.",
         ],
         bullets: ['Hypnose & sophrologie', 'Séances individuelles ou en groupe', 'Sur rendez-vous'],
       },
@@ -324,8 +342,17 @@ export const subpages: Record<string, Subpage> = {
         title: 'Prendre rendez-vous à Rennes',
         items: [
           { iconName: 'CalendarCheck', title: 'Réserver sur RESALIB', desc: 'Prise de rendez-vous en ligne pour le cabinet de Rennes.', href: RESALIB_URL, external: true },
-          { iconName: 'Globe', title: 'Centre SPORMED', desc: 'Découvrir le centre médical qui accueille le cabinet.', href: SPORMED_URL, external: true },
-          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS pour convenir d’un créneau.', href: 'tel:0615621723' },
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: 'tel:0615621723' },
+          { iconName: 'Globe', title: 'Centre médical SPORMED', desc: 'Découvrir le centre médical qui accueille le cabinet.', href: SPORMED_URL, external: true },
+        ],
+      },
+      {
+        kind: 'prose',
+        eyebrow: 'Zone d’intervention',
+        title: 'Autour du cabinet de Rennes',
+        paragraphs: [
+          "Je reçois à Rennes les personnes venant de Pacé, Saint-Jacques-de-la-Lande, Saint-Grégoire, Saint-Gilles, Vezin-le-Coquet, ainsi que des quartiers de Cleunay et Villejean.",
+          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est possible à partir de la deuxième séance.",
         ],
       },
     ],
@@ -334,22 +361,22 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ CABINET D'ACIGNÉ ═════════════════════════
   'cabinet-acigne': {
     slug: 'cabinets/acigne',
-    metaTitle: "Cabinet d'Acigné",
+    metaTitle: "Hypnothérapeute à Acigné et Noyal-sur-Vilaine",
     metaDescription:
-      "Cabinet de sophrologie et d'hypnose à Acigné (2 Rue du Calvaire, 35690), en association avec un kinésiologue et un ostéopathe. Réservation en ligne sur MEDOUCINE.",
+      "Hypnose et sophrologie à Acigné (2 Rue du Calvaire, 35690), à deux pas de Noyal-sur-Vilaine et Thorigné-Fouillard. Cabinet partagé avec un kinésiologue et un ostéopathe.",
     hero: {
       eyebrow: 'Mes cabinets · Acigné',
       title: "Cabinet d'Acigné",
       description: "Mon cabinet principal à Acigné, partagé avec des praticiens du bien-être.",
       breadcrumb: 'Acigné',
-      backgroundImage: u('1544161515-4ab6ce6db874'),
+      backgroundImage: u('1542273917363-3b1817f69a2d'),
     },
     sections: [
       {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Un cabinet pluridisciplinaire',
-        image: u('1600880292203-757bb62b4baf'),
+        image: u('1603976328262-4c1b46d7e6e8'),
         reverse: true,
         paragraphs: [
           '2 Rue du Calvaire, 35690 Acigné.',
@@ -362,9 +389,18 @@ export const subpages: Record<string, Subpage> = {
         eyebrow: 'Infos pratiques',
         title: "Prendre rendez-vous à Acigné",
         items: [
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: 'tel:0615621723' },
           { iconName: 'CalendarCheck', title: 'Réserver sur MEDOUCINE', desc: 'Prise de rendez-vous en ligne pour le cabinet d’Acigné.', href: MEDOUCINE_URL, external: true },
-          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS pour convenir d’un créneau.', href: 'tel:0615621723' },
           { iconName: 'Home', title: 'À domicile', desc: 'Visites possibles dans un rayon de 20 km autour d’Acigné.' },
+        ],
+      },
+      {
+        kind: 'prose',
+        eyebrow: 'Zone d’intervention',
+        title: 'Autour du cabinet d’Acigné',
+        paragraphs: [
+          "Le cabinet d'Acigné accueille les personnes venant de Noyal-sur-Vilaine, Thorigné-Fouillard, Cesson-Sévigné, Servon-sur-Vilaine, Brécé, Châteaubourg, Châteaugiron, Domloup, Chantepie, Liffré et Vern-sur-Seiche.",
+          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est possible à partir de la deuxième séance.",
         ],
       },
     ],

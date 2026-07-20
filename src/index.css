@@ -187,6 +187,12 @@
   .animate-marquee-bar {
     animation: marquee-left 30s linear infinite;
   }
+  .animate-marquee-up {
+    animation: marquee-up 28s linear infinite;
+  }
+  .animate-marquee-down {
+    animation: marquee-down 28s linear infinite;
+  }
 }
 
 @keyframes marquee-left {
@@ -196,6 +202,14 @@
 @keyframes marquee-right {
   from { transform: translateX(-100%); }
   to { transform: translateX(0); }
+}
+@keyframes marquee-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes marquee-down {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
 }
 
 @layer base {

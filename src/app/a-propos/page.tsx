@@ -4,7 +4,7 @@ import { AboutContent } from './about-content'
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 
 const description =
-  "Véronique Jan, sophrologue et hypnothérapeute à Acigné et Rennes depuis 2006. Découvrez mon parcours, mes formations (ISR, Institut Émergences) et mon approche personnalisée."
+  "Véronique Jan, sophrologue et hypnothérapeute à Acigné et Rennes depuis 2006. Formée à l'Institut de Sophrologie de Rennes (ISR) et à l'Institut Émergences de Rennes. Approche personnalisée."
 
 export const metadata: Metadata = {
   title: 'À propos',

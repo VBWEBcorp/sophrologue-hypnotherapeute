@@ -8,11 +8,11 @@ import {
 } from '@/components/seo/json-ld'
 
 const description =
-  "Hypnose ericksonienne et sophrologie caycédienne à Acigné et Rennes : stress, anxiété, sommeil, phobies, arrêt du tabac, gestion de la douleur, confiance en soi."
+  "Hypnose Ericksonienne et sophrologie Caycédienne à Acigné et Rennes : stress, anxiété, sommeil, phobies, arrêt du tabac, gestion de la douleur, confiance en soi."
 
 const services = [
-  { title: 'Hypnothérapie ericksonienne', desc: "Une thérapie brève de quelques séances qui mobilise votre inconscient pour activer vos capacités de changement et de mieux-être." },
-  { title: 'Sophrologie caycédienne', desc: "Une méthode pédagogique de relaxation du corps et de l'esprit pour gérer le stress et développer vos ressources." },
+  { title: 'Hypnothérapie Ericksonienne', desc: "Une thérapie brève de quelques séances qui mobilise votre inconscient pour activer vos capacités de changement et de mieux-être." },
+  { title: 'Sophrologie Caycédienne', desc: "Une méthode pédagogique de relaxation du corps et de l'esprit pour gérer le stress et développer vos ressources." },
   { title: 'Gestion du stress & de l\'anxiété', desc: "Apaiser les tensions nerveuses et physiques, gagner en autonomie face au stress et retrouver le calme." },
   { title: 'Troubles du sommeil', desc: "Retrouver un sommeil réparateur en agissant sur les causes de l'insomnie." },
   { title: 'Accompagnement à l’arrêt du tabac', desc: "Se libérer du tabac et des compulsions, à votre rythme." },

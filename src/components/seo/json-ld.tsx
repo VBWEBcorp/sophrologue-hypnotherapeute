@@ -107,9 +107,9 @@ export function practitionerJsonLd() {
     email: siteConfig.email,
     image: siteConfig.ogImage,
     knowsAbout: [
-      'Hypnose ericksonienne',
+      'Hypnose Ericksonienne',
       'Hypnothérapie',
-      'Sophrologie caycédienne',
+      'Sophrologie Caycédienne',
       'Gestion du stress',
       "Troubles de l'anxiété",
       'Troubles du sommeil',

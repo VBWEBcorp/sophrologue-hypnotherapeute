@@ -46,7 +46,7 @@ export function GalleryCarousel() {
   )
 
   return (
-    <section className="border-b border-border/60 bg-background">
+    <section className="border-b border-border/60 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="flex items-end justify-between gap-4">
           <div className="space-y-3">

@@ -80,7 +80,7 @@ export function ValuesMarquee({ variant = 'light' }: { variant?: 'light' | 'dark
   const wrapperClass =
     variant === 'dark'
       ? 'border-t border-white/10 bg-black/20 backdrop-blur-sm py-4 sm:py-5'
-      : 'border-y border-border/60 bg-muted/15 py-6 sm:py-8'
+      : 'border-y border-border/60 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)] py-6 sm:py-8'
 
   return (
     <div className={wrapperClass}>

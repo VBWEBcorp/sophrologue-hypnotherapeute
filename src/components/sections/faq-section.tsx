@@ -154,7 +154,7 @@ export function FaqSection() {
             href="/contact"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
           >
-            Contactez-nous directement
+            Contactez-moi directement
             <span aria-hidden>→</span>
           </a>
         </motion.div>

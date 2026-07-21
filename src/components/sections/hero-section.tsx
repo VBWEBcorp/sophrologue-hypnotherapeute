@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Phone, Star } from 'lucide-react'
+import { ArrowRight, CalendarCheck, Phone, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -88,24 +88,51 @@ export function HeroSection() {
 
             <motion.div
               variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }}
-              className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-9 flex flex-col gap-4"
             >
-              {/* CTA principal : appeler (pilule colorée, façon référence) */}
-              <a
-                href={telHref}
-                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-medium text-primary-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <Phone className="size-4" aria-hidden />
-                Appeler&nbsp;: {siteConfig.phone}
-              </a>
-              {/* CTA secondaire : contour clair */}
-              <Link
-                href="/services"
-                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
-              >
-                {hero.button2}
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
-              </Link>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                {/* CTA principal : appeler (pilule colorée, façon référence) */}
+                <a
+                  href={telHref}
+                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-medium text-primary-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <Phone className="size-4" aria-hidden />
+                  Appeler&nbsp;: {siteConfig.phone}
+                </a>
+                {/* CTA secondaire : contour clair */}
+                <Link
+                  href="/services"
+                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-7 text-[0.95rem] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/15"
+                >
+                  {hero.button2}
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+                </Link>
+              </div>
+
+              {/* Réserver en ligne directement, sans téléphoner : RESALIB puis
+                  MEDOUCINE (les deux agendas couvrent désormais les deux cabinets). */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-white/75">
+                  <CalendarCheck className="size-4 text-white/60" aria-hidden />
+                  Réserver en ligne&nbsp;:
+                </span>
+                <a
+                  href={siteConfig.booking.resalib}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 items-center rounded-full border border-white/30 bg-white/10 px-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
+                  RESALIB
+                </a>
+                <a
+                  href={siteConfig.booking.medoucine}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 items-center rounded-full border border-white/30 bg-white/10 px-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
+                  MEDOUCINE
+                </a>
+              </div>
             </motion.div>
           </motion.div>
 

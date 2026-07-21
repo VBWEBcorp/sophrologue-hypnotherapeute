@@ -111,10 +111,10 @@ export const images = {
 // ============================================================================
 
 export const heroContent = {
-  eyebrow: 'Hypnothérapeute & Sophrologue · Rennes · Acigné',
+  eyebrow: 'Hypnothérapeute & Sophrologue · Rennes · Acigné · À domicile',
   title: 'Hypnose thérapeutique et Sophrologie',
   description:
-    "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose ericksonienne et la sophrologie caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil et la douleur, et retrouver votre équilibre.",
+    "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose Ericksonienne et la sophrologie Caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur, la perte de poids, le sevrage des addictions et la préparation des échéances anxiogènes — et retrouver votre équilibre.",
   button1: 'Prendre rendez-vous',
   button2: 'Découvrir les séances',
   images: images.heroCarousel,
@@ -124,7 +124,7 @@ export const storyContent = {
   eyebrow: 'À propos',
   title: 'Une approche humaine et bienveillante',
   paragraph1:
-    "Ancienne enseignante devenue thérapeute il y a vingt ans, je pratique l'hypnose et la sophrologie à Acigné et à Rennes. Formée à la sophrologie caycédienne à l'ISR et à l'hypnose ericksonienne à l'Institut Émergences du Dr Claude Virot, je mets ces approches au service de votre mieux-être.",
+    "Ancienne enseignante devenue thérapeute il y a vingt ans, je pratique l'hypnose et la sophrologie à Acigné et à Rennes. Formée à la sophrologie Caycédienne à l'Institut de Sophrologie de Rennes (ISR) et à l'hypnose Ericksonienne à l'Institut Émergences de Rennes (Dr Claude Virot), je mets ces approches au service de votre mieux-être.",
   paragraph2:
     "Chaque accompagnement débute par un entretien approfondi pour comprendre votre histoire, vos symptômes et vos objectifs, afin de construire un protocole personnalisé. Les séances s'adressent à tous : enfants, adolescents, adultes, femmes enceintes et jeunes mamans.",
   image: images.story,
@@ -135,17 +135,17 @@ export const servicesPreviewContent = {
   eyebrow: 'Mes accompagnements',
   title: 'Deux approches complémentaires pour votre mieux-être',
   description:
-    "L'hypnose ericksonienne et la sophrologie caycédienne mobilisent vos ressources intérieures pour dénouer ce qui vous bloque, en douceur et à votre rythme.",
+    "L'hypnose Ericksonienne et la sophrologie Caycédienne mobilisent vos ressources intérieures pour dénouer ce qui vous bloque, en douceur et à votre rythme.",
   items: [
     {
       iconName: 'Brain',
-      title: 'Hypnothérapie ericksonienne',
+      title: 'Hypnothérapie Ericksonienne',
       desc: "Une thérapie brève qui mobilise votre inconscient pour activer vos capacités de changement et de mieux-être.",
     },
     {
       iconName: 'Leaf',
-      title: 'Sophrologie caycédienne',
-      desc: "Une méthode douce de relaxation du corps et de l'esprit pour gérer votre stress et développer confiance et sérénité.",
+      title: 'Sophrologie Caycédienne',
+      desc: "Apprentissage d'une méthode douce de relaxation du corps et de l'esprit pour gérer votre stress et développer confiance et sérénité, destiné à vous autonomiser.",
     },
     {
       iconName: 'Moon',
@@ -175,7 +175,7 @@ export const howItWorksContent = {
     {
       iconName: 'Sparkles',
       title: 'Séances sur mesure',
-      desc: "Un protocole personnalisé en hypnose ericksonienne et sophrologie caycédienne, construit pour vous et avec vous.",
+      desc: "Un protocole personnalisé en hypnose Ericksonienne et sophrologie Caycédienne, construit pour vous et avec vous.",
     },
     {
       iconName: 'Smile',
@@ -282,7 +282,7 @@ export const faqContent = {
     {
       question: "Quelle est la différence entre hypnose et sophrologie ?",
       answer:
-        "L'hypnose ericksonienne est une thérapie brève qui s'appuie sur l'inconscient pour activer vos ressources et déclencher un changement. La sophrologie est une méthode pédagogique de relaxation que vous apprenez à pratiquer en autonomie pour gérer votre stress au quotidien. Les deux approches sont complémentaires.",
+        "L'hypnose Ericksonienne est une thérapie brève qui s'appuie sur l'inconscient pour activer vos ressources et déclencher un changement. La sophrologie est une méthode pédagogique de relaxation que vous apprenez à pratiquer en autonomie pour gérer votre stress au quotidien. Les deux approches sont complémentaires.",
     },
     {
       question: "Vais-je perdre le contrôle pendant une séance d'hypnose ?",
@@ -302,7 +302,7 @@ export const faqContent = {
     {
       question: "Où se déroulent les séances ?",
       answer:
-        "Je consulte dans deux cabinets : à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau), et à Acigné (2 Rue du Calvaire). Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet, et la téléconsultation est possible à partir de la deuxième séance.",
+        "Je consulte dans deux cabinets : à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux), et à Acigné (2 Rue du Calvaire). Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet, et la téléconsultation est possible à partir de la deuxième séance.",
     },
     {
       question: "Quels sont vos horaires ?",
@@ -346,7 +346,7 @@ export const aboutContent = {
       iconName: 'Sparkles',
       title: 'Approches certifiées',
       description:
-        "Sophrologie caycédienne (ISR, Bernard Santerre) et hypnose ericksonienne (Institut Émergences, Dr Claude Virot) : des méthodes reconnues.",
+        "Sophrologie Caycédienne (Institut de Sophrologie de Rennes, Bernard Santerre) et hypnose Ericksonienne (Institut Émergences de Rennes, Dr Claude Virot) : des méthodes reconnues.",
     },
     {
       iconName: 'Users',
@@ -378,14 +378,14 @@ export const servicesContent = {
   list: [
     {
       iconName: 'Brain',
-      title: 'Hypnothérapie ericksonienne',
+      title: 'Hypnothérapie Ericksonienne',
       description: "Une thérapie brève de quelques séances qui mobilise votre inconscient pour activer vos capacités d'auto-guérison et de changement.",
       points: ['Thérapie brève', 'Praticienne certifiée', 'Action thérapeutique'],
       image: images.services[0],
     },
     {
       iconName: 'Leaf',
-      title: 'Sophrologie caycédienne',
+      title: 'Sophrologie Caycédienne',
       description: "Une méthode pédagogique de relaxation du corps et de l'esprit, à pratiquer en autonomie pour gérer le stress et développer vos ressources.",
       points: ['Relaxation profonde', 'Outils au quotidien', 'Individuel ou en groupe'],
       image: images.services[1],
@@ -450,19 +450,19 @@ export const contactContent = {
   // RESALIB est cité en premier : c'est la plateforme retenue par Google pour
   // le bouton « Prendre rendez-vous » des deux fiches.
   booking: [
-    { label: 'Réserver sur RESALIB', url: 'https://www.resalib.fr/praticien/67027-veronique-jan-hypnotherapeute-rennes', note: 'Cabinet de Rennes' },
-    { label: 'Réserver sur MEDOUCINE', url: 'https://www.medoucine.com/consultation/acigne/veronique-jan/4253', note: 'Acigné & Rennes' },
+    { label: 'Réserver sur RESALIB', url: 'https://www.resalib.fr/praticien/67027-veronique-jan-hypnotherapeute-rennes', note: 'Rennes & Acigné' },
+    { label: 'Réserver sur MEDOUCINE', url: 'https://www.medoucine.com/consultation/acigne/veronique-jan/4253', note: 'Rennes & Acigné' },
   ],
   cabinets: [
     {
       name: 'Cabinet de Rennes',
       address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-      note: 'Centre médical SPORMED / Sport Santé Institut — quartier Rennes Atalante',
+      note: 'Centre médical SPORMED / Sport Santé Institut — Zone d’affaires Atalante Champeaux',
     },
     {
       name: 'Cabinet d\'Acigné',
       address: '2 Rue du Calvaire, 35690 Acigné',
-      note: 'Avec Xavier Jan (kinésiologue) et Quentin Sanson (ostéopathe)',
+      note: 'Avec Xavier Jan, ostéopathe',
     },
   ],
   hours: [

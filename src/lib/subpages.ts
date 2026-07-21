@@ -83,12 +83,12 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ HYPNOTHÉRAPIE ════════════════════════════
   hypnotherapie: {
     slug: 'hypnotherapie',
-    metaTitle: 'Hypnothérapie ericksonienne à Rennes et Acigné',
+    metaTitle: 'Hypnothérapie Ericksonienne à Rennes et Acigné',
     metaDescription:
-      "Hypnothérapie ericksonienne à Rennes et Acigné : une thérapie brève pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur et l'arrêt du tabac.",
+      "Hypnothérapie Ericksonienne à Rennes et Acigné : une thérapie brève pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur et l'arrêt du tabac.",
     hero: {
       eyebrow: 'Hypnothérapie',
-      title: 'Hypnothérapie ericksonienne à Rennes & Acigné',
+      title: 'Hypnothérapie Ericksonienne à Rennes & Acigné',
       description:
         "Une thérapie brève et certifiée qui mobilise vos ressources conscientes et inconscientes pour activer vos capacités de changement.",
       breadcrumb: 'Hypnothérapie',
@@ -101,7 +101,7 @@ export const subpages: Record<string, Subpage> = {
         title: "Qu'est-ce que l'hypnose thérapeutique ?",
         image: u('1421790500381-fc9b5996f343'),
         paragraphs: [
-          "L'hypnose ericksonienne est une thérapie brève de quelques séances. Elle vous met en contact avec vos ressources conscientes et inconscientes pour activer vos propres capacités de mieux-être et de guérison.",
+          "L'hypnose Ericksonienne est une thérapie brève de quelques séances. Elle vous met en contact avec vos ressources conscientes et inconscientes pour activer vos propres capacités de mieux-être et de guérison.",
           "On me cherche souvent sous le nom d'hypnotiseur à Rennes ou à Acigné. Le terme exact est hypnothérapeute : contrairement à l'hypnotiseur de spectacle, l'hypnothérapie n'a aucun objectif de divertissement. Je suis une praticienne certifiée dédiée à une action thérapeutique, formée à l'Institut Émergences du Dr Claude Virot, à Rennes.",
         ],
         bullets: ['Thérapie brève', 'Praticienne certifiée', 'Action thérapeutique', 'À votre rythme'],
@@ -134,7 +134,7 @@ export const subpages: Record<string, Subpage> = {
         title: "Pourquoi choisir l'hypnose ?",
         items: [
           { iconName: 'Sparkles', title: 'Thérapie brève', desc: 'Quelques séances suffisent généralement pour des résultats durables.' },
-          { iconName: 'ShieldCheck', title: 'Praticienne certifiée', desc: "Formée à l'hypnose ericksonienne médicale (Institut Émergences, Dr Claude Virot)." },
+          { iconName: 'ShieldCheck', title: 'Praticienne certifiée', desc: "Formée à l'hypnose Ericksonienne médicale (Institut Émergences de Rennes, Dr Claude Virot)." },
           { iconName: 'Heart', title: 'Sur mesure', desc: 'Un protocole adapté à votre histoire, vos symptômes et vos objectifs.' },
         ],
       },
@@ -187,7 +187,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'sophrologie',
     metaTitle: 'Sophrologie à Rennes et Acigné',
     metaDescription:
-      "Sophrologie caycédienne à Rennes et Acigné : techniques et exercices psycho-corporels pour apaiser le système nerveux, relâcher le corps et gérer le stress en autonomie. Tarifs et séances.",
+      "Sophrologie Caycédienne à Rennes et Acigné : techniques et exercices psycho-corporels pour apaiser le système nerveux, relâcher le corps et gérer le stress en autonomie. Tarifs et séances.",
     hero: {
       eyebrow: 'Sophrologie',
       title: 'La sophrologie pour apaiser stress et angoisses',
@@ -281,7 +281,7 @@ export const subpages: Record<string, Subpage> = {
             id: 'rennes',
             name: 'Cabinet de Rennes',
             address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-            note: 'Au sein du centre médical SPORMED.',
+            note: 'Au sein du centre médical SPORMED — Zone d’affaires Atalante Champeaux.',
             href: '/cabinets/rennes',
             bookingUrl: RESALIB_URL,
             bookingLabel: 'Réserver sur RESALIB',
@@ -290,7 +290,7 @@ export const subpages: Record<string, Subpage> = {
             id: 'acigne',
             name: "Cabinet d'Acigné",
             address: '2 Rue du Calvaire, 35690 Acigné',
-            note: 'En association avec Xavier Jan (kinésiologue) et Quentin Sanson (ostéopathe).',
+            note: 'En association avec Xavier Jan, ostéopathe.',
             href: '/cabinets/acigne',
             bookingUrl: MEDOUCINE_URL,
             bookingLabel: 'Réserver sur MEDOUCINE',
@@ -315,7 +315,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'cabinets/rennes',
     metaTitle: 'Hypnothérapeute à Rennes — cabinet SPORMED',
     metaDescription:
-      "Hypnose et sophrologie à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes), quartier Rennes Atalante. Réservation en ligne sur RESALIB.",
+      "Hypnose et sophrologie à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes), Zone d’affaires Atalante Champeaux. Réservation en ligne sur RESALIB.",
     hero: {
       eyebrow: 'Mes cabinets · Rennes',
       title: 'Cabinet de Rennes',
@@ -331,7 +331,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Au centre médical SPORMED',
         image: u('1448375240586-882707db888b'),
         paragraphs: [
-          '2A Rue du Bourg Nouveau, 35000 Rennes — quartier Rennes Atalante.',
+          '2A Rue du Bourg Nouveau, 35000 Rennes — Zone d’affaires Atalante Champeaux.',
           "Le cabinet est installé au sein du centre médical SPORMED, également appelé Sport Santé Institut : un environnement professionnel dédié à la santé et au bien-être, facile d'accès.",
         ],
         bullets: ['Hypnose & sophrologie', 'Séances individuelles ou en groupe', 'Sur rendez-vous'],
@@ -363,11 +363,11 @@ export const subpages: Record<string, Subpage> = {
     slug: 'cabinets/acigne',
     metaTitle: "Hypnothérapeute à Acigné et Noyal-sur-Vilaine",
     metaDescription:
-      "Hypnose et sophrologie à Acigné (2 Rue du Calvaire, 35690), à deux pas de Noyal-sur-Vilaine et Thorigné-Fouillard. Cabinet partagé avec un kinésiologue et un ostéopathe.",
+      "Hypnose et sophrologie à Acigné (2 Rue du Calvaire, 35690), à deux pas de Noyal-sur-Vilaine et Thorigné-Fouillard. Cabinet partagé avec un ostéopathe.",
     hero: {
       eyebrow: 'Mes cabinets · Acigné',
       title: "Cabinet d'Acigné",
-      description: "Mon cabinet principal à Acigné, partagé avec des praticiens du bien-être.",
+      description: "Mon cabinet principal à Acigné, partagé avec Xavier Jan, ostéopathe.",
       breadcrumb: 'Acigné',
       backgroundImage: u('1542273917363-3b1817f69a2d'),
     },
@@ -380,9 +380,9 @@ export const subpages: Record<string, Subpage> = {
         reverse: true,
         paragraphs: [
           '2 Rue du Calvaire, 35690 Acigné.',
-          'Le cabinet est partagé avec Xavier Jan, kinésiologue, et Quentin Sanson, ostéopathe : une approche complémentaire du corps et du bien-être.',
+          'Le cabinet est partagé avec Xavier Jan, ostéopathe : une approche complémentaire du corps et du bien-être.',
         ],
-        bullets: ['Hypnose & sophrologie', 'Kinésiologie · Ostéopathie', 'Sur rendez-vous'],
+        bullets: ['Hypnose & sophrologie', 'Ostéopathie', 'Sur rendez-vous'],
       },
       {
         kind: 'features',

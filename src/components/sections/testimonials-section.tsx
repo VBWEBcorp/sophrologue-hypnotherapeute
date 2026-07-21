@@ -77,8 +77,8 @@ function MarqueeRow({
 
   return (
     <div className="group relative flex gap-6 overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[oklch(0.985_0.006_85)] to-transparent dark:from-[oklch(0.225_0.028_305)] sm:w-24" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[oklch(0.985_0.006_85)] to-transparent dark:from-[oklch(0.225_0.028_305)] sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent dark:from-background sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent dark:from-background sm:w-24" />
       <div className={`flex shrink-0 gap-6 py-2 ${animationClass} group-hover:[animation-play-state:paused]`}>
         {items.map((t, i) => (
           <TestimonialCard key={`${t.name}-${i}`} testimonial={t} />
@@ -108,7 +108,7 @@ export function TestimonialsSection() {
   const bottomRow = [...testimonials.slice(half), ...testimonials.slice(0, half)]
 
   return (
-    <section className="overflow-hidden border-y border-border/60 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
+    <section className="overflow-hidden border-y border-border/60 bg-background">
       <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8 lg:pt-20">
         {/* Le badge de note ne s'affiche que si la note réelle a été renseignée. */}
         {googleRating && (

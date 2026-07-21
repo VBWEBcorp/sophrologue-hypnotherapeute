@@ -3,7 +3,7 @@ export const siteConfig = {
   url: 'https://www.sophrologue-hypnotherapeute-jan.fr',
   locale: 'fr_FR',
   description:
-    "Véronique Jan, hypnothérapeute (hypnose ericksonienne) et sophrologue à Rennes et Acigné depuis 20 ans. Accompagnement du stress, de l'anxiété, de la dépression, du sommeil, des phobies, de la douleur et arrêt du tabac.",
+    "Véronique Jan, hypnothérapeute (hypnose Ericksonienne) et sophrologue à Rennes et Acigné depuis 20 ans. Accompagnement du stress, de l'anxiété, de la dépression, du sommeil, des phobies, de la douleur et arrêt du tabac.",
   ogImage: 'https://www.sophrologue-hypnotherapeute-jan.fr/og.png',
   twitterHandle: '@veroniquejan',
   themeColor: '#2c2438',
@@ -54,7 +54,7 @@ export const cabinets = [
     city: 'Rennes',
     postalCode: '35000',
     country: 'FR',
-    district: 'Rennes Atalante',
+    district: 'Atalante Champeaux',
     // TODO(Victor) : coller l'URL courte de la fiche Google « Rennes ».
     // Elle alimente le `sameAs` du LocalBusiness, qui est le lien explicite
     // entre cette page et la fiche — c'est le cœur de l'alignement site ↔ fiche.

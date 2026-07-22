@@ -211,48 +211,64 @@ export const testimonialsContent = {
   fallbackUrl: 'https://www.sophrologue-hypnotherapeute-jan.fr/page-avis',
   fallbackLabel: 'Voir tous les avis Google',
   /**
-   * Avis Google authentiques (fiche de Rennes), recopiés mot pour mot.
-   * Sélection volontairement variée : un motif de consultation par avis
-   * (tabac, sommeil, angoisses, conduite, confiance, première séance) pour
-   * couvrir les mots-clés des fiches sans répéter « à l'écoute » six fois.
-   * Noms abrégés à l'initiale du nom de famille (données de santé).
+   * Avis Google authentiques, recopiés à la lettre depuis les fiches (Rennes
+   * et Acigné), avec le nom public et la date affichés par Google. Le badge
+   * « Modifié » de Google (annotation d'interface) n'est volontairement pas repris.
    * ⚠️ Ne publier ici que de vrais avis, jamais de texte réécrit ou inventé.
    */
   items: [
     {
-      name: 'Nadège G.',
-      company: 'Arrêt du tabac',
-      text: "Première approche favorable. Consultée pour un sevrage au tabac, Mme Jan a su me mettre à l'aise et prendre en compte mes besoins. Il ne s'agit pas de magie, je ne vais pas arrêter du jour au lendemain mais cette première consultation me donne de l'espoir.",
+      name: 'Isabelle Couvert',
+      company: '10 janv. 2024',
+      text: "J'ai rencontré Mme Jan parce que j'ai la phobie des IRM depuis plusieurs années. J'ai franchi le pas de l'hypnose parce que je n'avais plus d'issue pour m'aider à traverser ces épreuves. J'ai fait deux séances d'hypnose avec Mme Jan, elle m'a fait enregistrer les séances sur mon portable pour que je puisse les écouter chez moi. Elle m'a donné des conseils également pour gérer la situation. J'ai appliqué à la lettre ses conseils et le résultat a été bluffant. J'ai passé une IRM début janvier 2024 et ça s'est très bien passé. J'étais sereine, incroyable ! Je remercie chaleureusement Mme Jan de m'avoir aidé à traverser ses moments difficiles.",
       stars: 5,
     },
     {
-      name: 'Nolwenn B.',
-      company: 'Sommeil',
+      name: 'Laureen Huguet',
+      company: '24 juin 2023',
+      text: "Professionnelle très expérimentée, beaucoup de métier. Efficace et très pro. Séances très agréables. Cabinet confort. Je recommande vivement !",
+      stars: 5,
+    },
+    {
+      name: 'Nolwenn Bossard',
+      company: '24 juil. 2023',
       text: "Un grand merci à Véronique Jan pour son professionnalisme et sa bienveillance. Elle m'a vraiment aidé dans mes problèmes de sommeil et de somnambulisme. Je n'ai pas eu une seule crise depuis que j'ai réalisée mes séances avec elle. Je recommande vivement Madame Jan",
       stars: 5,
     },
     {
-      name: 'Karine M.',
-      company: 'Gestion des angoisses',
-      text: "Madame JAN est très à l'écoute de ses patients, les outils qu'elle donne pour gérer ses angoisses fonctionnent très bien. Elle prend son temps, toujours bienveillante, c'est une personne formidable que je recommande à 100%.",
+      name: 'Mickael Bonnefous',
+      company: '8 août',
+      text: "Madame Jan est très professionnelle. Elle est à l'écoute de chaque besoin et personalise les séances en fonction. Je recommande vivement.",
       stars: 5,
     },
     {
-      name: 'Muriel L.',
-      company: 'Hypnose & conduite',
-      text: "Madame Jan est bienveillante, à l'écoute, perspicace dans son analyse et j'ai de plus beaucoup apprécié ses explications sur ce qu'était l'hypnose et son fonctionnement. J'espère sincèrement que la poursuite des séances me fera retrouver la sérénité sur la route !",
+      name: 'Ingrid Dauphas',
+      company: '2 juil.',
+      text: "Mme Jan est une hypnothérapeute très à l'écoute, qui sait vous mettre à l'aise. Séance très agréable. Le casque qu'elle utilise m'a permis de rentrer réellement dans la séance d'hypnose. Un vrai moment de bien-être.",
       stars: 5,
     },
     {
-      name: 'Sylvie B.',
-      company: 'Confiance en soi',
-      text: "Une écoute, des échanges qui mettent en confiance et favorisent les bienfaits de l'hypnose. Mme Jan explique, conseille, nous fait nous interroger sur le pourquoi de ces séances et nous offre la possibilité de trouver les clés qui vont nous permettre d'avancer. Je recommande vivement Mme Jan.",
+      name: 'Michelle Lebreton',
+      company: '1 juil. 2023',
+      text: "Très satisfaite du résultat. Praticienne efficace, expérimentée . Totale confiance",
       stars: 5,
     },
     {
-      name: 'Nathalie T.',
-      company: 'Première séance',
-      text: "1ere expérience avec un hypnothérapeute ce jour. Merci à Mme JAN pour son écoute, son professionnalisme et ses explications qui m'ont permis de bien vivre cette première consultation. Je me suis sentie moins tendue en sortant et j'espère qu'elle pourra m'aider.",
+      name: 'Laetitia Debray',
+      company: '1 févr. 2023',
+      text: "Un grand merci à Mde jan Véronique pour sa gentillesse , son écoute et son professionnalisme . Si je pouvais y aller tout les jours . Ça serait sans hésiter . Les séances hypnothérapie m'ont beaucoup aider à régler mes problèmes de santé. Je recommande vivement Mde jan Véronique.",
+      stars: 5,
+    },
+    {
+      name: 'Martine Giroux',
+      company: '11 juil. 2022',
+      text: "Très a l ecoute, m a permis de débloquer beaucoup d angoisses , peurs et mal-être , très bonne professionnelle merci Véronique 🙏",
+      stars: 5,
+    },
+    {
+      name: 'Aurore BBL',
+      company: '29 janv. 2023',
+      text: "Séances d'hypnoses de grande qualité, une thérapeute à l'écoute, très professionnelle. résultats bien au delà de mes attentes. 🙏",
       stars: 5,
     },
   ] as { name: string; company: string; text: string; stars: number }[],

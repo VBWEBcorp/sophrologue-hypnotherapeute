@@ -15,8 +15,9 @@ const fadeUp = (y = 14) => ({
 })
 
 export function StorySection() {
-  const { data } = useContent('home', { story: defaults })
+  const { data } = useContent('home', { story: { ...defaults, stats: aboutContent.stats } })
   const story = data.story ?? defaults
+  const stats: { value: string; label: string }[] = story.stats ?? aboutContent.stats
 
   return (
     <section className="border-y border-border/50 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
@@ -52,9 +53,9 @@ export function StorySection() {
           </motion.div>
 
           <dl className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-            {aboutContent.stats.map((stat, i) => (
+            {stats.map((stat, i) => (
               <motion.div
-                key={stat.label}
+                key={`${stat.label}-${i}`}
                 initial={{ opacity: 0, y: 22, scale: 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.4 }}

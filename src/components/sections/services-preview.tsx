@@ -12,22 +12,25 @@ import { servicesPreviewContent } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-export function ServicesPreview() {
-  const { data } = useContent('services', {
-    hero: { eyebrow: servicesPreviewContent.eyebrow },
-    services: servicesPreviewContent.items,
-  })
+// L'aperçu appartient à la page d'accueil : son contenu vit dans le document
+// « home », comme les autres sections de cette page. La page Séances garde sa
+// propre liste, plus détaillée.
+const defaults = { servicesPreview: servicesPreviewContent }
 
-  const services = (data.services ?? servicesPreviewContent.items).slice(0, 4)
+export function ServicesPreview() {
+  const { data } = useContent('home', defaults)
+  const preview = data.servicesPreview ?? servicesPreviewContent
+
+  const services = (preview.items ?? servicesPreviewContent.items).slice(0, 4)
   const reduceMotion = useReducedMotion()
 
   return (
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionTitle
-          eyebrow={servicesPreviewContent.eyebrow}
-          title={servicesPreviewContent.title}
-          description={servicesPreviewContent.description}
+          eyebrow={preview.eyebrow ?? servicesPreviewContent.eyebrow}
+          title={preview.title ?? servicesPreviewContent.title}
+          description={preview.description ?? servicesPreviewContent.description}
         />
         <motion.div
           initial="hidden"

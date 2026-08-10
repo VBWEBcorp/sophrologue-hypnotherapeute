@@ -6,7 +6,8 @@ import { SectionTitle } from '@/components/ui/section-title'
 import { useContent } from '@/hooks/use-content'
 import { testimonialsContent } from '@/lib/site-content'
 
-const defaults = {
+// Section propre à la page d'accueil : contenu stocké dans le document « home ».
+const avis = {
   eyebrow: testimonialsContent.eyebrow,
   title: testimonialsContent.title,
   description: testimonialsContent.description,
@@ -94,9 +95,10 @@ function MarqueeRow({
 }
 
 export function TestimonialsSection() {
-  const { data } = useContent('testimonials', defaults)
-  const testimonials = data.testimonials ?? defaults.testimonials
-  const googleRating = data.googleRating ?? defaults.googleRating
+  const { data } = useContent('home', { testimonials: avis })
+  const block = data.testimonials ?? avis
+  const testimonials = block.testimonials ?? avis.testimonials
+  const googleRating = block.googleRating ?? avis.googleRating
 
   // Avec peu d'avis, découper en deux moitiés donnerait des rangées trop
   // courtes pour remplir la largeur (la marquee laisserait un trou avant de
@@ -132,9 +134,9 @@ export function TestimonialsSection() {
         )}
         <div className={googleRating ? 'mt-6' : ''}>
           <SectionTitle
-            eyebrow={data.eyebrow ?? defaults.eyebrow}
-            title={data.title ?? defaults.title}
-            description={data.description ?? defaults.description}
+            eyebrow={block.eyebrow ?? avis.eyebrow}
+            title={block.title ?? avis.title}
+            description={block.description ?? avis.description}
           />
         </div>
       </div>

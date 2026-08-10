@@ -9,11 +9,14 @@
  * résolue par `getIcon()` côté composant. Liste : https://lucide.dev/icons/
  */
 
+import { photos } from '@/lib/photos'
+
 // ============================================================================
 //                          IMAGES — pool de visuels
 // ============================================================================
-// Remplace ces URLs Unsplash par les vraies photos (cabinets, portrait,
-// ambiances). Garde le format auto+fit pour la performance.
+// Les vraies photos (cabinets, séances, accès) viennent de `photos.ts` et sont
+// hébergées sur Cloudflare R2. Les visuels Unsplash restants sont des paysages
+// apaisants, conservés là où il faut une image plein écran haute définition.
 
 // Pool de visuels NATURE APAISANTE — références Unsplash vérifiées (forêt,
 // brume, eau calme, rayons de soleil), sans personne ni posture de yoga, dans
@@ -40,7 +43,9 @@ const NATURE = {
 }
 
 export const images = {
-  // Hero homepage — [0] = vraie photo de séance ; suivantes = nature apaisante
+  // Hero homepage — [0] = vraie photo de séance ; suivantes = nature apaisante.
+  // Les fonds plein écran restent en paysage : les photos du cabinet font 850 px
+  // de large, elles seraient floues en 1920 px.
   heroCarousel: [
     '/photos/seance-hypnose.png',
     un(NATURE.forestSunRays, 1920),
@@ -59,24 +64,26 @@ export const images = {
   // Page Contact — image de fond du hero
   contactHero: un(NATURE.fogLake, 1920),
 
-  // Page À propos — galerie 4 images
+  // Page À propos — galerie 4 images : 3 photos du cabinet + 1 paysage apaisant
   aboutGallery: [
-    un(NATURE.greenTrees, 600),
-    un(NATURE.forestDay, 600),
-    un(NATURE.waterTrees, 600),
+    photos.acigneConsultation,
+    photos.attenteAffiches,
+    photos.equipementAudio,
     un(NATURE.treesSunRays, 600),
   ],
 
-  // Page Services — 8 images illustrant chaque accompagnement
+  // Page Services — 8 images illustrant chaque accompagnement. Les séances et
+  // les cabinets sont illustrés par de vraies photos ; le sommeil et la
+  // confiance gardent un paysage apaisant.
   services: [
-    un(NATURE.forestAerial),
-    un(NATURE.forestSunRays),
-    un(NATURE.riverTrees),
-    un(NATURE.pinesMist),
-    un(NATURE.forestDay),
-    un(NATURE.treesSunRays),
-    un(NATURE.cloudsLake),
-    un(NATURE.waterTrees),
+    photos.seanceTable, // Hypnothérapie Ericksonienne
+    photos.seanceSophrologie, // Sophrologie Caycédienne
+    photos.seanceFauteuil, // Stress & anxiété
+    un(NATURE.forestSunRays), // Troubles du sommeil
+    photos.acigneConsultation, // Arrêt du tabac
+    photos.rennesSalleSeance, // Gestion de la douleur
+    un(NATURE.treesSunRays), // Confiance & développement personnel
+    photos.attenteAffiches, // Préparation & accompagnement
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
@@ -95,14 +102,15 @@ export const images = {
     ],
   },
 
-  // GalleryCarousel sur la home
+  // GalleryCarousel sur la home. Sert de repli : dès qu'une galerie existe en
+  // base, le carrousel affiche les photos gérées dans « Galerie photos ».
   homeGallery: [
-    un(NATURE.forestSunRays, 720),
-    un(NATURE.riverTrees, 720),
-    un(NATURE.forestDay, 720),
-    un(NATURE.waterTrees, 720),
-    un(NATURE.greenTrees, 720),
-    un(NATURE.cloudsLake, 720),
+    photos.acigneConsultation,
+    photos.attenteAffiches,
+    photos.rennesSalleSeance,
+    photos.attenteFauteuils,
+    photos.hallRennes,
+    photos.equipementAudio,
   ],
 }
 
@@ -115,9 +123,24 @@ export const heroContent = {
   title: 'Hypnose thérapeutique et Sophrologie',
   description:
     "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose Ericksonienne et la sophrologie Caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur, la perte de poids, le sevrage des addictions et la préparation des échéances anxiogènes — et retrouver votre équilibre.",
-  button1: 'Prendre rendez-vous',
+  // Libellé du bouton d'appel ; le numéro est ajouté automatiquement à la suite.
+  button1: 'Appeler',
   button2: 'Découvrir les séances',
   images: images.heroCarousel,
+}
+
+// Bandeau de mots-clés qui défile sous le hero
+export const marqueeContent = {
+  items: [
+    { iconName: 'Ear', label: 'Écoute' },
+    { iconName: 'HeartHandshake', label: 'Bienveillance' },
+    { iconName: 'Leaf', label: 'Sérénité' },
+    { iconName: 'Handshake', label: 'Confiance' },
+    { iconName: 'Sparkles', label: 'Mieux-être' },
+    { iconName: 'Moon', label: 'Détente' },
+    { iconName: 'Lock', label: 'Confidentialité' },
+    { iconName: 'Flower2', label: 'Douceur' },
+  ],
 }
 
 export const storyContent = {

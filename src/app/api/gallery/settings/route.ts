@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { connectDB } from '@/lib/db'
 import { GallerySettings } from '@/models/Gallery'
 import { verifyAuth } from '@/lib/auth'
@@ -15,7 +16,7 @@ export async function GET() {
 
     if (!settings) {
       return NextResponse.json(
-        { enabled: true, title: 'Nos réalisations', eyebrow: 'Galerie', description: 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.' },
+        { enabled: true, title: 'Mes cabinets en images', eyebrow: 'Galerie', description: "Les lieux où je vous reçois, à Rennes et à Acigné, et le déroulé d'une séance d'hypnose ou de sophrologie." },
         { headers: CACHE_HEADERS }
       )
     }
@@ -48,6 +49,8 @@ export async function PUT(request: NextRequest) {
       }
       await settings.save()
     }
+
+    revalidatePath('/gallery')
 
     return NextResponse.json(settings)
   } catch (error) {

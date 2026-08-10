@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type CacheEntry = {
   data: any
@@ -50,28 +50,41 @@ export function useContent<T extends Record<string, any>>(
   })
   const [loading, setLoading] = useState(!cache.has(pageId))
 
+  // Une fois qu'un message d'aperçu est arrivé, il fait autorité : la réponse
+  // de l'API ne doit plus écraser ce que l'éditrice est en train de taper.
+  const previewTookOver = useRef(false)
+
   useEffect(() => {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
-    const previewId = params?.get('preview')
-    const isPreview = previewId === pageId
+    // Une page d'admin peut piloter plusieurs sections issues de documents
+    // différents (accueil = home + how-it-works + services + testimonials).
+    // On entre donc en mode aperçu dès que le paramètre est là, et on trie les
+    // messages sur leur pageId.
+    const isPreview = params?.has('preview') ?? false
+
+    let removeListener: (() => void) | undefined
 
     if (isPreview) {
-      setLoading(false)
       const handler = (event: MessageEvent) => {
         const msg = event.data
         if (msg && msg.type === 'preview-content' && msg.pageId === pageId && msg.content) {
+          previewTookOver.current = true
           setData({ ...defaults, ...msg.content })
+          setLoading(false)
         }
       }
       window.addEventListener('message', handler)
       window.parent?.postMessage({ type: 'preview-ready', pageId }, '*')
-      return () => window.removeEventListener('message', handler)
+      removeListener = () => window.removeEventListener('message', handler)
     }
 
+    // Dans tous les cas on charge le contenu enregistré : en aperçu, cela permet
+    // aux sections non pilotées par l'éditeur d'afficher le vrai contenu du site
+    // plutôt que les valeurs par défaut du code.
     let cancelled = false
     fetchContent(pageId)
       .then((result) => {
-        if (cancelled) return
+        if (cancelled || previewTookOver.current) return
         if (result?.content && Object.keys(result.content).length > 0) {
           setData({ ...defaults, ...result.content })
         }
@@ -85,6 +98,7 @@ export function useContent<T extends Record<string, any>>(
 
     return () => {
       cancelled = true
+      removeListener?.()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageId])

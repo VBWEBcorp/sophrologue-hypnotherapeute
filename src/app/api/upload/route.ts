@@ -3,7 +3,7 @@ import { verifyAuth } from '@/lib/auth'
 import { writeFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
-import { r2Enabled, uploadToR2 } from '@/lib/r2'
+import { r2Enabled, r2Mode, uploadToR2 } from '@/lib/r2'
 import { optimizeImage } from '@/lib/optimize-image'
 
 export async function POST(request: NextRequest) {
@@ -20,10 +20,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    // Vérifier le type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml']
+    // Vérifier le type. Le SVG est volontairement exclu : il peut embarquer du
+    // script et il n'est pas ré-encodé par Sharp, donc il serait stocké tel quel.
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
     if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json({ error: 'File type not allowed' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'Format non accepté. Formats acceptés : JPG, PNG, WebP, GIF.' },
+        { status: 400 }
+      )
     }
 
     // Vérifier la taille (10MB max avant optimisation)
@@ -34,23 +38,22 @@ export async function POST(request: NextRequest) {
     const rawBuffer = Buffer.from(await file.arrayBuffer())
     const uniqueId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
 
-    // SVG: pas d'optimisation
-    const isSvg = file.type === 'image/svg+xml'
-
+    // Optimiser avec Sharp → WebP. Sharp échoue si le contenu n'est pas une
+    // vraie image (type MIME menteur) : on répond alors 400, pas 500.
     let finalBuffer: Buffer
     let contentType: string
     let filename: string
 
-    if (isSvg) {
-      finalBuffer = rawBuffer
-      contentType = 'image/svg+xml'
-      filename = `${uniqueId}.svg`
-    } else {
-      // Optimiser avec Sharp → WebP
+    try {
       const optimized = await optimizeImage(rawBuffer)
       finalBuffer = optimized.buffer
       contentType = optimized.contentType
       filename = `${uniqueId}.${optimized.ext}`
+    } catch {
+      return NextResponse.json(
+        { error: "Ce fichier n'est pas une image valide." },
+        { status: 400 }
+      )
     }
 
     let url: string
@@ -77,7 +80,7 @@ export async function POST(request: NextRequest) {
       filename,
       originalSize: `${originalSize} Ko`,
       optimizedSize: `${optimizedSize} Ko`,
-      storage: r2Enabled ? 'cloudflare-r2' : 'local',
+      storage: r2Enabled ? `cloudflare-r2 (${r2Mode})` : 'local',
     })
   } catch (error) {
     console.error('Upload error:', error)

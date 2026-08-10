@@ -15,6 +15,7 @@ const defaultImages = siteImages.services
 
 const defaults = {
   hero: { ...servicesContent.hero, image: '' as string },
+  kpis: servicesContent.kpis,
   services: servicesContent.list,
 }
 
@@ -178,6 +179,7 @@ function ServiceRow({
 export function ServicesContent() {
   const { data } = useContent('services', defaults)
   const hero = data.hero ?? defaults.hero
+  const kpis = data.kpis ?? defaults.kpis
   const services = data.services ?? defaults.services
 
   return (
@@ -188,11 +190,11 @@ export function ServicesContent() {
         description={hero.description}
         breadcrumb="Séances"
         compact
-        backgroundImage={siteImages.servicesHero}
+        backgroundImage={hero.image || siteImages.servicesHero}
       >
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm">
-          {servicesContent.kpis.map((kpi, i, arr) => (
-            <div key={kpi.label} className="flex items-center gap-x-8">
+          {kpis.map((kpi: { value: string; label: string }, i: number, arr: unknown[]) => (
+            <div key={`${kpi.label}-${i}`} className="flex items-center gap-x-8">
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-2xl tracking-tight text-foreground">
                   {kpi.value}

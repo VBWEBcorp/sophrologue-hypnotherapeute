@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from 'react'
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import {
   Save,
@@ -18,10 +11,6 @@ import {
   ExternalLink,
   Monitor,
   Smartphone,
-  ChevronsDownUp,
-  ChevronsUpDown,
-  Maximize2,
-  RefreshCw,
 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -29,16 +18,55 @@ import { useToast } from '@/components/admin/toast'
 import { AdminLoading } from '@/components/admin/admin-ui'
 import { cn } from '@/lib/utils'
 
-interface PageEditorProps {
-  pageId: string
-  title: string
-  defaultContent: Record<string, any>
-  children: (
-    content: Record<string, any>,
-    updateField: (path: string, value: any) => void
-  ) => React.ReactNode
+/* ── Types ──────────────────────────────────────────────────────────────── */
+
+/** Un document de contenu (une entrée de /api/content/[pageId]). */
+export interface EditorDoc {
+  id: string
+  defaults: Record<string, any>
 }
 
+/** Accès en lecture/écriture à un document, fourni aux éditeurs de page. */
+export interface DocEditor {
+  content: Record<string, any>
+  /** Lit une valeur par chemin pointé : value('hero.title'). */
+  value: (path: string) => any
+  /** Écrit une valeur par chemin pointé. */
+  set: (path: string, value: unknown) => void
+  /** Version curryfiée, à brancher directement sur onChange. */
+  setter: (path: string) => (value: any) => void
+}
+
+export type Edit = (docId: string) => DocEditor
+
+interface PageEditorProps {
+  title: string
+  /** Documents pilotés par cette page. Le premier sert de référence. */
+  docs: EditorDoc[]
+  /** Chemin public prévisualisé. Déduit de l'id du premier document si absent. */
+  previewPath?: string
+  children: (edit: Edit) => React.ReactNode
+}
+
+/* ── Utilitaires de chemin pointé ───────────────────────────────────────── */
+
+function readPath(source: Record<string, any> | undefined, path: string): any {
+  return path.split('.').reduce<any>((acc, key) => (acc == null ? undefined : acc[key]), source)
+}
+
+function writePath(source: Record<string, any>, path: string, value: unknown) {
+  const keys = path.split('.')
+  const next = JSON.parse(JSON.stringify(source))
+  let node = next
+  for (let i = 0; i < keys.length - 1; i++) {
+    if (typeof node[keys[i]] !== 'object' || node[keys[i]] === null) node[keys[i]] = {}
+    node = node[keys[i]]
+  }
+  node[keys[keys.length - 1]] = value
+  return next
+}
+
+/** Chemins publics par défaut, pour l'aperçu en direct. */
 const previewPaths: Record<string, string> = {
   home: '/',
   about: '/a-propos',
@@ -53,85 +81,98 @@ const previewPaths: Record<string, string> = {
   'sub-cabinet-acigne': '/cabinets/acigne',
 }
 
-/* ── Repli/dépli global des sections ────────────────────────── */
-const ExpandContext = createContext<boolean>(true)
+/* ── Composant ──────────────────────────────────────────────────────────── */
 
-export function useSectionsExpanded() {
-  return useContext(ExpandContext)
-}
-
-export function PageEditor({ pageId, title, defaultContent, children }: PageEditorProps) {
+export function PageEditor({ title, docs, previewPath, children }: PageEditorProps) {
   const { toast } = useToast()
-  const [content, setContent] = useState(defaultContent)
+
+  const [contents, setContents] = useState<Record<string, any>>(() =>
+    Object.fromEntries(docs.map((doc) => [doc.id, doc.defaults]))
+  )
+  const [dirtyDocs, setDirtyDocs] = useState<Set<string>>(new Set())
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [dirty, setDirty] = useState(false)
   const [loading, setLoading] = useState(true)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop')
   const modalIframeRef = useRef<HTMLIFrameElement | null>(null)
-  const railIframeRef = useRef<HTMLIFrameElement | null>(null)
 
-  // Repli/dépli global des sections (un seul toggle en haut)
-  const [expanded, setExpanded] = useState(true)
+  const dirty = dirtyDocs.size > 0
+  // `docs` est recréé à chaque rendu par la page appelante : on stabilise la
+  // liste d'identifiants pour ne pas réabonner les écouteurs à chaque frappe.
+  const docIdsKey = docs.map((doc) => doc.id).join('|')
+  const docIds = useMemo(() => docIdsKey.split('|'), [docIdsKey])
+  const primaryId = docIds[0]
 
-  const previewPath = previewPaths[pageId]
-  const previewSrc = previewPath
+  const path = previewPath ?? previewPaths[primaryId]
+  const previewSrc = path
     ? (() => {
-        const [path, hash] = previewPath.split('#')
-        const sep = path.includes('?') ? '&' : '?'
-        return `${path}${sep}preview=${encodeURIComponent(pageId)}${hash ? `#${hash}` : ''}`
+        const [base, hash] = path.split('#')
+        const sep = base.includes('?') ? '&' : '?'
+        return `${base}${sep}preview=1${hash ? `#${hash}` : ''}`
       })()
     : ''
 
-  // Garde la dernière valeur de `content` accessible au handler sans le ré-abonner à chaque frappe
-  const contentRef = useRef(content)
+  // Garde la dernière valeur accessible au handler sans le ré-abonner à chaque frappe
+  const contentsRef = useRef(contents)
   useEffect(() => {
-    contentRef.current = content
-  }, [content])
+    contentsRef.current = contents
+  }, [contents])
 
-  // Répond à n'importe quelle iframe d'aperçu (rail ou modale) qui s'annonce prête
+  // Répond à n'importe quelle iframe d'aperçu qui s'annonce prête, pour
+  // n'importe lequel des documents pilotés par cette page.
   useEffect(() => {
     const handler = (event: MessageEvent) => {
       const msg = event.data
-      if (msg && msg.type === 'preview-ready' && msg.pageId === pageId) {
+      if (msg && msg.type === 'preview-ready' && docIds.includes(msg.pageId)) {
         const source = event.source as WindowProxy | null
         source?.postMessage(
-          { type: 'preview-content', pageId, content: contentRef.current },
+          { type: 'preview-content', pageId: msg.pageId, content: contentsRef.current[msg.pageId] },
           '*'
         )
       }
     }
     window.addEventListener('message', handler)
     return () => window.removeEventListener('message', handler)
-  }, [pageId])
+  }, [docIds])
 
-  // Pousse les modifications en direct vers les aperçus montés (rail + modale)
+  // Pousse les modifications vers l'aperçu quand il est ouvert
   useEffect(() => {
-    const payload = { type: 'preview-content', pageId, content }
-    railIframeRef.current?.contentWindow?.postMessage(payload, '*')
-    modalIframeRef.current?.contentWindow?.postMessage(payload, '*')
-  }, [content, pageId])
+    if (!previewOpen) return
+    for (const id of docIds) {
+      modalIframeRef.current?.contentWindow?.postMessage(
+        { type: 'preview-content', pageId: id, content: contents[id] },
+        '*'
+      )
+    }
+  }, [contents, docIds, previewOpen])
 
   useEffect(() => {
-    const fetchContent = async () => {
+    const load = async () => {
       try {
-        const response = await fetch(`/api/content/${pageId}`)
-        const result = await response.json()
-
-        if (result.content && Object.keys(result.content).length > 0) {
-          setContent({ ...defaultContent, ...result.content })
-        }
+        const results = await Promise.all(
+          docs.map(async (doc) => {
+            const response = await fetch(`/api/content/${doc.id}`)
+            const result = await response.json().catch(() => ({}))
+            const stored = result?.content
+            return [
+              doc.id,
+              stored && Object.keys(stored).length > 0
+                ? { ...doc.defaults, ...stored }
+                : doc.defaults,
+            ] as const
+          })
+        )
+        setContents(Object.fromEntries(results))
       } catch (error) {
         console.error('Failed to load content:', error)
       } finally {
         setLoading(false)
       }
     }
-
-    fetchContent()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageId])
+    load()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Avertir avant de quitter si modifications non enregistrées
   useEffect(() => {
@@ -144,43 +185,47 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
     return () => window.removeEventListener('beforeunload', handler)
   }, [dirty])
 
-  const updateField = useCallback((path: string, value: any) => {
+  const setValue = useCallback((docId: string, fieldPath: string, value: unknown) => {
     setSaved(false)
-    setDirty(true)
-    setContent((prev) => {
-      const keys = path.split('.')
-      const newContent = JSON.parse(JSON.stringify(prev))
-      let obj = newContent
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!(keys[i] in obj)) obj[keys[i]] = {}
-        obj = obj[keys[i]]
-      }
-      obj[keys[keys.length - 1]] = value
-      return newContent
-    })
+    setDirtyDocs((prev) => (prev.has(docId) ? prev : new Set(prev).add(docId)))
+    setContents((prev) => ({
+      ...prev,
+      [docId]: writePath(prev[docId] ?? {}, fieldPath, value),
+    }))
   }, [])
 
-  const reloadRail = () => {
-    const frame = railIframeRef.current
-    if (frame) frame.src = previewSrc
-  }
+  const edit = useCallback<Edit>(
+    (docId: string) => ({
+      content: contents[docId] ?? {},
+      value: (fieldPath: string) => readPath(contents[docId], fieldPath),
+      set: (fieldPath: string, value: unknown) => setValue(docId, fieldPath, value),
+      setter: (fieldPath: string) => (value: any) => setValue(docId, fieldPath, value),
+    }),
+    [contents, setValue]
+  )
 
   const handleSave = async () => {
     setSaving(true)
     try {
       const token = localStorage.getItem('authToken')
-      const response = await fetch(`/api/content/${pageId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ content }),
-      })
+      const targets = [...dirtyDocs]
 
-      if (response.ok) {
+      const responses = await Promise.all(
+        targets.map((id) =>
+          fetch(`/api/content/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ content: contents[id] }),
+          })
+        )
+      )
+
+      if (responses.every((response) => response.ok)) {
         setSaved(true)
-        setDirty(false)
+        setDirtyDocs(new Set())
         toast.success('Modifications enregistrées')
         setTimeout(() => setSaved(false), 3000)
       } else {
@@ -198,11 +243,10 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
   }
 
   return (
-    <ExpandContext.Provider value={expanded}>
-      <div className="p-4 sm:p-6 lg:p-8">
-        {/* Header sticky */}
-        <div className="sticky top-0 z-20 -mx-4 -mt-4 sm:-mx-6 sm:-mt-6 lg:-mx-8 lg:-mt-8 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8 pb-3.5 bg-background/80 backdrop-blur border-b border-border mb-6">
-          <div className="flex items-center justify-between max-w-6xl mx-auto pt-8 md:pt-0">
+    <div className="p-4 sm:p-6 lg:p-8">
+      {/* Barre d'actions, toujours visible pendant le défilement */}
+      <div className="sticky top-0 z-20 -mx-4 -mt-4 sm:-mx-6 sm:-mt-6 lg:-mx-8 lg:-mt-8 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8 pb-3.5 bg-background/80 backdrop-blur border-b border-border mb-6">
+        <div className="flex items-center justify-between max-w-3xl mx-auto pt-8 md:pt-0">
             <div className="flex min-w-0 items-center gap-3">
               <Link
                 href="/admin/dashboard"
@@ -228,11 +272,7 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
-              <Button onClick={() => setExpanded((v) => !v)} variant="outline" size="sm">
-                {expanded ? <ChevronsDownUp className="size-3.5" /> : <ChevronsUpDown className="size-3.5" />}
-                <span className="hidden sm:inline">{expanded ? 'Tout replier' : 'Tout déplier'}</span>
-              </Button>
-              {previewPath && (
+              {path && (
                 <Button onClick={() => setPreviewOpen(true)} variant="outline" size="sm">
                   <Eye className="size-3.5" />
                   <span className="hidden sm:inline">Aperçu</span>
@@ -259,74 +299,20 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
           </div>
         </div>
 
-        {/* Layout 2 colonnes : éditeur + aperçu live sticky */}
+      {/* Une seule carte : toutes les sections de la page, à la suite */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+      >
+        {children(edit)}
+      </motion.div>
+
+        {previewOpen && path && (
         <div
-          className={cn(
-            'mx-auto grid max-w-6xl items-start gap-6',
-            previewPath
-              ? 'lg:grid-cols-[minmax(0,1fr)_380px] xl:grid-cols-[minmax(0,1fr)_440px]'
-              : 'max-w-3xl'
-          )}
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex flex-col p-3 sm:p-4"
+          onClick={() => setPreviewOpen(false)}
         >
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="min-w-0 space-y-3"
-          >
-            {children(content, updateField)}
-          </motion.div>
-
-          {previewPath && (
-            <aside className="sticky top-[92px] hidden lg:block">
-              <div className="flex h-[calc(100vh-7.5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                {/* En-tête du rail */}
-                <div className="flex items-center justify-between gap-2 border-b border-border/60 px-3 py-2">
-                  <div className="flex min-w-0 items-center gap-2">
-                    <span className="relative flex size-2 shrink-0">
-                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60" />
-                      <span className="relative inline-flex size-2 rounded-full bg-primary" />
-                    </span>
-                    <span className="truncate text-xs font-semibold text-foreground">Aperçu en direct</span>
-                  </div>
-                  <div className="flex items-center gap-0.5">
-                    <button
-                      type="button"
-                      onClick={reloadRail}
-                      title="Recharger l'aperçu"
-                      className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                    >
-                      <RefreshCw className="size-3.5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPreviewOpen(true)}
-                      title="Plein écran"
-                      className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                    >
-                      <Maximize2 className="size-3.5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Iframe live */}
-                <div className="relative flex-1 bg-white">
-                  <iframe
-                    ref={railIframeRef}
-                    src={previewSrc}
-                    className="absolute inset-0 size-full"
-                    title="Aperçu en direct de la page"
-                  />
-                </div>
-              </div>
-            </aside>
-          )}
-        </div>
-
-        {previewOpen && previewPath && (
-          <div
-            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex flex-col p-3 sm:p-4"
-            onClick={() => setPreviewOpen(false)}
-          >
             <div
               className="relative w-full h-full bg-zinc-100 rounded-xl shadow-2xl overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
@@ -335,7 +321,7 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
                 <div className="flex items-center gap-2 text-xs text-muted-foreground truncate min-w-0">
                   <Eye className="size-3.5 shrink-0" />
                   <span className="font-medium">Aperçu</span>
-                  <span className="truncate hidden sm:inline">{previewPath}</span>
+                  <span className="truncate hidden sm:inline">{path}</span>
                 </div>
 
                 <div className="flex items-center gap-1 rounded-lg bg-muted/60 p-0.5">
@@ -369,7 +355,7 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
 
                 <div className="flex items-center gap-1">
                   <a
-                    href={previewPath}
+                    href={path}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Ouvrir dans un onglet"
@@ -406,8 +392,7 @@ export function PageEditor({ pageId, title, defaultContent, children }: PageEdit
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </ExpandContext.Provider>
+      )}
+    </div>
   )
 }

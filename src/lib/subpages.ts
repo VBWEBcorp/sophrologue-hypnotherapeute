@@ -5,6 +5,7 @@
  * Les mises en page diffèrent d'une page à l'autre (split, timeline, encart…).
  */
 
+import { photos } from '@/lib/photos'
 import { siteConfig } from '@/lib/seo'
 
 export const MEDOUCINE_URL = siteConfig.booking.medoucine
@@ -76,8 +77,11 @@ export type Subpage = {
 const u = (id: string) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`
 
-// Fonds/illustrations : nature apaisante (identifiants Unsplash vérifiés,
-// sans personne ni yoga). À remplacer par de vraies photos de cabinet le moment venu.
+// Fonds de bannière : nature apaisante (identifiants Unsplash vérifiés, sans
+// personne ni yoga). Ils restent en Unsplash parce qu'ils s'affichent en plein
+// écran (1920 px) — les photos des cabinets font 850 px de large et seraient
+// floues à cette taille. Les illustrations des sections, elles, utilisent les
+// vraies photos (voir `photos.ts`).
 
 export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ HYPNOTHÉRAPIE ════════════════════════════
@@ -99,7 +103,7 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'La méthode',
         title: "Qu'est-ce que l'hypnose thérapeutique ?",
-        image: u('1421790500381-fc9b5996f343'),
+        image: photos.seanceTable,
         paragraphs: [
           "L'hypnose Ericksonienne est une thérapie brève de quelques séances. Elle vous met en contact avec vos ressources conscientes et inconscientes pour activer vos propres capacités de mieux-être et de guérison.",
           "On me cherche souvent sous le nom d'hypnotiseur à Rennes ou à Acigné. Le terme exact est hypnothérapeute : contrairement à l'hypnotiseur de spectacle, l'hypnothérapie n'a aucun objectif de divertissement. Je suis une praticienne certifiée dédiée à une action thérapeutique, formée à l'Institut Émergences du Dr Claude Virot, à Rennes.",
@@ -201,7 +205,7 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'La méthode',
         title: "Qu'est-ce que la sophrologie ?",
-        image: u('1465189684280-6a8fa9b19a7a'),
+        image: photos.seanceSophrologie,
         reverse: true,
         // Définition dictée par la praticienne : commencer par « techniques et
         // exercices psycho-corporels », puis le détail, puis l'autonomisation.
@@ -329,7 +333,7 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Au centre médical SPORMED',
-        image: u('1448375240586-882707db888b'),
+        image: photos.accesRennes,
         paragraphs: [
           '2A Rue du Bourg Nouveau, 35000 Rennes — Zone d’affaires Atalante Champeaux.',
           "Le cabinet est installé au sein du centre médical SPORMED, également appelé Sport Santé Institut : un environnement professionnel dédié à la santé et au bien-être, facile d'accès.",
@@ -376,7 +380,7 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Un cabinet pluridisciplinaire',
-        image: u('1603976328262-4c1b46d7e6e8'),
+        image: photos.acigneFacade,
         reverse: true,
         paragraphs: [
           '2 Rue du Calvaire, 35690 Acigné.',

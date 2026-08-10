@@ -102,9 +102,7 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
     case 'checklist':
       return (
         <>
-          {section.description !== undefined && (
-            <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
-          )}
+          <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
           <StringList itemLabel="Élément" items={section.items} path={`${base}.items`} update={update} />
         </>
       )
@@ -112,13 +110,14 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
     case 'features':
       return (
         <>
-          {section.description !== undefined && (
-            <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
-          )}
+          <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
           {section.items.map((it, j) => (
             <ItemCard key={j} index={j}>
               <FieldEditor label="Titre" value={it.title} onChange={(v) => setItem(section.items, j, { title: v })} />
               <FieldEditor label="Texte" value={it.desc} type="textarea" onChange={(v) => setItem(section.items, j, { desc: v })} />
+              {it.href !== undefined && (
+                <FieldEditor label="Lien du bloc" type="url" value={it.href} onChange={(v) => setItem(section.items, j, { href: v })} />
+              )}
             </ItemCard>
           ))}
         </>
@@ -127,9 +126,7 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
     case 'timeline':
       return (
         <>
-          {section.description !== undefined && (
-            <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
-          )}
+          <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
           {section.steps.map((s, j) => (
             <ItemCard key={j} index={j}>
               <FieldEditor label="Titre" value={s.title} onChange={(v) => {
@@ -148,9 +145,7 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
     case 'pricing':
       return (
         <>
-          {section.description !== undefined && (
-            <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
-          )}
+          <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
           {section.items.map((it, j) => (
             <ItemCard key={j} index={j}>
               <FieldEditor label="Prix" value={it.price} onChange={(v) => setItem(section.items, j, { price: v })} />
@@ -164,14 +159,14 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
     case 'cabinets':
       return (
         <>
-          {section.description !== undefined && (
-            <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
-          )}
+          <FieldEditor label="Description" value={section.description ?? ''} type="textarea" onChange={(v) => update(`${base}.description`, v)} />
           {section.items.map((it, j) => (
             <ItemCard key={j} index={j}>
               <FieldEditor label="Nom" value={it.name} onChange={(v) => setItem(section.items, j, { name: v })} />
               <FieldEditor label="Adresse" value={it.address} onChange={(v) => setItem(section.items, j, { address: v })} />
               <FieldEditor label="Note" value={it.note ?? ''} type="textarea" onChange={(v) => setItem(section.items, j, { note: v })} />
+              <FieldEditor label="Libellé du bouton de réservation" value={it.bookingLabel ?? ''} onChange={(v) => setItem(section.items, j, { bookingLabel: v })} placeholder="Réserver sur RESALIB" />
+              <FieldEditor label="Lien de réservation" type="url" value={it.bookingUrl ?? ''} onChange={(v) => setItem(section.items, j, { bookingUrl: v })} placeholder="https://..." />
             </ItemCard>
           ))}
         </>
@@ -186,23 +181,41 @@ export function SubpageEditor({ slug }: { slug: string }) {
     return <div className="p-8 text-sm text-muted-foreground">Page « {slug} » introuvable.</div>
   }
 
+  const docId = `sub-${slug}`
+
   return (
-    <PageEditor pageId={`sub-${slug}`} title={`Page : ${data.hero.breadcrumb}`} defaultContent={{ subpage: data }}>
-      {(content, update) => {
-        const sp = (content.subpage ?? data) as typeof data
+    <PageEditor
+      title={`Page : ${data.hero.breadcrumb}`}
+      docs={[{ id: docId, defaults: { subpage: data } }]}
+    >
+      {(edit) => {
+        const doc = edit(docId)
+        const update: Update = (path, value) => doc.set(path, value)
+        const sp = (doc.content.subpage ?? data) as typeof data
         const sections: SubpageSection[] = sp.sections ?? []
+
+        // Les sections sont listées dans l'ordre exact d'affichage de la page.
         return (
           <>
-            <SectionEditor title="Bannière" icon={LayoutTemplate} description="Titre et image en haut de la page">
+            <SectionEditor
+              step={1}
+              title="Bannière"
+              icon={LayoutTemplate}
+              description="Titre et image de fond en haut de la page"
+            >
               <FieldEditor label="Accroche" value={sp.hero?.eyebrow ?? ''} onChange={(v) => update('subpage.hero.eyebrow', v)} />
               <FieldEditor label="Titre" value={sp.hero?.title ?? ''} onChange={(v) => update('subpage.hero.title', v)} />
               <FieldEditor label="Description" value={sp.hero?.description ?? ''} type="textarea" onChange={(v) => update('subpage.hero.description', v)} />
               <ImageField label="Image de fond" value={sp.hero?.backgroundImage ?? ''} onChange={(v) => update('subpage.hero.backgroundImage', v)} />
+              <p className="text-[11px] text-muted-foreground md:col-span-2">
+                Cette image s&apos;affiche en plein écran : privilégiez une photo large et nette.
+              </p>
             </SectionEditor>
 
             {sections.map((section, i) => (
               <SectionEditor
                 key={i}
+                step={i + 2}
                 title={section.title || `Section ${i + 1}`}
                 icon={AlignLeft}
                 description={KIND_LABEL[section.kind] ?? 'Section'}

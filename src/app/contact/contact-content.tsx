@@ -17,22 +17,19 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 const defaults = {
   hero: { ...contactContent.hero, image: '' as string },
-  info: {
-    phone: siteConfig.phone,
-    email: siteConfig.email,
-    street: siteConfig.address.street,
-    postalCode: siteConfig.address.postalCode,
-    city: siteConfig.address.city,
-  },
+  booking: contactContent.booking,
+  cabinets: contactContent.cabinets,
 }
 
 export function ContactContent() {
   const { data } = useContent('contact', defaults)
   const hero = data.hero ?? defaults.hero
-  const info = data.info ?? defaults.info
+  const booking = data.booking ?? defaults.booking
+  const cabinets = data.cabinets ?? defaults.cabinets
 
-  const phone = info.phone || siteConfig.phone
-  const email = info.email || siteConfig.email
+  // Coordonnées : une seule source pour tout le site (pied de page, JSON-LD…).
+  const phone = siteConfig.phone
+  const email = siteConfig.email
   const telHref = `tel:${phone.replace(/\s+/g, '')}`
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'pending' | 'error'>('idle')
@@ -74,7 +71,7 @@ export function ContactContent() {
         description={hero.description}
         breadcrumb="Rendez-vous"
         compact
-        backgroundImage={siteImages.contactHero}
+        backgroundImage={hero.image || siteImages.contactHero}
       >
         {/* Trust row */}
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
@@ -260,7 +257,7 @@ export function ContactContent() {
                       />
                     </span>
                   </div>
-                  {contactContent.booking.map((b) => (
+                  {booking.map((b: { label: string; url: string; note?: string }) => (
                     <a
                       key={b.label}
                       href={b.url}
@@ -331,7 +328,7 @@ export function ContactContent() {
 
                   {/* Cabinets */}
                   <div className="space-y-4 border-t border-border/60 pt-5">
-                    {contactContent.cabinets.map((c) => (
+                    {cabinets.map((c: { name: string; address: string; note?: string }) => (
                       <div key={c.name} className="flex items-start gap-4 -mx-3 rounded-xl px-3 py-1">
                         <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary ring-1 ring-primary/20">
                           <MapPin className="size-4" aria-hidden />

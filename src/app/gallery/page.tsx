@@ -9,8 +9,9 @@ export const revalidate = 3600
 
 const defaultSettings = {
   enabled: true,
-  title: 'Nos réalisations',
-  description: 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.',
+  title: 'Mes cabinets en images',
+  description:
+    "Les lieux où je vous reçois, à Rennes et à Acigné, et le déroulé d'une séance d'hypnose ou de sophrologie.",
   eyebrow: 'Galerie',
 }
 

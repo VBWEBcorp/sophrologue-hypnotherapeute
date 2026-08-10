@@ -14,64 +14,27 @@ export async function POST(request: NextRequest) {
     await connectDB()
     const results: string[] = []
 
-    // ─── Gallery: 4 example photos ───
+    // ─── Galerie ───
+    // Les photos réelles sont injectées par `npm run seed-gallery` (voir
+    // scripts/seed-gallery.js) : ce sont les vraies photos des cabinets,
+    // hébergées sur Cloudflare R2. On se contente ici d'activer la page.
     const existingImages = await GalleryImage.countDocuments()
-    if (existingImages === 0) {
-      const galleryImages = [
-        {
-          title: 'Refonte site e-commerce',
-          description: 'Redesign complet d\'une boutique en ligne avec une expérience utilisateur optimisée et un tunnel de conversion performant.',
-          imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-          category: 'Web Design',
-          order: 1,
-          active: true,
-        },
-        {
-          title: 'Application mobile fitness',
-          description: 'Conception et développement d\'une application de suivi sportif avec tableau de bord personnalisé.',
-          imageUrl: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&q=80',
-          category: 'Application',
-          order: 2,
-          active: true,
-        },
-        {
-          title: 'Identité visuelle restaurant',
-          description: 'Création d\'une identité de marque complète : logo, charte graphique et supports de communication.',
-          imageUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80',
-          category: 'Branding',
-          order: 3,
-          active: true,
-        },
-        {
-          title: 'Dashboard analytique',
-          description: 'Interface de visualisation de données en temps réel pour une startup SaaS B2B.',
-          imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-          category: 'Web Design',
-          order: 4,
-          active: true,
-        },
-      ]
-
-      await GalleryImage.insertMany(galleryImages)
-      results.push('4 images galerie créées')
-
-      // Update gallery settings
-      let gallerySettings = await GallerySettings.findOne()
-      if (!gallerySettings) {
-        await GallerySettings.create({
-          enabled: true,
-          title: 'Nos réalisations',
-          description: 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.',
-          eyebrow: 'Galerie',
-        })
-      } else {
-        gallerySettings.enabled = true
-        await gallerySettings.save()
-      }
-      results.push('Galerie activée')
-    } else {
-      results.push('Galerie déjà peuplée, ignorée')
+    const gallerySettings = await GallerySettings.findOne()
+    if (!gallerySettings) {
+      await GallerySettings.create({
+        enabled: true,
+        eyebrow: 'Galerie',
+        title: 'Mes cabinets en images',
+        description:
+          "Les lieux où je vous reçois, à Rennes et à Acigné, et le déroulé d'une séance d'hypnose ou de sophrologie.",
+      })
+      results.push('Réglages galerie créés')
     }
+    results.push(
+      existingImages === 0
+        ? 'Galerie vide — lancer `npm run seed-gallery` pour importer les photos'
+        : `Galerie déjà peuplée (${existingImages} photos), ignorée`
+    )
 
     // ─── Blog: 2 example articles + categories ───
     const existingPosts = await BlogPost.countDocuments()

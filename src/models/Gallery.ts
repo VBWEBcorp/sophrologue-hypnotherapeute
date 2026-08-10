@@ -57,9 +57,9 @@ const GallerySettingsSchema = new Schema<IGallerySettings>(
     },
     title: {
       type: String,
-      default: 'Nos réalisations',
+      default: 'Mes cabinets en images',
     },
-    description: { type: String, default: 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.' },
+    description: { type: String, default: "Les lieux où je vous reçois, à Rennes et à Acigné, et le déroulé d'une séance d'hypnose ou de sophrologie." },
     eyebrow: { type: String, default: 'Galerie' },
     heroImage: String,
   },

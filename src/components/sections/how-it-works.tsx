@@ -9,24 +9,24 @@ import { howItWorksContent } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-export function HowItWorks() {
-  const { data } = useContent('how-it-works', {
-    eyebrow: howItWorksContent.eyebrow,
-    title: howItWorksContent.title,
-    description: howItWorksContent.description,
-    steps: howItWorksContent.steps,
-  })
+// Section propre à la page d'accueil : son contenu vit dans le document
+// « home », pour que l'éditeur de cette page pilote tout ce qu'elle affiche.
+const defaults = { howItWorks: howItWorksContent }
 
-  const steps = (data.steps ?? howItWorksContent.steps) as typeof howItWorksContent.steps
+export function HowItWorks() {
+  const { data } = useContent('home', defaults)
+  const content = data.howItWorks ?? howItWorksContent
+
+  const steps = (content.steps ?? howItWorksContent.steps) as typeof howItWorksContent.steps
   const reduceMotion = useReducedMotion()
 
   return (
     <section className="bg-[oklch(0.26_0.055_305)]">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionTitle
-          eyebrow={data.eyebrow ?? howItWorksContent.eyebrow}
-          title={data.title ?? howItWorksContent.title}
-          description={data.description ?? howItWorksContent.description}
+          eyebrow={content.eyebrow ?? howItWorksContent.eyebrow}
+          title={content.title ?? howItWorksContent.title}
+          description={content.description ?? howItWorksContent.description}
           tone="dark"
         />
 

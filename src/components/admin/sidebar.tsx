@@ -14,7 +14,6 @@ import {
   Briefcase,
   MapPin,
   Phone,
-  MessageSquare,
   PanelLeftClose,
   PanelLeftOpen,
   ExternalLink,
@@ -24,6 +23,7 @@ import {
   Megaphone,
   FilePen,
   ChevronDown,
+  Images,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { siteConfig } from '@/lib/seo'
@@ -33,21 +33,24 @@ const navItems = [
   { href: '/admin/dashboard', label: 'Tableau de bord', icon: LayoutDashboard },
 ]
 
+// Une entrée par page publique, dans l'ordre du menu du site. Les témoignages
+// n'ont plus d'entrée propre : ils s'éditent depuis la page d'accueil, là où
+// ils s'affichent.
 const pageEditItems = [
   { href: '/admin/pages/accueil', label: 'Accueil', icon: Home },
   { href: '/admin/pages/a-propos', label: 'À propos', icon: Users },
   { href: '/admin/pages/hypnotherapie', label: 'Hypnothérapie', icon: Brain },
   { href: '/admin/pages/seances-hypnose', label: "Séances d'hypnose", icon: Sparkles },
   { href: '/admin/pages/sophrologie', label: 'Sophrologie', icon: Leaf },
-  { href: '/admin/pages/services', label: 'Services', icon: Briefcase },
+  { href: '/admin/pages/services', label: 'Séances', icon: Briefcase },
   { href: '/admin/pages/cabinets', label: 'Mes cabinets', icon: MapPin },
   { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', icon: MapPin },
   { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", icon: MapPin },
-  { href: '/admin/pages/temoignages', label: 'Témoignages', icon: MessageSquare },
   { href: '/admin/pages/contact', label: 'Contact', icon: Phone },
 ]
 
 const moduleItems = [
+  { href: '/admin/gallery', label: 'Galerie photos', icon: Images },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/marketing', label: 'Marketing', icon: Megaphone },
 ]

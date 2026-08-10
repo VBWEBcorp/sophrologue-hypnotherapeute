@@ -53,7 +53,7 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
   }
 
   const { lead: titleLead, accent: titleAccent } = splitTitle(
-    settings.title || 'Nos réalisations'
+    settings.title || 'Mes cabinets en images'
   )
 
   return (
@@ -100,7 +100,7 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
               )}
             </h1>
             <p className="mt-5 text-lg text-white/70 leading-relaxed sm:text-xl max-w-2xl mx-auto">
-              {settings.description || 'Découvrez nos projets récents et laissez-vous inspirer par notre savoir-faire.'}
+              {settings.description || "Les lieux où je vous reçois, à Rennes et à Acigné, et le déroulé d'une séance d'hypnose ou de sophrologie."}
             </p>
           </motion.div>
         </div>

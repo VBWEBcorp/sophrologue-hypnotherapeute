@@ -15,6 +15,7 @@ const defaults = {
   title: ctaContent.title,
   description: ctaContent.description,
   button: ctaContent.button,
+  scrollImages: ctaContent.scrollImages,
 }
 
 const CARD_BG = 'oklch(0.26 0.055 305)'
@@ -86,8 +87,14 @@ export function CtaSection() {
                 className="absolute inset-0 flex origin-center gap-3 [transform:rotate(-8deg)_scale(1.35)]"
                 aria-hidden
               >
-                <MarqueeColumn images={images.ctaScrollColumns.col1} direction="up" />
-                <MarqueeColumn images={images.ctaScrollColumns.col2} direction="down" />
+                <MarqueeColumn
+                  images={cta.scrollImages?.col1 ?? images.ctaScrollColumns.col1}
+                  direction="up"
+                />
+                <MarqueeColumn
+                  images={cta.scrollImages?.col2 ?? images.ctaScrollColumns.col2}
+                  direction="down"
+                />
               </div>
 
               {/* Fondu vers la couleur de la carte : gauche (raccord avec le texte) + haut/bas */}

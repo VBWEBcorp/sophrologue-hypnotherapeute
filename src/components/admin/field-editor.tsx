@@ -1,12 +1,22 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Upload, Link as LinkIcon, X, Loader2, ImageIcon, ChevronDown } from 'lucide-react'
+import {
+  Upload,
+  Link as LinkIcon,
+  X,
+  Loader2,
+  ImageIcon,
+  Images,
+  ChevronDown,
+  ChevronUp,
+  Plus,
+  Trash2,
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/admin/toast'
-import { useSectionsExpanded } from '@/components/admin/page-editor'
 import { cn } from '@/lib/utils'
 
 interface FieldEditorProps {
@@ -50,32 +60,30 @@ interface SectionEditorProps {
   description?: string
   /** Icône affichée dans l'en-tête de la section. */
   icon?: React.ComponentType<{ className?: string }>
+  /**
+   * Rang de la section sur la page publique. Affiché en pastille pour que
+   * l'ordre de l'éditeur corresponde visiblement à celui du site.
+   */
+  step?: number
   /** Disposition des enfants : 2 colonnes (défaut) ou 1 colonne. */
   cols?: 1 | 2
   children: React.ReactNode
 }
 
-export function SectionEditor({ title, description, icon: Icon, cols = 2, children }: SectionEditorProps) {
-  const expandedAll = useSectionsExpanded()
-  const [open, setOpen] = useState(expandedAll)
-  // Se synchronise quand on actionne le toggle global (sans boucle : dépend d'un booléen stable)
-  useEffect(() => {
-    setOpen(expandedAll)
-  }, [expandedAll])
-
+/**
+ * Une section de la page, à l'intérieur de la carte unique de l'éditeur.
+ * Tout est déplié : l'éditrice fait défiler la page exactement comme le
+ * visiteur fait défiler le site.
+ */
+export function SectionEditor({ title, description, icon: Icon, step, cols = 2, children }: SectionEditorProps) {
   return (
-    <section
-      className={cn(
-        'overflow-hidden rounded-2xl border bg-card transition-all duration-200',
-        open ? 'border-border shadow-sm' : 'border-border/70 hover:border-border hover:shadow-sm'
-      )}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex w-full items-center gap-3.5 px-5 py-4 text-left transition-colors hover:bg-muted/30"
-      >
+    <section className="scroll-mt-24 border-t border-border first:border-t-0">
+      <header className="flex items-center gap-3.5 bg-muted/25 px-5 py-4">
+        {step !== undefined && (
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-[12px] font-bold tabular-nums text-primary-foreground">
+            {step}
+          </span>
+        )}
         {Icon && (
           <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <Icon className="size-[18px]" />
@@ -83,37 +91,229 @@ export function SectionEditor({ title, description, icon: Icon, cols = 2, childr
         )}
         <div className="min-w-0 flex-1">
           <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-          {description && <p className="mt-0.5 truncate text-xs text-muted-foreground">{description}</p>}
+          {description && <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>}
         </div>
-        <ChevronDown
-          className={cn(
-            'size-4 shrink-0 text-muted-foreground/60 transition-transform duration-200',
-            open && 'rotate-180'
-          )}
-        />
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="content"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div
-              className={cn(
-                'grid grid-cols-1 gap-x-5 gap-y-4 border-t border-border/60 p-5',
-                cols === 2 && 'md:grid-cols-2'
-              )}
-            >
-              {children}
-            </div>
-          </motion.div>
+      </header>
+
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-x-5 gap-y-4 border-t border-border/50 p-5',
+          cols === 2 && 'md:grid-cols-2'
         )}
-      </AnimatePresence>
+      >
+        {children}
+      </div>
     </section>
+  )
+}
+
+interface RepeatableListProps<T> {
+  /** Éléments actuels ; undefined est traité comme une liste vide. */
+  items: T[] | undefined
+  onChange: (next: T[]) => void
+  /** Intitulé d'un élément, ex. « Accompagnement » → « Accompagnement 2 ». */
+  itemLabel: string
+  /** Élément neuf, créé au clic sur « Ajouter ». Omis = pas de bouton d'ajout. */
+  newItem?: () => T
+  addLabel?: string
+  /** Masque les flèches de réordonnancement quand l'ordre n'a pas de sens. */
+  sortable?: boolean
+  /** `patch` fusionne des champs dans l'élément ; `replace` le remplace entier. */
+  renderItem: (item: T, index: number, patch: (changes: Partial<T>) => void) => React.ReactNode
+}
+
+/**
+ * Liste d'éléments répétables : ajout, suppression, déplacement.
+ * Utilisée partout où le site affiche une série de blocs identiques
+ * (accompagnements, étapes, questions, avis, horaires…).
+ */
+export function RepeatableList<T>({
+  items,
+  onChange,
+  itemLabel,
+  newItem,
+  addLabel,
+  sortable = true,
+  renderItem,
+}: RepeatableListProps<T>) {
+  const list = items ?? []
+
+  const move = (index: number, direction: -1 | 1) => {
+    const next = [...list]
+    const target = index + direction
+    if (target < 0 || target >= next.length) return
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
+
+  return (
+    <div className="space-y-3 md:col-span-2">
+      {list.map((item, index) => (
+        <div key={index} className="rounded-xl border border-border/50 bg-muted/20 p-3.5">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              {itemLabel} {index + 1}
+            </span>
+            <div className="flex items-center gap-0.5">
+              {sortable && (
+                <>
+                  <button
+                    type="button"
+                    title="Monter"
+                    disabled={index === 0}
+                    onClick={() => move(index, -1)}
+                    className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-card hover:text-foreground disabled:opacity-30"
+                  >
+                    <ChevronUp className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    title="Descendre"
+                    disabled={index === list.length - 1}
+                    onClick={() => move(index, 1)}
+                    className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-card hover:text-foreground disabled:opacity-30"
+                  >
+                    <ChevronDown className="size-4" />
+                  </button>
+                </>
+              )}
+              <button
+                type="button"
+                title="Supprimer"
+                onClick={() => onChange(list.filter((_, i) => i !== index))}
+                className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600"
+              >
+                <Trash2 className="size-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
+            {renderItem(item, index, (changes) =>
+              onChange(list.map((it, i) => (i === index ? { ...it, ...changes } : it)))
+            )}
+          </div>
+        </div>
+      ))}
+
+      {newItem && (
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full gap-2"
+          onClick={() => onChange([...list, newItem()])}
+        >
+          <Plus className="size-4" />
+          {addLabel ?? `Ajouter ${itemLabel.toLowerCase()}`}
+        </Button>
+      )}
+    </div>
+  )
+}
+
+interface GalleryPhoto {
+  _id: string
+  title: string
+  imageUrl: string
+  category?: string
+  active?: boolean
+}
+
+/**
+ * Sélecteur de photo puisant dans la galerie (rubrique « Galerie photos »).
+ * Évite de re-téléverser une photo déjà présente sur le site.
+ */
+function GalleryPicker({
+  onPick,
+  onClose,
+}: {
+  onPick: (url: string) => void
+  onClose: () => void
+}) {
+  const [photos, setPhotos] = useState<GalleryPhoto[] | null>(null)
+  const [failed, setFailed] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken')
+    // Vue admin (photos masquées comprises) ; repli sur le flux public.
+    fetch('/api/gallery/images?all=1', { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => (response.ok ? response : fetch('/api/gallery/images')))
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data) => setPhotos(Array.isArray(data) ? data : []))
+      .catch(() => setFailed(true))
+  }, [])
+
+  return (
+    <div className="fixed inset-0 z-[160] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative flex max-h-[80vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+        <div className="flex items-center justify-between gap-4 border-b border-border/60 px-5 py-4">
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">Choisir dans la galerie</h3>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {photos ? `${photos.length} photo${photos.length > 1 ? 's' : ''} disponible${photos.length > 1 ? 's' : ''}` : 'Chargement…'}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Fermer"
+            className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5">
+          {failed && (
+            <p className="py-10 text-center text-sm text-muted-foreground">
+              Impossible de charger la galerie. Réessayez dans un instant.
+            </p>
+          )}
+          {!failed && !photos && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="aspect-[4/3] animate-pulse rounded-xl bg-muted" />
+              ))}
+            </div>
+          )}
+          {photos && photos.length === 0 && (
+            <p className="py-10 text-center text-sm text-muted-foreground">
+              Aucune photo dans la galerie pour l&apos;instant.
+            </p>
+          )}
+          {photos && photos.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {photos.map((photo) => (
+                <button
+                  key={photo._id}
+                  type="button"
+                  onClick={() => {
+                    onPick(photo.imageUrl)
+                    onClose()
+                  }}
+                  title={photo.title}
+                  className="group overflow-hidden rounded-xl border border-border/60 text-left transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+                >
+                  <div className="relative aspect-[4/3] bg-muted">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={photo.imageUrl} alt={photo.title} className="size-full object-cover" />
+                    {photo.active === false && (
+                      <span className="absolute left-1.5 top-1.5 rounded bg-zinc-900/80 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-white">
+                        Masquée
+                      </span>
+                    )}
+                  </div>
+                  <p className="line-clamp-2 px-2.5 py-2 text-[11px] leading-snug text-foreground">
+                    {photo.title}
+                  </p>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -131,6 +331,7 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const [uploadInfo, setUploadInfo] = useState<string | null>(null)
+  const [pickerOpen, setPickerOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleUpload = async (file: File) => {
@@ -179,9 +380,19 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
 
   return (
     <div className="space-y-2 md:col-span-2">
-      <div className={cn('flex items-center', label ? 'justify-between' : 'justify-end')}>
+      <div className={cn('flex flex-wrap items-center gap-2', label ? 'justify-between' : 'justify-end')}>
         {label && <Label className="text-[13px] font-medium text-foreground/80">{label}</Label>}
-        <div className="flex gap-1 rounded-lg bg-muted/60 p-0.5">
+        <div className="flex items-center gap-2">
+          {/* Piocher une photo déjà présente dans la galerie du site */}
+          <button
+            type="button"
+            onClick={() => setPickerOpen(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+          >
+            <Images className="size-3.5 text-primary" />
+            Choisir dans la galerie
+          </button>
+          <div className="flex gap-1 rounded-lg bg-muted/60 p-0.5">
           <button
             type="button"
             onClick={() => setMode('upload')}
@@ -208,8 +419,20 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
             <LinkIcon className="size-3" />
             Lien
           </button>
+          </div>
         </div>
       </div>
+
+      {pickerOpen && (
+        <GalleryPicker
+          onPick={(url) => {
+            onChange(url)
+            setUploadInfo(null)
+            toast.success('Photo choisie dans la galerie')
+          }}
+          onClose={() => setPickerOpen(false)}
+        />
+      )}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
         {/* Preview */}
@@ -274,7 +497,7 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
                 ) : (
                   <>
                     <Upload className="size-5 text-muted-foreground" />
-                    <span className="text-xs font-medium text-foreground">Cliquez ou glissez une image</span>
+                    <span className="text-xs font-medium text-foreground">Cliquez ou glissez une photo</span>
                     <span className="text-[11px] text-muted-foreground/70">JPG, PNG, WebP, GIF · max 10 Mo</span>
                   </>
                 )}

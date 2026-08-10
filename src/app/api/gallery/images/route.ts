@@ -1,19 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { connectDB } from '@/lib/db'
 import { GalleryImage } from '@/models/Gallery'
 import { verifyAuth } from '@/lib/auth'
 
-// GET all gallery images (public - only active)
-export async function GET() {
+// GET gallery images.
+// Par défaut : uniquement les images actives (public, mis en cache).
+// Avec ?all=1 : toutes les images, y compris celles masquées — réservé à
+// l'admin, qui a besoin de voir et de réactiver ce qui est caché du site.
+export async function GET(request: NextRequest) {
   try {
+    const includeHidden = new URL(request.url).searchParams.get('all') === '1'
+
+    if (includeHidden) {
+      const { authenticated, user } = await verifyAuth(request)
+      if (!authenticated || user?.role !== 'admin') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+    }
+
     await connectDB()
-    const images = await GalleryImage.find({ active: true })
+    const images = await GalleryImage.find(includeHidden ? {} : { active: true })
       .sort({ order: 1 })
       .lean()
+
     return NextResponse.json(images, {
-      headers: {
-        'Cache-Control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',
-      },
+      headers: includeHidden
+        ? { 'Cache-Control': 'no-store' }
+        : { 'Cache-Control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600' },
     })
   } catch (error) {
     console.error('Gallery images error:', error)
@@ -46,6 +60,10 @@ export async function POST(request: NextRequest) {
       category: category || 'general',
       order: order || 0,
     })
+
+    // La page /gallery est mise en cache : sans cela, une photo ajoutée
+    // depuis l'admin pourrait mettre jusqu'à une heure à s'afficher.
+    revalidatePath('/gallery')
 
     return NextResponse.json(image, { status: 201 })
   } catch (error) {

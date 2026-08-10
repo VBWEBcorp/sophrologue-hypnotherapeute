@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { connectDB } from '@/lib/db'
 import { GalleryImage } from '@/models/Gallery'
 import { verifyAuth } from '@/lib/auth'
@@ -43,17 +44,31 @@ export async function PUT(request: NextRequest, { params }: { params: Params }) 
       return NextResponse.json({ error: 'Invalid ID' }, { status: 400 })
     }
 
-    const { title, description, imageUrl, category, order, active } = await request.json()
+    const body = await request.json()
 
-    const image = await GalleryImage.findByIdAndUpdate(
-      id,
-      { title, description, imageUrl, category, order, active },
-      { new: true, runValidators: true }
-    )
+    // Mise à jour partielle : on ne touche qu'aux champs réellement envoyés.
+    // (Ne pas s'en remettre au fait que Mongoose ignore les `undefined` : une
+    // montée de version effacerait silencieusement les autres champs.)
+    const updatable = ['title', 'description', 'imageUrl', 'category', 'order', 'active'] as const
+    const update: Record<string, unknown> = {}
+    for (const field of updatable) {
+      if (body[field] !== undefined) update[field] = body[field]
+    }
+
+    if (Object.keys(update).length === 0) {
+      return NextResponse.json({ error: 'Nothing to update' }, { status: 400 })
+    }
+
+    const image = await GalleryImage.findByIdAndUpdate(id, update, {
+      new: true,
+      runValidators: true,
+    })
 
     if (!image) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 })
     }
+
+    revalidatePath('/gallery')
 
     return NextResponse.json(image)
   } catch (error) {
@@ -82,6 +97,8 @@ export async function DELETE(request: NextRequest, { params }: { params: Params 
     if (!image) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 })
     }
+
+    revalidatePath('/gallery')
 
     return NextResponse.json({ message: 'Image deleted' })
   } catch (error) {

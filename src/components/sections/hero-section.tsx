@@ -1,9 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, CalendarCheck, Phone, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { useContent } from '@/hooks/use-content'
 import { siteConfig } from '@/lib/seo'
@@ -11,10 +12,8 @@ import { heroContent as defaults } from '@/lib/site-content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-// Image de fond plein écran du hero : nature apaisante (rayons de soleil en
-// forêt), même univers que le reste du site et que l'ancien héro forêt.
-const HERO_BG =
-  'https://images.unsplash.com/photo-1530563937443-1f02f662fa5c?auto=format&fit=crop&w=2000&q=80'
+/** Durée d'affichage de chaque photo du diaporama, en millisecondes. */
+const SLIDE_DURATION = 6000
 
 function splitTitle(title: string): { lead: string; accent: string } {
   const words = title.trim().split(/\s+/)
@@ -32,13 +31,48 @@ export function HeroSection() {
   const { lead, accent } = splitTitle(hero.title)
   const telHref = `tel:${siteConfig.phone.replace(/\s+/g, '')}`
 
+  // Diaporama de fond, alimenté par « Photos du diaporama » dans l'admin.
+  const slides: string[] = (hero.images ?? defaults.images).filter(Boolean)
+  const [slide, setSlide] = useState(0)
+  const reduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (slides.length < 2 || reduceMotion) return
+    const timer = setInterval(
+      () => setSlide((current) => (current + 1) % slides.length),
+      SLIDE_DURATION
+    )
+    return () => clearInterval(timer)
+  }, [slides.length, reduceMotion])
+
+  // Si l'éditrice retire des photos, l'index courant peut dépasser la liste.
+  const activeSlide = slides[slide] ? slide : 0
+
   return (
     <section className="px-3 pt-20 sm:px-4 sm:pt-24">
       {/* Carte hero arrondie, plein cadre (inspiration : hero encadré) */}
       <div className="relative isolate overflow-hidden rounded-[1.75rem] sm:rounded-[2.25rem]">
-        {/* Image de fond */}
+        {/* Diaporama de fond — les photos viennent de l'admin (Accueil §1) */}
         <div className="absolute inset-0 -z-20" aria-hidden>
-          <Image src={HERO_BG} alt="" fill sizes="100vw" priority className="object-cover" />
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={slides[activeSlide]}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.1, ease }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={slides[activeSlide]}
+                alt=""
+                fill
+                sizes="100vw"
+                priority={activeSlide === 0}
+                className="object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
         {/* Voile sombre + dégradé pour la lisibilité */}
         <div
@@ -97,7 +131,7 @@ export function HeroSection() {
                   className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-medium text-primary-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <Phone className="size-4" aria-hidden />
-                  Appeler&nbsp;: {siteConfig.phone}
+                  {hero.button1}&nbsp;: {siteConfig.phone}
                 </a>
                 {/* CTA secondaire : contour clair */}
                 <Link

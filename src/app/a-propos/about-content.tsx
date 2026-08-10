@@ -26,7 +26,13 @@ function splitTitle(title: string): { lead: string; accent: string } {
   }
 }
 
-function AboutHero({ hero }: { hero: typeof defaults.hero }) {
+function AboutHero({
+  hero,
+  stats,
+}: {
+  hero: typeof defaults.hero
+  stats: { value: string; label: string }[]
+}) {
   const { lead, accent } = splitTitle(hero.title)
 
   return (
@@ -85,9 +91,9 @@ function AboutHero({ hero }: { hero: typeof defaults.hero }) {
 
             {/* Stats — panneau unifié avec séparateurs */}
             <div className="mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm sm:grid-cols-4">
-              {defaults.stats.map((s, i) => (
+              {stats.map((s, i) => (
                 <motion.div
-                  key={s.label}
+                  key={`${s.label}-${i}`}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease }}
@@ -285,14 +291,62 @@ function ValuesTimeline({ values }: { values: any[] }) {
   )
 }
 
+/**
+ * Bandeau de 4 visuels, alimenté par le champ « Galerie photos » de
+ * /admin/pages/a-propos. Sans photo renseignée, la section ne s'affiche pas.
+ */
+function AboutGallery({ gallery }: { gallery: string[] }) {
+  const items = gallery.filter(Boolean)
+  if (items.length === 0) return null
+
+  return (
+    <section className="border-b border-border/60 bg-[oklch(0.985_0.006_85)] dark:bg-[oklch(0.225_0.028_305)]">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {items.map((src, i) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, ease, delay: (i % 4) * 0.06 }}
+              className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border/70"
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 280px, 45vw"
+                loading="lazy"
+                className="object-cover transition-transform duration-500 hover:scale-[1.04]"
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/gallery"
+            className="text-sm font-medium text-primary underline-offset-4 transition-colors hover:underline"
+          >
+            Voir toutes les photos
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function AboutContent() {
   const { data } = useContent('about', defaults)
   const hero = data.hero ?? defaults.hero
+  const stats = data.stats ?? defaults.stats
   const values = data.values ?? defaults.values
+  const gallery = data.gallery ?? defaults.gallery
 
   return (
     <>
-      <AboutHero hero={hero} />
+      <AboutHero hero={hero} stats={stats} />
 
       <section className="border-b border-border/60 bg-background">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -300,6 +354,8 @@ export function AboutContent() {
           <ValuesTimeline values={values} />
         </div>
       </section>
+
+      <AboutGallery gallery={gallery} />
 
       <CtaSection />
     </>

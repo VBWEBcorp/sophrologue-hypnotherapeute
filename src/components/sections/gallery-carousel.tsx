@@ -18,7 +18,30 @@ const CARD_WIDTH = 340
 export function GalleryCarousel() {
   const { data } = useContent('home', { gallery: defaults })
   const gallery = data.gallery ?? defaults
-  const images = gallery.images ?? defaultImages
+
+  // Le carrousel reflète la galerie gérée dans l'admin (« Galerie photos »).
+  // Tant qu'elle est vide — ou si l'appel échoue — on garde les visuels par
+  // défaut de site-content.ts.
+  const [galleryImages, setGalleryImages] = useState<string[] | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/gallery/images')
+      .then((response) => (response.ok ? response.json() : []))
+      .then((docs: { imageUrl?: string }[]) => {
+        if (cancelled || !Array.isArray(docs)) return
+        const urls = docs.map((doc) => doc.imageUrl).filter((url): url is string => Boolean(url))
+        if (urls.length > 0) setGalleryImages(urls)
+      })
+      .catch(() => {
+        /* repli silencieux sur les images par défaut */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const images = galleryImages ?? gallery.images ?? defaultImages
 
   const trackRef = useRef<HTMLDivElement>(null)
   const [maxScroll, setMaxScroll] = useState(0)
@@ -33,7 +56,8 @@ export function GalleryCarousel() {
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
-  }, [])
+    // Re-mesure quand le nombre d'images change (galerie chargée depuis l'API).
+  }, [images.length])
 
   const slide = useCallback(
     (dir: -1 | 1) => {

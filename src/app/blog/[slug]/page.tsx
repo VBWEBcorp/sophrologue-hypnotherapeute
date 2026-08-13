@@ -120,11 +120,14 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       keywords: post.tags?.join(', '),
     }
 
-    return (
+    // JSON-LD de PHARE s il existe (stocke tel quel), sinon celui genere.
+  const articleLd = ((post as any).jsonLd || JSON.stringify(jsonLd)).replace(/</g, '\\u003c')
+
+  return (
       <>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: articleLd }}
         />
         <BlogPostContent slug={slug} initialPost={initialPost} />
       </>

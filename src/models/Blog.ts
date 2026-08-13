@@ -13,6 +13,11 @@ export interface IBlogPost extends Document {
   publishedAt?: Date
   metaTitle?: string
   metaDescription?: string
+  // Champs alimentes par le webhook PHARE.
+  coverImageAlt?: string
+  markdown?: string
+  jsonLd?: string
+  source?: string
   notifyOnPublish: boolean
   newsletterSentAt?: Date
   createdAt: Date
@@ -43,6 +48,10 @@ const BlogPostSchema = new Schema<IBlogPost>(
     publishedAt: { type: Date },
     metaTitle: String,
     metaDescription: String,
+    coverImageAlt: { type: String, default: '' },
+    markdown: String,
+    jsonLd: String,
+    source: String,
     // Prévenir les abonnés newsletter à la première mise en ligne
     notifyOnPublish: { type: Boolean, default: true },
     // Horodatage de l'envoi (garde-fou : on n'envoie qu'une fois par article)

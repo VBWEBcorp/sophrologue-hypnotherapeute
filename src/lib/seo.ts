@@ -1,13 +1,26 @@
 export const siteConfig = {
   name: 'Véronique Jan',
-  url: 'https://www.sophrologue-hypnotherapeute-jan.fr',
+  /**
+   * ⚠️ Domaine SANS www : c'est l'hôte réellement servi, `www` ne fait que le
+   * rediriger en 301. Toute URL construite ici (canonical, sitemap, OG,
+   * JSON-LD) doit désigner l'hôte final, sinon chaque signal envoyé à Google
+   * transite par une redirection et le site se cite lui-même sous deux noms.
+   */
+  url: 'https://sophrologue-hypnotherapeute-jan.fr',
   locale: 'fr_FR',
   description:
     "Véronique Jan, hypnothérapeute (hypnose Ericksonienne) et sophrologue à Rennes et Acigné depuis 20 ans. Accompagnement du stress, de l'anxiété, de la dépression, du sommeil, des phobies, de la douleur et arrêt du tabac.",
-  ogImage: 'https://www.sophrologue-hypnotherapeute-jan.fr/og.png',
+  ogImage: 'https://sophrologue-hypnotherapeute-jan.fr/og.png',
   twitterHandle: '@veroniquejan',
   themeColor: '#2c2438',
+  /** Numéro affiché — format identique à celui des fiches Google et de RESALIB. */
   phone: '06 15 62 17 23',
+  /**
+   * Même numéro au format international. Réservé aux liens `tel:` et aux
+   * champs `telephone` du JSON-LD : c'est la forme que Google rapproche du
+   * numéro de la fiche.
+   */
+  phoneE164: '+33615621723',
   email: 'vjso@hotmail.fr',
   /** Installée en octobre 2006. `since` sert à calculer l'ancienneté affichée. */
   since: 2006,
@@ -55,10 +68,12 @@ export const cabinets = [
     postalCode: '35000',
     country: 'FR',
     district: 'Atalante Champeaux',
-    // TODO(Victor) : coller l'URL courte de la fiche Google « Rennes ».
-    // Elle alimente le `sameAs` du LocalBusiness, qui est le lien explicite
-    // entre cette page et la fiche — c'est le cœur de l'alignement site ↔ fiche.
-    googleUrl: null as string | null,
+    // Fiche Google « Hypnose Rennes - Véronique Jan », désignée par son
+    // place_id. Elle alimente le `sameAs` du LocalBusiness, qui est le lien
+    // explicite entre cette page et la fiche — le cœur de l'alignement
+    // site ↔ fiche. Un place_id ne change pas, contrairement à une URL courte.
+    googleUrl:
+      'https://www.google.com/maps/place/?q=place_id:ChIJoZG3J43gDkgRXzO37vOCxgM' as string | null,
     href: '/cabinets/rennes',
     bookingUrl: siteConfig.booking.resalib,
     bookingLabel: 'Réserver sur RESALIB',
@@ -82,8 +97,9 @@ export const cabinets = [
     postalCode: '35690',
     country: 'FR',
     district: null,
-    // TODO(Victor) : coller l'URL courte de la fiche Google « Acigné ».
-    googleUrl: null as string | null,
+    // Fiche Google « Hypnose Acigné - Véronique Jan ».
+    googleUrl:
+      'https://www.google.com/maps/place/?q=place_id:ChIJZet4XujZDkgRMy0M9N0z7XM' as string | null,
     href: '/cabinets/acigne',
     bookingUrl: siteConfig.booking.medoucine,
     bookingLabel: 'Réserver sur MEDOUCINE',
@@ -134,9 +150,12 @@ export const legalConfig = {
   siret: '492 218 268 00018',
   apeCode: '86.90F — Activités de santé humaine non classées ailleurs',
   vatNumber: '', // Vide → « Non assujettie à la TVA (art. 293 B du CGI) » (à confirmer)
-  // Adresse professionnelle enregistrée (SIRET). Distincte de l'affichage
-  // cabinet « 2 Rue du Calvaire » : ici c'est l'adresse officielle « 2 A ».
-  editorAddress: '2 A Rue du Calvaire, 35690 Acigné',
+  // Adresse professionnelle enregistrée. Vérifiée au répertoire Sirene
+  // (SIRET 492 218 268 00018) : « 2 RUE DU CALVAIRE 35690 ACIGNE », sans le
+  // « A » qui figurait ici. Doit rester mot pour mot l'adresse du cabinet
+  // affichée ailleurs sur le site et sur la fiche Google — deux libellés pour
+  // une seule adresse, c'est exactement ce qui casse la cohérence NAP.
+  editorAddress: '2 Rue du Calvaire, 35690 Acigné',
   publicationDirector: 'Véronique Jan',
   // Tribunal compétent + médiateur de la consommation (communiqué sur demande,
   // formulation reprise de ses mentions légales actuelles).
@@ -152,7 +171,7 @@ export const legalConfig = {
   agency: 'VBWEB',
   agencyUrl: 'https://www.vbweb.fr',
   // Date de dernière mise à jour des documents légaux (format FR).
-  lastUpdated: '20/07/2026',
+  lastUpdated: '03/09/2026',
 } as const
 
 export type SeoMeta = {

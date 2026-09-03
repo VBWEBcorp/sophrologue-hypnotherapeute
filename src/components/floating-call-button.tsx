@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/seo'
 export function FloatingCallButton() {
   return (
     <a
-      href={`tel:${siteConfig.phone.replace(/\s+/g, '')}`}
+      href={`tel:${siteConfig.phoneE164}`}
       aria-label="Appeler Véronique Jan"
       className="group fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/20 active:scale-95 sm:size-13"
     >

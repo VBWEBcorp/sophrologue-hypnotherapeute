@@ -10,6 +10,7 @@ import { ArrowRight, Lock, Mail, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { nature } from '@/lib/photos'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -54,7 +55,7 @@ export default function AdminLoginPage() {
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="https://images.unsplash.com/photo-1502252430442-aac78f397426?auto=format&fit=crop&w=1920&q=75"
+          src={nature.pinsBrume}
           alt=""
           fill
           sizes="100vw"

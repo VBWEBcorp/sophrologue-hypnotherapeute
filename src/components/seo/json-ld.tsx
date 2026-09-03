@@ -1,5 +1,20 @@
 import { accessibility, cabinets, siteConfig } from '@/lib/seo'
 
+/**
+ * Toutes les pages où l'activité est référencée sous le même nom : les deux
+ * fiches Google d'abord, puis les réseaux. C'est ce faisceau qui permet à
+ * Google de rattacher le site aux fiches plutôt que de les traiter à part.
+ */
+function profileUrls() {
+  return [
+    ...cabinets.map((c) => c.googleUrl),
+    siteConfig.social.facebook,
+    siteConfig.social.linkedin,
+    siteConfig.booking.resalib,
+    siteConfig.booking.medoucine,
+  ].filter((url): url is string => Boolean(url))
+}
+
 /** Horaires siteConfig → format schema.org (OpeningHoursSpecification). */
 const DAY_MAP: Record<string, string[]> = {
   'Lundi – Vendredi': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
@@ -23,14 +38,14 @@ export function organizationJsonLd() {
     '@type': 'Organization',
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/favicon.svg`,
+    logo: `${siteConfig.url}/icon.png`,
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: siteConfig.phone,
+      telephone: siteConfig.phoneE164,
       contactType: 'customer service',
       availableLanguage: 'French',
     },
-    sameAs: [siteConfig.social.facebook, siteConfig.social.linkedin],
+    sameAs: profileUrls(),
   }
 }
 
@@ -59,7 +74,7 @@ export function cabinetJsonLd(cabinetId: 'rennes' | 'acigne') {
     '@id': `${siteConfig.url}${cabinet.href}#business`,
     name: `${siteConfig.name} — Hypnothérapeute à ${cabinet.city}`,
     url: `${siteConfig.url}${cabinet.href}`,
-    telephone: siteConfig.phone,
+    telephone: siteConfig.phoneE164,
     email: siteConfig.email,
     image: siteConfig.ogImage,
     priceRange: '45–65 €',
@@ -75,7 +90,10 @@ export function cabinetJsonLd(cabinetId: 'rennes' | 'acigne') {
     openingHoursSpecification: openingHoursSpec(),
     // Les communes citées dans la description de la fiche Google correspondante.
     areaServed: cabinet.areaServed.map((name) => ({ '@type': 'City', name })),
-    // Accès PMR — équivalent de l'attribut « accès en fauteuil roulant » de la fiche.
+    // Accès PMR — équivalent de l'attribut « accès en fauteuil roulant » de la
+    // fiche. Volontairement SANS `isAccessibleForFree` : cette propriété
+    // signifie « l'accès au lieu est gratuit », pas « accessible en fauteuil ».
+    // Sur une activité payante, elle envoie un signal faux.
     ...(accessibility.wheelchair
       ? {
           amenityFeature: {
@@ -83,7 +101,6 @@ export function cabinetJsonLd(cabinetId: 'rennes' | 'acigne') {
             name: 'Accès en fauteuil roulant',
             value: true,
           },
-          isAccessibleForFree: true,
         }
       : {}),
     knowsLanguage: 'fr-FR',
@@ -103,7 +120,7 @@ export function practitionerJsonLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     jobTitle: 'Hypnothérapeute et sophrologue',
-    telephone: siteConfig.phone,
+    telephone: siteConfig.phoneE164,
     email: siteConfig.email,
     image: siteConfig.ogImage,
     knowsAbout: [
@@ -136,7 +153,7 @@ export function practitionerJsonLd() {
     areaServed: cabinets.flatMap((c) =>
       c.areaServed.map((name) => ({ '@type': 'City', name }))
     ),
-    sameAs: [siteConfig.social.facebook, siteConfig.social.linkedin],
+    sameAs: profileUrls(),
   }
 }
 

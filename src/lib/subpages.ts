@@ -5,7 +5,7 @@
  * Les mises en page diffèrent d'une page à l'autre (split, timeline, encart…).
  */
 
-import { photos } from '@/lib/photos'
+import { nature, photos } from '@/lib/photos'
 import { siteConfig } from '@/lib/seo'
 
 export const MEDOUCINE_URL = siteConfig.booking.medoucine
@@ -74,14 +74,11 @@ export type Subpage = {
   sections: SubpageSection[]
 }
 
-const u = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`
-
-// Fonds de bannière : nature apaisante (identifiants Unsplash vérifiés, sans
-// personne ni yoga). Ils restent en Unsplash parce qu'ils s'affichent en plein
-// écran (1920 px) — les photos des cabinets font 850 px de large et seraient
-// floues à cette taille. Les illustrations des sections, elles, utilisent les
-// vraies photos (voir `photos.ts`).
+// Fonds de bannière : nature apaisante. Ils restent des paysages parce qu'ils
+// s'affichent en plein écran (1920 px) — les photos des cabinets font 850 px de
+// large et seraient floues à cette taille. Les illustrations des sections, elles,
+// utilisent les vraies photos. Les deux jeux sont servis par le bucket R2
+// (voir `photos.ts`).
 
 export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ HYPNOTHÉRAPIE ════════════════════════════
@@ -96,7 +93,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "Une thérapie brève et certifiée qui mobilise vos ressources conscientes et inconscientes pour activer vos capacités de changement.",
       breadcrumb: 'Hypnothérapie',
-      backgroundImage: u('1530563937443-1f02f662fa5c'),
+      backgroundImage: nature.rayonsSoleilForet,
     },
     sections: [
       {
@@ -157,7 +154,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "De l'entretien initial au travail en état d'hypnose : voici comment se passe concrètement une séance.",
       breadcrumb: "Séances d'hypnose",
-      backgroundImage: u('1502252430442-aac78f397426'),
+      backgroundImage: nature.pinsBrume,
     },
     sections: [
       {
@@ -198,7 +195,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "Une méthode douce de relaxation du corps et de l'esprit, que vous apprenez à pratiquer en autonomie au quotidien.",
       breadcrumb: 'Sophrologie',
-      backgroundImage: u('1561765781-f7de2b8c56a5'),
+      backgroundImage: nature.brumeSurLac,
     },
     sections: [
       {
@@ -273,7 +270,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "Deux lieux pour vous accueillir, ainsi que des visites à domicile dans un rayon de 20 km et des consultations en visio pour les patients suivis.",
       breadcrumb: 'Mes cabinets',
-      backgroundImage: u('1581713872605-b9dfbc84eaa4'),
+      backgroundImage: nature.nuagesAuDessusLac,
     },
     sections: [
       {
@@ -326,7 +323,7 @@ export const subpages: Record<string, Subpage> = {
       description:
         "Je vous reçois au cœur de Rennes, au sein du centre médical SPORMED.",
       breadcrumb: 'Rennes',
-      backgroundImage: u('1503435980610-a51f3ddfee50'),
+      backgroundImage: nature.foretVueDuCiel,
     },
     sections: [
       {
@@ -346,7 +343,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Prendre rendez-vous à Rennes',
         items: [
           { iconName: 'CalendarCheck', title: 'Réserver sur RESALIB', desc: 'Prise de rendez-vous en ligne pour le cabinet de Rennes.', href: RESALIB_URL, external: true },
-          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: 'tel:0615621723' },
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'Globe', title: 'Centre médical SPORMED', desc: 'Découvrir le centre médical qui accueille le cabinet.', href: SPORMED_URL, external: true },
         ],
       },
@@ -373,7 +370,7 @@ export const subpages: Record<string, Subpage> = {
       title: "Cabinet d'Acigné",
       description: "Mon cabinet principal à Acigné, partagé avec Xavier Jan, ostéopathe.",
       breadcrumb: 'Acigné',
-      backgroundImage: u('1542273917363-3b1817f69a2d'),
+      backgroundImage: nature.arbresVertsVueDuCiel,
     },
     sections: [
       {
@@ -393,7 +390,7 @@ export const subpages: Record<string, Subpage> = {
         eyebrow: 'Infos pratiques',
         title: "Prendre rendez-vous à Acigné",
         items: [
-          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: 'tel:0615621723' },
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'CalendarCheck', title: 'Réserver sur MEDOUCINE', desc: 'Prise de rendez-vous en ligne pour le cabinet d’Acigné.', href: MEDOUCINE_URL, external: true },
           { iconName: 'Home', title: 'À domicile', desc: 'Visites possibles dans un rayon de 20 km autour d’Acigné.' },
         ],

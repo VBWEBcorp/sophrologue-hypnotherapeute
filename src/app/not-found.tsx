@@ -2,11 +2,11 @@ import { ArrowRight, Home, Phone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { nature } from '@/lib/photos'
 import { siteConfig } from '@/lib/seo'
 
 // Fond nature apaisante (brume sur le lac) — même univers que le reste du site.
-const BG =
-  'https://images.unsplash.com/photo-1561765781-f7de2b8c56a5?auto=format&fit=crop&w=2000&q=80'
+const BG = nature.brumeSurLac
 
 const quickLinks = [
   { label: 'Hypnothérapie', href: '/hypnotherapie' },
@@ -15,7 +15,7 @@ const quickLinks = [
 ]
 
 export default function NotFound() {
-  const telHref = `tel:${siteConfig.phone.replace(/\s+/g, '')}`
+  const telHref = `tel:${siteConfig.phoneE164}`
 
   return (
     <section className="relative isolate flex min-h-[85vh] items-center overflow-hidden px-4 py-24 sm:px-6">

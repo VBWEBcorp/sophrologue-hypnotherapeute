@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
+import { photos } from '@/lib/photos'
 import { siteConfig } from '@/lib/seo'
 
 type LogoProps = {
@@ -21,7 +22,7 @@ export function Logo({ className }: LogoProps) {
       {/* Avatar rond — photo de Véronique */}
       <span className="relative inline-flex size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-primary/25 shadow-[var(--shadow-xs)] transition-transform duration-300 group-hover:scale-[1.04]">
         <Image
-          src="/photos/veronique-jan.png"
+          src={photos.portrait}
           alt={siteConfig.name}
           fill
           sizes="36px"

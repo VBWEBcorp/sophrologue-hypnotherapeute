@@ -29,10 +29,13 @@ export function HeroSection() {
   const { data } = useContent('home', { hero: defaults })
   const hero = data.hero ?? defaults
   const { lead, accent } = splitTitle(hero.title)
-  const telHref = `tel:${siteConfig.phone.replace(/\s+/g, '')}`
+  const telHref = `tel:${siteConfig.phoneE164}`
 
   // Diaporama de fond, alimenté par « Photos du diaporama » dans l'admin.
-  const slides: string[] = (hero.images ?? defaults.images).filter(Boolean)
+  // Si l'éditrice vide la liste, on retombe sur les visuels d'origine : sans
+  // cela, <Image> recevrait une source indéfinie et la page planterait.
+  const picked: string[] = (hero.images ?? []).filter(Boolean)
+  const slides: string[] = picked.length > 0 ? picked : defaults.images.filter(Boolean)
   const [slide, setSlide] = useState(0)
   const reduceMotion = useReducedMotion()
 

@@ -17,6 +17,9 @@ export const PHOTOS_BASE_URL = 'https://pub-d327bf72362742fe8ea53cc5d670285f.r2.
 const p = (name: string) => `${PHOTOS_BASE_URL}/${name}.webp`
 
 export const photos = {
+  // ── Praticienne ────────────────────────────────────────────────────────────
+  portrait: p('veronique-jan-portrait'),
+
   // ── Cabinet d'Acigné ───────────────────────────────────────────────────────
   acigneFacade: p('cabinet-hypnose-acigne-facade'),
   acigneAccesRue: p('cabinet-hypnose-acigne-acces-rue'),
@@ -33,6 +36,7 @@ export const photos = {
   hallRennes: p('hall-accueil-centre-rennes'),
 
   // ── Séances ────────────────────────────────────────────────────────────────
+  seanceHypnose: p('seance-hypnose-veronique-jan'),
   seanceTable: p('seance-hypnose-table-relaxation'),
   seanceSophrologie: p('seance-sophrologie-relaxation'),
   seanceFauteuil: p('seance-hypnose-fauteuil-relaxation'),
@@ -49,7 +53,29 @@ export const photos = {
   ficheResalib: p('fiche-resalib-veronique-jan'),
   ficheMedoucine: p('fiche-medoucine-veronique-jan'),
   badgeMedoucine: p('badge-praticien-recommande-medoucine'),
+  /** Le macaron rond « Praticien recommandé Médoucine », détouré. */
+  badgeMedoucineMacaron: p('badge-medoucine-praticien-recommande'),
   infographieSophroHypnose: p('infographie-sophrologie-hypnose'),
+} as const
+
+/**
+ * Paysages apaisants — les fonds plein écran (héros, 404, page de connexion)
+ * et les colonnes animées du bloc de rappel.
+ *
+ * Ces visuels viennent d'Unsplash (licence Unsplash, crédit porté aux mentions
+ * légales) mais ils sont **servis depuis le bucket**, comme les photos des
+ * cabinets : le site ne dépend plus d'un domaine tiers pour s'afficher.
+ */
+export const nature = {
+  rayonsSoleilForet: p('nature-rayons-soleil-foret'),
+  planEauArbres: p('nature-plan-eau-arbres'),
+  pinsBrume: p('nature-pins-brume'),
+  brumeSurLac: p('nature-brume-sur-lac'),
+  arbresRayonsSoleil: p('nature-arbres-rayons-soleil'),
+  foretVueDuCiel: p('nature-foret-vue-du-ciel'),
+  riviereBordeeArbres: p('nature-riviere-bordee-arbres'),
+  nuagesAuDessusLac: p('nature-nuages-au-dessus-lac'),
+  arbresVertsVueDuCiel: p('nature-arbres-verts-vue-du-ciel'),
 } as const
 
 /** Libellés des catégories affichées sur la page Galerie. */

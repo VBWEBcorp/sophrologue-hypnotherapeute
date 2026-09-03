@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useContent } from '@/hooks/use-content'
+import { photos } from '@/lib/photos'
 import { siteConfig } from '@/lib/seo'
 import { contactContent, images as siteImages } from '@/lib/site-content'
 
@@ -30,7 +31,7 @@ export function ContactContent() {
   // Coordonnées : une seule source pour tout le site (pied de page, JSON-LD…).
   const phone = siteConfig.phone
   const email = siteConfig.email
-  const telHref = `tel:${phone.replace(/\s+/g, '')}`
+  const telHref = `tel:${siteConfig.phoneE164}`
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'pending' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -249,7 +250,7 @@ export function ContactContent() {
                     </h2>
                     <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-border/60">
                       <Image
-                        src="/photos/badge-medoucine-v2.png"
+                        src={photos.badgeMedoucineMacaron}
                         alt="Praticien recommandé Médoucine"
                         width={48}
                         height={48}

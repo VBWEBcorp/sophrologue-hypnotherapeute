@@ -2,7 +2,8 @@ import { Accessibility, ArrowUpRight, Clock, Facebook, Linkedin, MapPin, Star } 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { accessibility, cabinets, legalConfig, siteConfig } from '@/lib/seo'
+import { photos } from '@/lib/photos'
+import { accessibility, cabinets, siteConfig } from '@/lib/seo'
 import { NewsletterSignup } from '@/components/newsletter-signup'
 
 const socialLinks = [
@@ -39,7 +40,7 @@ export function Footer() {
             <Link href="/" aria-label={siteConfig.name} className="inline-flex items-center gap-2.5">
               <span className="relative inline-flex size-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/25">
                 <Image
-                  src="/photos/veronique-jan.png"
+                  src={photos.portrait}
                   alt={siteConfig.name}
                   fill
                   sizes="40px"
@@ -149,7 +150,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={`tel:${siteConfig.phoneE164}`}
                   className="text-zinc-300 transition-colors hover:text-white"
                 >
                   {siteConfig.phone}
@@ -204,28 +205,6 @@ export function Footer() {
           </p>
           <p className="text-xs text-zinc-500">
             Tous droits réservés
-          </p>
-        </div>
-      </div>
-
-      {/* Bandeau de protection — mention anti-reproduction */}
-      <div className="bg-red-600 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-4 text-center sm:px-6 lg:px-8">
-          <p className="text-sm font-bold uppercase tracking-wide">
-            Maquette de démonstration, propriété exclusive de{' '}
-            <a
-              href={legalConfig.agencyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-opacity hover:opacity-80"
-            >
-              {legalConfig.agency}.FR
-            </a>
-          </p>
-          <p className="mt-1 text-xs leading-relaxed text-white/90">
-            Ce site est une présentation à but de démonstration uniquement. Toute reproduction,
-            exploitation ou utilisation à des fins professionnelles ou commerciales est strictement
-            interdite.
           </p>
         </div>
       </div>

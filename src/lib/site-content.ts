@@ -9,67 +9,45 @@
  * résolue par `getIcon()` côté composant. Liste : https://lucide.dev/icons/
  */
 
-import { photos } from '@/lib/photos'
+import { nature, photos } from '@/lib/photos'
+import { siteConfig } from '@/lib/seo'
 
 // ============================================================================
 //                          IMAGES — pool de visuels
 // ============================================================================
-// Les vraies photos (cabinets, séances, accès) viennent de `photos.ts` et sont
-// hébergées sur Cloudflare R2. Les visuels Unsplash restants sont des paysages
-// apaisants, conservés là où il faut une image plein écran haute définition.
-
-// Pool de visuels NATURE APAISANTE — références Unsplash vérifiées (forêt,
-// brume, eau calme, rayons de soleil), sans personne ni posture de yoga, dans
-// l'esprit de l'ancien site (héro forêt). À remplacer à terme par les vraies
-// photos de la praticienne (séances, cabinets, salles d'attente) via l'admin.
-const un = (id: string, w = 1200) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
-const unc = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?w=400&h=500&fit=crop&q=75`
-
-// Identifiants vérifiés (description Unsplash entre parenthèses)
-const NATURE = {
-  forestAerial: '1503435980610-a51f3ddfee50', // forêt vue du ciel
-  forestSunRays: '1530563937443-1f02f662fa5c', // rayons de soleil en forêt
-  riverTrees: '1421790500381-fc9b5996f343', // rivière bordée d'arbres
-  pinesMist: '1502252430442-aac78f397426', // pins dans la brume
-  greenTrees: '1542273917363-3b1817f69a2d', // arbres verts vus du ciel
-  forestDay: '1603976328262-4c1b46d7e6e8', // forêt verte en journée
-  treesSunRays: '1448375240586-882707db888b', // arbres et rayons de soleil
-  cloudsLake: '1581713872605-b9dfbc84eaa4', // nuages au-dessus du lac
-  waterTrees: '1465189684280-6a8fa9b19a7a', // plan d'eau entouré d'arbres
-  fogLake: '1561765781-f7de2b8c56a5', // brume sur le lac
-  sunWater: '1724265663533-23caa99840d1', // soleil à travers les arbres sur l'eau
-}
+// TOUS les visuels du site sont servis par le bucket Cloudflare R2 de Véronique
+// Jan (voir `photos.ts`) : les photos des cabinets et des séances comme les
+// paysages d'ambiance. Aucune image n'est plus chargée depuis un domaine tiers
+// ni depuis /public — une seule source, un seul domaine à surveiller.
 
 export const images = {
   // Hero homepage — [0] = vraie photo de séance ; suivantes = nature apaisante.
   // Les fonds plein écran restent en paysage : les photos du cabinet font 850 px
   // de large, elles seraient floues en 1920 px.
   heroCarousel: [
-    '/photos/seance-hypnose.png',
-    un(NATURE.forestSunRays, 1920),
-    un(NATURE.waterTrees, 1920),
+    photos.seanceHypnose,
+    nature.rayonsSoleilForet,
+    nature.planEauArbres,
   ],
 
   // Section "À propos" sur la home — portrait de Véronique Jan
-  story: '/photos/veronique-jan.png',
+  story: photos.portrait,
 
   // Page À propos — image principale du hero (portrait praticienne)
-  aboutHero: '/photos/veronique-jan.png',
+  aboutHero: photos.portrait,
 
   // Page Services — image de fond du hero (nature apaisante)
-  servicesHero: un(NATURE.pinesMist, 1920),
+  servicesHero: nature.pinsBrume,
 
   // Page Contact — image de fond du hero
-  contactHero: un(NATURE.fogLake, 1920),
+  contactHero: nature.brumeSurLac,
 
   // Page À propos — galerie 4 images : 3 photos du cabinet + 1 paysage apaisant
   aboutGallery: [
     photos.acigneConsultation,
     photos.attenteAffiches,
     photos.equipementAudio,
-    un(NATURE.treesSunRays, 600),
+    nature.arbresRayonsSoleil,
   ],
 
   // Page Services — 8 images illustrant chaque accompagnement. Les séances et
@@ -79,26 +57,26 @@ export const images = {
     photos.seanceTable, // Hypnothérapie Ericksonienne
     photos.seanceSophrologie, // Sophrologie Caycédienne
     photos.seanceFauteuil, // Stress & anxiété
-    un(NATURE.forestSunRays), // Troubles du sommeil
+    nature.rayonsSoleilForet, // Troubles du sommeil
     photos.acigneConsultation, // Arrêt du tabac
     photos.rennesSalleSeance, // Gestion de la douleur
-    un(NATURE.treesSunRays), // Confiance & développement personnel
+    nature.arbresRayonsSoleil, // Confiance & développement personnel
     photos.attenteAffiches, // Préparation & accompagnement
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
   ctaScrollColumns: {
     col1: [
-      unc(NATURE.forestAerial),
-      unc(NATURE.riverTrees),
-      unc(NATURE.cloudsLake),
-      unc(NATURE.waterTrees),
+      nature.foretVueDuCiel,
+      nature.riviereBordeeArbres,
+      nature.nuagesAuDessusLac,
+      nature.planEauArbres,
     ],
     col2: [
-      unc(NATURE.forestSunRays),
-      unc(NATURE.pinesMist),
-      unc(NATURE.fogLake),
-      unc(NATURE.treesSunRays),
+      nature.rayonsSoleilForet,
+      nature.pinsBrume,
+      nature.brumeSurLac,
+      nature.arbresRayonsSoleil,
     ],
   },
 
@@ -230,8 +208,12 @@ export const testimonialsContent = {
     "Des avis déposés sur mes fiches Google (5,0/5 à Rennes comme à Acigné). Un aperçu ci-dessous ; l'intégralité est consultable sur Google.",
   /** Note globale réelle des deux fiches Google, réaffichée dans le badge. */
   googleRating: '5,0',
-  /** Lien de repli / « voir plus », vers la page avis du site. */
-  fallbackUrl: 'https://www.sophrologue-hypnotherapeute-jan.fr/page-avis',
+  /**
+   * Lien « voir plus ». Il pointait vers /page-avis, qui n'existe pas (404
+   * hérité de l'ancien site) : on renvoie sur les avis Google eux-mêmes, qui
+   * sont la source citée juste au-dessus.
+   */
+  fallbackUrl: siteConfig.social.google,
   fallbackLabel: 'Voir tous les avis Google',
   /**
    * Avis Google authentiques, recopiés à la lettre depuis les fiches (Rennes

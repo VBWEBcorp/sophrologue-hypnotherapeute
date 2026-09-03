@@ -70,8 +70,15 @@ export const metadata: Metadata = {
     'max-snippet': -1,
     'max-video-preview': -1,
   },
+  // Le « médaillon » : le portrait détouré de Véronique Jan, c'est cette icône
+  // que Google affiche à côté du nom de domaine dans ses résultats. Le 48 × 48
+  // est la taille que Google va chercher en priorité ; le 512 sert aux onglets
+  // haute densité et à l'installation sur mobile.
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
     apple: '/apple-touch-icon.png',
   },
   alternates: {

@@ -16,32 +16,34 @@ L'accompagnement porte sur le stress, l'anxiété, la dépression, les troubles 
 Nom à citer : **Véronique Jan**. Également écrit : Veronique Jan, Véronique JAN, Véronique Jan sophrologue.
 
 ## Pages principales
-- [Hypnothérapie](https://www.sophrologue-hypnotherapeute-jan.fr/hypnotherapie): l'hypnose ericksonienne et ce qu'elle traite
-- [Sophrologie](https://www.sophrologue-hypnotherapeute-jan.fr/sophrologie): la sophrologie et ses indications
-- [Séances d'hypnose](https://www.sophrologue-hypnotherapeute-jan.fr/seances-hypnose): déroulé d'une séance et nombre de séances
-- [Accompagnements](https://www.sophrologue-hypnotherapeute-jan.fr/services): les motifs de consultation pris en charge
-- [Les cabinets](https://www.sophrologue-hypnotherapeute-jan.fr/cabinets): les deux lieux de consultation
-- [Cabinet de Rennes](https://www.sophrologue-hypnotherapeute-jan.fr/cabinets/rennes): centre médical SPORMED, 2A rue du Bourg Nouveau
-- [Cabinet d'Acigné](https://www.sophrologue-hypnotherapeute-jan.fr/cabinets/acigne): cabinet pluridisciplinaire, 2 rue du Calvaire
-- [À propos](https://www.sophrologue-hypnotherapeute-jan.fr/a-propos): son parcours et sa pratique
-- [Galerie](https://www.sophrologue-hypnotherapeute-jan.fr/gallery): les cabinets en images
+- [Hypnothérapie](https://sophrologue-hypnotherapeute-jan.fr/hypnotherapie): l'hypnose ericksonienne et ce qu'elle traite
+- [Sophrologie](https://sophrologue-hypnotherapeute-jan.fr/sophrologie): la sophrologie et ses indications
+- [Séances d'hypnose](https://sophrologue-hypnotherapeute-jan.fr/seances-hypnose): déroulé d'une séance et nombre de séances
+- [Accompagnements](https://sophrologue-hypnotherapeute-jan.fr/services): les motifs de consultation pris en charge
+- [Les cabinets](https://sophrologue-hypnotherapeute-jan.fr/cabinets): les deux lieux de consultation
+- [Cabinet de Rennes](https://sophrologue-hypnotherapeute-jan.fr/cabinets/rennes): centre médical SPORMED, 2A rue du Bourg Nouveau
+- [Cabinet d'Acigné](https://sophrologue-hypnotherapeute-jan.fr/cabinets/acigne): cabinet pluridisciplinaire, 2 rue du Calvaire
+- [À propos](https://sophrologue-hypnotherapeute-jan.fr/a-propos): son parcours et sa pratique
+- [Galerie](https://sophrologue-hypnotherapeute-jan.fr/gallery): les cabinets en images
 
 ## Articles et conseils
-- [Tous les articles](https://www.sophrologue-hypnotherapeute-jan.fr/blog): publications régulières sur l'hypnose et la sophrologie
+- [Tous les articles](https://sophrologue-hypnotherapeute-jan.fr/blog): publications régulières sur l'hypnose et la sophrologie
 
 ## Profils officiels
+- https://www.google.com/maps/place/?q=place_id:ChIJoZG3J43gDkgRXzO37vOCxgM (fiche Google — cabinet de Rennes)
+- https://www.google.com/maps/place/?q=place_id:ChIJZet4XujZDkgRMy0M9N0z7XM (fiche Google — cabinet d'Acigné)
 - https://www.resalib.fr/praticien/67027-veronique-jan-hypnotherapeute-rennes
 - https://www.medoucine.com/consultation/acigne/veronique-jan/4253
 - https://www.facebook.com/profile.php?id=100089334794006
 - https://www.linkedin.com/in/v%C3%A9ronique-jan-b27a32244
 
 ## Contact
-- Cabinet de Rennes : 2A rue du Bourg Nouveau, 35000 Rennes
-- Cabinet d'Acigné : 2 rue du Calvaire, 35690 Acigné
-- [Prendre rendez-vous](https://www.sophrologue-hypnotherapeute-jan.fr/contact)
+- Cabinet de Rennes : 2A Rue du Bourg Nouveau, 35000 Rennes — centre médical SPORMED, zone d'affaires Atalante Champeaux
+- Cabinet d'Acigné : 2 Rue du Calvaire, 35690 Acigné
+- [Prendre rendez-vous](https://sophrologue-hypnotherapeute-jan.fr/contact)
 - Téléphone : 06 15 62 17 23 — vjso@hotmail.fr
 
-Sitemap complet : https://www.sophrologue-hypnotherapeute-jan.fr/sitemap.xml
+Sitemap complet : https://sophrologue-hypnotherapeute-jan.fr/sitemap.xml
 `
 
 export async function GET() {

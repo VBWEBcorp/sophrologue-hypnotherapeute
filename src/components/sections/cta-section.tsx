@@ -87,12 +87,22 @@ export function CtaSection() {
                 className="absolute inset-0 flex origin-center gap-3 [transform:rotate(-8deg)_scale(1.35)]"
                 aria-hidden
               >
+                {/* Colonne vidée depuis l'admin → on garde les visuels d'origine
+                    plutôt qu'un bloc vide. */}
                 <MarqueeColumn
-                  images={cta.scrollImages?.col1 ?? images.ctaScrollColumns.col1}
+                  images={
+                    cta.scrollImages?.col1?.filter(Boolean)?.length
+                      ? cta.scrollImages.col1.filter(Boolean)
+                      : images.ctaScrollColumns.col1
+                  }
                   direction="up"
                 />
                 <MarqueeColumn
-                  images={cta.scrollImages?.col2 ?? images.ctaScrollColumns.col2}
+                  images={
+                    cta.scrollImages?.col2?.filter(Boolean)?.length
+                      ? cta.scrollImages.col2.filter(Boolean)
+                      : images.ctaScrollColumns.col2
+                  }
                   direction="down"
                 />
               </div>

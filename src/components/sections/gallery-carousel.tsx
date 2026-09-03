@@ -41,7 +41,11 @@ export function GalleryCarousel() {
     }
   }, [])
 
-  const images = galleryImages ?? gallery.images ?? defaultImages
+  // Galerie en base → contenu de la page → visuels d'origine. On ignore les
+  // listes vides pour ne jamais afficher un carrousel sans photo.
+  const fromContent = (gallery.images ?? []).filter(Boolean)
+  const images: string[] =
+    galleryImages ?? (fromContent.length > 0 ? fromContent : defaultImages)
 
   const trackRef = useRef<HTMLDivElement>(null)
   const [maxScroll, setMaxScroll] = useState(0)

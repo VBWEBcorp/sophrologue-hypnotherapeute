@@ -56,6 +56,17 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
     settings.title || 'Mes cabinets en images'
   )
 
+  // Les photos sont regroupées par catégorie (un cabinet, les séances…) pour
+  // que Rennes et Acigné ne se mélangent pas. L'ordre des groupes suit l'ordre
+  // de la galerie : le premier groupe est celui de la première photo.
+  const groups: { category: string; items: GalleryImage[] }[] = []
+  for (const image of images) {
+    const category = image.category ?? ''
+    const group = groups.find((g) => g.category === category)
+    if (group) group.items.push(image)
+    else groups.push({ category, items: [image] })
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -109,44 +120,60 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
       {/* Gallery Grid */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         {images.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {images.map((image, i) => (
-              <motion.div
-                key={image._id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, ease, delay: (i % 3) * 0.06 }}
-                className="group cursor-pointer"
-                onClick={() => setLightbox(image)}
-              >
-                <div className="overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-5 space-y-2">
-                    <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {image.title}
-                    </h3>
-                    {image.description && (
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                        {image.description}
-                      </p>
-                    )}
-                    {image.category && (
-                      <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                        {image.category}
-                      </span>
-                    )}
+          <div className="space-y-16">
+            {groups.map((group) => {
+              const { lead, accent } = splitTitle(group.category || 'Galerie')
+              return (
+                <div key={group.category}>
+                  {group.category && (
+                    <h2 className="mb-8 font-display text-[1.75rem] leading-tight tracking-[-0.01em] text-foreground sm:text-[2.1rem]">
+                      {lead ? (
+                        <>
+                          {lead} <span className="font-serif italic font-normal">{accent}</span>
+                        </>
+                      ) : (
+                        accent
+                      )}
+                    </h2>
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {group.items.map((image, i) => (
+                      <motion.div
+                        key={image._id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.4, ease, delay: (i % 3) * 0.06 }}
+                        className="group cursor-pointer"
+                        onClick={() => setLightbox(image)}
+                      >
+                        <div className="overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
+                          <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                            <Image
+                              src={image.imageUrl}
+                              alt={image.title}
+                              fill
+                              sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="p-5 space-y-2">
+                            <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {image.title}
+                            </h3>
+                            {image.description && (
+                              <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                                {image.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              )
+            })}
           </div>
         ) : (
           <motion.div

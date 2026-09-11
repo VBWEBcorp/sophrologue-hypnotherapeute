@@ -142,14 +142,17 @@ function AboutHero({
                 }}
               />
 
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl lg:aspect-[3/4]">
+              {/* Cadre carré : le portrait de référence est cadré serré et un
+                  peu plus large que haut, un cadre vertical ne garderait que
+                  le visage. */}
+              <div className="relative aspect-square overflow-hidden rounded-xl">
                 <Image
                   src={hero.image}
-                  alt=""
+                  alt="Véronique Jan, hypnothérapeute et sophrologue"
                   fill
                   sizes="(min-width: 1024px) 500px, 100vw"
                   priority
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 <div
                   className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/15 via-transparent to-transparent"

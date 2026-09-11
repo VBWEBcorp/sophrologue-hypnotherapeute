@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { connectDB } from '@/lib/db'
 import { GallerySettings, GalleryImage } from '@/models/Gallery'
+import { defaultGalleryImages } from '@/lib/gallery-defaults'
 import { siteConfig } from '@/lib/seo'
 import GalleryContent from './gallery-content'
 
@@ -81,6 +82,13 @@ export default async function GalleryPage() {
     }))
   } catch {
     // Fallback gracieux
+  }
+
+  // Tant que personne n'a ajouté de photo depuis l'admin (ou si la base ne
+  // répond pas), la galerie affiche la liste par défaut du site plutôt qu'une
+  // page vide. Dès la première photo en base, c'est elle qui fait foi.
+  if (images.length === 0) {
+    images = defaultGalleryImages()
   }
 
   return <GalleryContent initialSettings={settings as any} initialImages={images as any} />

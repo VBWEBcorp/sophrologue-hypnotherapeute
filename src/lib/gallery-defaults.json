@@ -1,0 +1,197 @@
+[
+  {
+    "file": "batiment-cabinet-rennes-atalante-champeaux",
+    "title": "Le bâtiment du cabinet de Rennes",
+    "description": "Le centre médical SPORMED vu du ciel, zone d'affaires Atalante Champeaux.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "acces-cabinet-rennes-atalante-champeaux",
+    "title": "L'entrée du cabinet de Rennes",
+    "description": "L'accès au centre médical SPORMED, 2A rue du Bourg Nouveau.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "parking-cabinet-rennes",
+    "title": "Le parking du cabinet de Rennes",
+    "description": "Stationnement au pied du centre médical.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "hall-accueil-centre-rennes",
+    "title": "Le hall d'accueil du centre",
+    "description": "Le hall du centre médical, avec ascenseur et espace de repos.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "accueil-aqua-wellness-rennes",
+    "title": "Le comptoir d'accueil",
+    "description": "Le comptoir d'accueil à l'entrée du centre, côté Aqua Wellness.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "cabinet-rennes-salle-attente",
+    "title": "La salle d'attente à Rennes",
+    "description": "La salle d'attente du centre médical qui accueille le cabinet.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "cabinet-rennes-bureau-consultation",
+    "title": "Le bureau de consultation à Rennes",
+    "description": "L'espace d'entretien, avant et après la séance.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "cabinet-rennes-salle-de-seance",
+    "title": "La salle de séance à Rennes",
+    "description": "La salle de séance du cabinet de Rennes, au centre médical SPORMED.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "cabinet-acigne-2-rue-du-calvaire-batiment",
+    "title": "Le bâtiment du cabinet d'Acigné",
+    "description": "L'immeuble du cabinet, 2 rue du Calvaire à Acigné, travaux terminés.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "cabinet-acigne-2-rue-du-calvaire-entree",
+    "title": "L'entrée du cabinet d'Acigné",
+    "description": "L'entrée du cabinet, partagé avec Xavier Jan, ostéopathe.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "cabinet-acigne-espace-consultation",
+    "title": "Le bureau de consultation à Acigné",
+    "description": "Le bureau où débute chaque accompagnement, par l'entretien préalable.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "salle-attente-fauteuils",
+    "title": "Le coin fauteuils de la salle d'attente",
+    "description": "Un espace calme pour patienter avant la séance.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "salle-attente-affiches-bretagne",
+    "title": "La salle d'attente, affiches de Bretagne",
+    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "cabinet-hypnose-acigne-facade",
+    "title": "Cabinet d'Acigné, façade (capture Street View)",
+    "description": "Remplacée par la photo du bâtiment prise en septembre 2026.",
+    "category": "Cabinet d'Acigné",
+    "active": false
+  },
+  {
+    "file": "cabinet-hypnose-acigne-acces-rue",
+    "title": "Cabinet d'Acigné, accès depuis la rue (capture Street View)",
+    "description": "Remplacée par la photo de l'entrée prise en septembre 2026.",
+    "category": "Cabinet d'Acigné",
+    "active": false
+  },
+  {
+    "file": "seance-hypnose-veronique-jan",
+    "title": "Une séance d'hypnose",
+    "description": "Installation confortable et casque audio pour une séance d'hypnose Ericksonienne.",
+    "category": "Séances"
+  },
+  {
+    "file": "seance-hypnose-table-relaxation",
+    "title": "Séance d'hypnose sur table de relaxation",
+    "description": "La table de relaxation, couverture et casque audio.",
+    "category": "Séances"
+  },
+  {
+    "file": "seance-hypnose-fauteuil-relaxation",
+    "title": "Séance d'hypnose en fauteuil relaxant",
+    "description": "Le fauteuil inclinable, une alternative à la table pour les séances.",
+    "category": "Séances"
+  },
+  {
+    "file": "seance-sophrologie-relaxation",
+    "title": "Relaxation profonde en séance d'hypnose",
+    "description": "Un temps de relâchement du corps et du système nerveux, au casque.",
+    "category": "Séances"
+  },
+  {
+    "file": "equipement-audio-seance-hypnose",
+    "title": "L'équipement audio des séances",
+    "description": "Casques et matériel son utilisés pendant les séances d'hypnose et de sophrologie.",
+    "category": "Séances"
+  },
+  {
+    "file": "sophrologie-quatre-principes",
+    "title": "Les quatre principes de la sophrologie",
+    "description": "Action positive, schéma corporel, réalité objective, adaptabilité.",
+    "category": "Sophrologie"
+  },
+  {
+    "file": "sophrologie-domaines-d-application",
+    "title": "Les domaines d'application de la sophrologie",
+    "description": "Stress, émotions, sommeil, confiance en soi, préparation mentale, lâcher-prise.",
+    "category": "Sophrologie"
+  },
+  {
+    "file": "veronique-jan-portrait-professionnel",
+    "title": "Véronique Jan",
+    "description": "Hypnothérapeute et sophrologue à Rennes et Acigné.",
+    "category": "Portraits"
+  },
+  {
+    "file": "veronique-jan-portrait-haut-rouge",
+    "title": "Véronique Jan, portrait",
+    "description": "Praticienne certifiée en hypnose Ericksonienne et sophrologie Caycédienne.",
+    "category": "Portraits"
+  },
+  {
+    "file": "veronique-jan-portrait-sourire",
+    "title": "Véronique Jan, portrait souriant",
+    "description": "Un accompagnement humain et bienveillant.",
+    "category": "Portraits"
+  },
+  {
+    "file": "veronique-jan-portrait-veste-grise",
+    "title": "Véronique Jan, portrait en veste",
+    "description": "Ancienne enseignante, thérapeute depuis 2006.",
+    "category": "Portraits"
+  },
+  {
+    "file": "veronique-jan-portrait",
+    "title": "Véronique Jan, au cabinet",
+    "description": "Hypnose et sophrologie, à Acigné et à Rennes.",
+    "category": "Portraits"
+  },
+  {
+    "file": "adresse-spormed-rennes",
+    "title": "Adresse du centre médical SPORMED",
+    "description": "2A rue du Bourg Nouveau, ZAC Atalante Champeaux, 35000 Rennes.",
+    "category": "Repères"
+  },
+  {
+    "file": "fiche-resalib-veronique-jan",
+    "title": "Fiche RESALIB",
+    "description": "Profil et avis patients sur la plateforme RESALIB.",
+    "category": "Repères"
+  },
+  {
+    "file": "fiche-medoucine-veronique-jan",
+    "title": "Fiche MEDOUCINE",
+    "description": "Profil et avis patients sur la plateforme MEDOUCINE.",
+    "category": "Repères"
+  },
+  {
+    "file": "badge-praticien-recommande-medoucine",
+    "title": "Praticien recommandé MEDOUCINE",
+    "description": "Le badge des praticiens sélectionnés par MEDOUCINE.",
+    "category": "Repères"
+  },
+  {
+    "file": "infographie-sophrologie-hypnose",
+    "title": "Sophrologie et hypnose : les différences",
+    "description": "Infographie comparant les deux approches.",
+    "category": "Repères",
+    "active": false
+  }
+]

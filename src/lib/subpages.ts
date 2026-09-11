@@ -327,7 +327,7 @@ export const subpages: Record<string, Subpage> = {
       {
         kind: 'features',
         eyebrow: 'Autres modalités',
-        title: 'Je me déplace aussi vers vous',
+        title: 'Je me déplace aussi chez vous',
         items: [
           { iconName: 'Home', title: 'À domicile', desc: 'Visites à domicile dans un rayon de 20 km autour de chaque cabinet.' },
           // Formulation de la praticienne : elle pratique peu la téléconsultation,

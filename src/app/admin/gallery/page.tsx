@@ -25,6 +25,7 @@ import { FieldEditor, ImageField } from '@/components/admin/field-editor'
 import { useToast } from '@/components/admin/toast'
 import { useConfirm } from '@/components/admin/confirm-dialog'
 import { Button } from '@/components/ui/button'
+import { galleryDefaults, galleryDefaultUrl } from '@/lib/gallery-defaults'
 import { PHOTO_CATEGORIES } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 
@@ -204,6 +205,37 @@ export default function AdminGalleryPage() {
       toast.error("Erreur lors de l'enregistrement de la photo")
     } finally {
       setSavingDraft(false)
+    }
+  }
+
+  // Recopie en base la liste par défaut (celle que le site affiche tant que la
+  // galerie est vide), pour pouvoir ensuite la retoucher photo par photo.
+  const [importing, setImporting] = useState(false)
+  const importDefaults = async () => {
+    setImporting(true)
+    try {
+      const photos = galleryDefaults.filter((photo) => photo.active !== false)
+      for (const [index, photo] of photos.entries()) {
+        const response = await fetch('/api/gallery/images', {
+          method: 'POST',
+          headers: authHeaders(true),
+          body: JSON.stringify({
+            title: photo.title,
+            description: photo.description ?? '',
+            imageUrl: galleryDefaultUrl(photo.file),
+            category: photo.category,
+            order: (index + 1) * 10,
+          }),
+        })
+        if (!response.ok) throw new Error()
+      }
+      await loadImages()
+      toast.success(`${photos.length} photos importées`)
+    } catch {
+      await loadImages()
+      toast.error("L'import s'est interrompu : vérifiez la liste ci-dessous avant de relancer")
+    } finally {
+      setImporting(false)
     }
   }
 
@@ -429,14 +461,21 @@ export default function AdminGalleryPage() {
         {images.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-card/50 px-6 py-16 text-center">
             <Images className="mx-auto size-8 text-muted-foreground/40" />
-            <p className="mt-3 text-sm font-medium text-foreground">La galerie est vide</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Ajoutez une première photo pour qu&apos;elle apparaisse sur le site.
+            <p className="mt-3 text-sm font-medium text-foreground">Aucune photo ajoutée ici pour l&apos;instant</p>
+            <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
+              Le site affiche la galerie par défaut ({galleryDefaults.filter((p) => p.active !== false).length} photos, groupées par cabinet).
+              Importez-la pour la retoucher photo par photo, ou partez d&apos;une galerie vierge : dès la première photo ajoutée ici, seule cette liste s&apos;affiche.
             </p>
-            <Button className="mt-5" onClick={() => setDraft({ ...EMPTY_DRAFT })}>
-              <Plus className="size-4" />
-              Ajouter une photo
-            </Button>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button onClick={importDefaults} disabled={importing}>
+                <Images className="size-4" />
+                {importing ? 'Import en cours…' : 'Importer la galerie par défaut'}
+              </Button>
+              <Button variant="outline" onClick={() => setDraft({ ...EMPTY_DRAFT })} disabled={importing}>
+                <Plus className="size-4" />
+                Ajouter une photo
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

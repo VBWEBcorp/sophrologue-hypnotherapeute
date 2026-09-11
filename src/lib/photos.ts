@@ -22,6 +22,11 @@ export const photos = {
   /** Portrait professionnel (fond neutre), transmis le 10/09/2026 : sert au
    *  médaillon (favicon) et à l'image `Person` du JSON-LD. */
   portraitProfessionnel: p('veronique-jan-portrait-professionnel'),
+  /** Autres portraits, réservés à la galerie : le portrait de référence
+   *  (médaillon, JSON-LD, À propos, annuaires) reste `portraitProfessionnel`. */
+  portraitHautRouge: p('veronique-jan-portrait-haut-rouge'),
+  portraitSourire: p('veronique-jan-portrait-sourire'),
+  portraitVesteGrise: p('veronique-jan-portrait-veste-grise'),
 
   // ── Cabinet d'Acigné ───────────────────────────────────────────────────────
   /** Photos prises par la praticienne le 10/09/2026, travaux de l'immeuble
@@ -31,8 +36,10 @@ export const photos = {
   acigneEntree: p('cabinet-acigne-2-rue-du-calvaire-entree'),
   /** Plaques « JAN Xavier, ostéopathie » et « JAN Véronique, sophrologue »
    *  à l'entrée du cabinet. La plaque ne mentionne pas l'hypnose : à n'utiliser
-   *  que sur la page Sophrologie (consigne de la praticienne). */
-  plaqueSophrologue: p('plaque-veronique-jan-sophrologue-acigne'),
+   *  que sur la page Sophrologie (consigne de la praticienne).
+   *  Retouchée le 11/09/2026 : la ligne fixe 02 99 37 53 83 n'existe plus,
+   *  seul le 06 reste (le fichier d'origine a été supprimé du bucket). */
+  plaqueSophrologue: p('plaques-jan-cabinet-acigne'),
   acigneFacade: p('cabinet-hypnose-acigne-facade'),
   acigneAccesRue: p('cabinet-hypnose-acigne-acces-rue'),
   acigneConsultation: p('cabinet-acigne-espace-consultation'),
@@ -102,10 +109,13 @@ export const nature = {
 
 /** Libellés des catégories affichées sur la page Galerie. */
 export const PHOTO_CATEGORIES = {
-  acigne: "Cabinet d'Acigné",
   rennes: 'Cabinet de Rennes',
+  acigne: "Cabinet d'Acigné",
   seances: 'Séances',
-  acces: 'Accès & accueil',
+  sophrologie: 'Sophrologie',
+  /** Réservé à la page Galerie : le carrousel de l'accueil l'ignore. */
+  portraits: 'Portraits',
+  /** Idem : captures d'annuaires et badges. */
   reperes: 'Repères',
 } as const
 

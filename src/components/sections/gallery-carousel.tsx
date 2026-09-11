@@ -15,6 +15,10 @@ const defaults = galleryContent
 const GAP = 20
 const CARD_WIDTH = 340
 
+/** Catégories de la galerie tenues à l'écart du carrousel d'accueil (libellés tels qu'enregistrés en base). */
+const HOME_CAROUSEL_EXCLUDED = new Set(['Repères', 'Portraits'])
+const HOME_CAROUSEL_MAX = 12
+
 export function GalleryCarousel() {
   const { data } = useContent('home', { gallery: defaults })
   const gallery = data.gallery ?? defaults
@@ -28,9 +32,15 @@ export function GalleryCarousel() {
     let cancelled = false
     fetch('/api/gallery/images')
       .then((response) => (response.ok ? response.json() : []))
-      .then((docs: { imageUrl?: string }[]) => {
+      .then((docs: { imageUrl?: string; category?: string }[]) => {
         if (cancelled || !Array.isArray(docs)) return
-        const urls = docs.map((doc) => doc.imageUrl).filter((url): url is string => Boolean(url))
+        // Sur l'accueil, on ne montre que les lieux et les séances : les
+        // captures d'annuaires et les portraits restent sur la page Galerie.
+        const urls = docs
+          .filter((doc) => !HOME_CAROUSEL_EXCLUDED.has(doc.category ?? ''))
+          .map((doc) => doc.imageUrl)
+          .filter((url): url is string => Boolean(url))
+          .slice(0, HOME_CAROUSEL_MAX)
         if (urls.length > 0) setGalleryImages(urls)
       })
       .catch(() => {

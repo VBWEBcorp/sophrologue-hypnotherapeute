@@ -31,10 +31,12 @@ export const images = {
   ],
 
   // Section "À propos" sur la home — portrait de Véronique Jan
-  story: photos.portrait,
+  story: photos.portraitProfessionnel,
 
-  // Page À propos — image principale du hero (portrait praticienne)
-  aboutHero: photos.portrait,
+  // Page À propos — image principale du hero. Le même portrait que le
+  // médaillon et les fiches RESALIB / MEDOUCINE : une seule image de
+  // référence pour la praticienne, partout où Google peut la croiser.
+  aboutHero: photos.portraitProfessionnel,
 
   // Page Services — image de fond du hero (nature apaisante)
   servicesHero: nature.pinsBrume,

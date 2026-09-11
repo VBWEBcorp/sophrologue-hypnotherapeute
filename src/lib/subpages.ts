@@ -56,9 +56,11 @@ export type SubpageSection = (
         name: string
         address: string
         note?: string
+        /** Photo du bâtiment, affichée en tête du carré. */
+        image?: string
         href?: string
-        bookingUrl?: string
-        bookingLabel?: string
+        /** Plateformes de réservation, dans l'ordre d'affichage (la première est celle privilégiée pour ce cabinet). */
+        bookings?: { label: string; url: string }[]
       }[]
     }
 ) & {
@@ -202,7 +204,9 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'La méthode',
         title: "Qu'est-ce que la sophrologie ?",
-        image: photos.seanceSophrologie,
+        // Pas de patiente allongée ici : la sophrologie est une relaxation
+        // dynamique, debout et assis. Visuel choisi par la praticienne.
+        image: photos.sophrologiePrincipes,
         reverse: true,
         // Définition dictée par la praticienne : commencer par « techniques et
         // exercices psycho-corporels », puis le détail, puis l'autonomisation.
@@ -243,6 +247,19 @@ export const subpages: Record<string, Subpage> = {
         ],
       },
       {
+        // Plaque de l'entrée du cabinet d'Acigné. Elle ne mentionne pas
+        // l'hypnose : c'est pour cela qu'elle n'apparaît que sur cette page.
+        kind: 'split',
+        eyebrow: 'Formation',
+        title: 'Diplômée de l’Institut de Sophrologie de Rennes',
+        image: photos.plaqueSophrologue,
+        paragraphs: [
+          "Formée à la sophrologie Caycédienne à l'Institut de Sophrologie de Rennes (ISR), je pratique depuis 2006. C'est la plaque qui vous accueille à l'entrée du cabinet d'Acigné, 2 Rue du Calvaire, aux côtés de celle de Xavier Jan, ostéopathe.",
+          'Les séances de sophrologie se déroulent à Acigné comme à Rennes, sur rendez-vous.',
+        ],
+        bullets: ['Sophrologie Caycédienne', 'Institut de Sophrologie de Rennes', 'Depuis 2006'],
+      },
+      {
         // Tarifs repris à l'identique du site actuel de la praticienne.
         kind: 'pricing',
         eyebrow: 'Tarifs',
@@ -250,8 +267,8 @@ export const subpages: Record<string, Subpage> = {
         description:
           'Règlement par chèque, espèces ou virement. La carte bancaire n’est pas acceptée.',
         items: [
-          { price: '57 – 65 €', label: 'Séance d’hypnose', note: 'Selon la localité, la durée et le déplacement' },
-          { price: '45 – 57 €', label: 'Séance de sophrologie', note: 'Selon la localité, la durée et le déplacement' },
+          { price: '57 à 65 €', label: 'Séance d’hypnose', note: 'Selon la localité, la durée et le déplacement' },
+          { price: '45 à 57 €', label: 'Séance de sophrologie', note: 'Selon la localité, la durée et le déplacement' },
           { price: 'Sur consultation', label: 'Enfants', note: 'Tarif spécifique selon l’âge' },
         ],
       },
@@ -281,20 +298,29 @@ export const subpages: Record<string, Subpage> = {
           {
             id: 'rennes',
             name: 'Cabinet de Rennes',
-            address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-            note: 'Au sein du centre médical SPORMED — Zone d’affaires Atalante Champeaux.',
+            // La zone d'affaires fait partie de l'adresse (demande de la
+            // praticienne) : c'est ce qui permet de trouver le centre.
+            address: '2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux, 35000 Rennes',
+            note: 'Au sein du centre médical SPORMED.',
+            image: photos.rennesBatiment,
             href: '/cabinets/rennes',
-            bookingUrl: RESALIB_URL,
-            bookingLabel: 'Réserver sur RESALIB',
+            // Les deux plateformes servent les deux cabinets ; RESALIB en tête à Rennes.
+            bookings: [
+              { label: 'Réserver sur RESALIB', url: RESALIB_URL },
+              { label: 'Réserver sur MEDOUCINE', url: MEDOUCINE_URL },
+            ],
           },
           {
             id: 'acigne',
             name: "Cabinet d'Acigné",
             address: '2 Rue du Calvaire, 35690 Acigné',
             note: 'En association avec Xavier Jan, ostéopathe.',
+            image: photos.acigneBatiment,
             href: '/cabinets/acigne',
-            bookingUrl: MEDOUCINE_URL,
-            bookingLabel: 'Réserver sur MEDOUCINE',
+            bookings: [
+              { label: 'Réserver sur MEDOUCINE', url: MEDOUCINE_URL },
+              { label: 'Réserver sur RESALIB', url: RESALIB_URL },
+            ],
           },
         ],
       },
@@ -304,7 +330,9 @@ export const subpages: Record<string, Subpage> = {
         title: 'Je me déplace aussi vers vous',
         items: [
           { iconName: 'Home', title: 'À domicile', desc: 'Visites à domicile dans un rayon de 20 km autour de chaque cabinet.' },
-          { iconName: 'Smartphone', title: 'En téléconsultation', desc: 'Consultations à distance à partir de la deuxième séance, pour les patients suivis.' },
+          // Formulation de la praticienne : elle pratique peu la téléconsultation,
+          // et uniquement avec des patients déjà suivis en cabinet.
+          { iconName: 'Smartphone', title: 'En téléconsultation', desc: 'Uniquement en suivi, après un premier protocole en présentiel. Me consulter pour la programmer.' },
           { iconName: 'Heart', title: 'Structures & entreprises', desc: 'Interventions en milieu hospitalier, structures médicales et sportives, entreprises et EHPAD.' },
         ],
       },
@@ -314,7 +342,7 @@ export const subpages: Record<string, Subpage> = {
   // ════════════════════════════════ CABINET DE RENNES ════════════════════════
   'cabinet-rennes': {
     slug: 'cabinets/rennes',
-    metaTitle: 'Hypnothérapeute à Rennes — cabinet SPORMED',
+    metaTitle: 'Hypnothérapeute à Rennes, cabinet SPORMED',
     metaDescription:
       "Hypnose et sophrologie à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes), Zone d’affaires Atalante Champeaux. Réservation en ligne sur RESALIB.",
     hero: {
@@ -332,7 +360,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Au centre médical SPORMED',
         image: photos.accesRennes,
         paragraphs: [
-          '2A Rue du Bourg Nouveau, 35000 Rennes — Zone d’affaires Atalante Champeaux.',
+          '2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux, 35000 Rennes.',
           "Le cabinet est installé au sein du centre médical SPORMED, également appelé Sport Santé Institut : un environnement professionnel dédié à la santé et au bien-être, facile d'accès.",
         ],
         bullets: ['Hypnose & sophrologie', 'Séances individuelles ou en groupe', 'Sur rendez-vous'],
@@ -343,6 +371,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Prendre rendez-vous à Rennes',
         items: [
           { iconName: 'CalendarCheck', title: 'Réserver sur RESALIB', desc: 'Prise de rendez-vous en ligne pour le cabinet de Rennes.', href: RESALIB_URL, external: true },
+          { iconName: 'CalendarCheck', title: 'Réserver sur MEDOUCINE', desc: 'Également disponible pour le cabinet de Rennes.', href: MEDOUCINE_URL, external: true },
           { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'Globe', title: 'Centre médical SPORMED', desc: 'Découvrir le centre médical qui accueille le cabinet.', href: SPORMED_URL, external: true },
         ],
@@ -353,7 +382,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Autour du cabinet de Rennes',
         paragraphs: [
           "Je reçois à Rennes les personnes venant de Pacé, Saint-Jacques-de-la-Lande, Saint-Grégoire, Saint-Gilles, Vezin-le-Coquet, ainsi que des quartiers de Cleunay et Villejean.",
-          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est possible à partir de la deuxième séance.",
+          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
         ],
       },
     ],
@@ -377,7 +406,7 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Un cabinet pluridisciplinaire',
-        image: photos.acigneFacade,
+        image: photos.acigneEntree,
         reverse: true,
         paragraphs: [
           '2 Rue du Calvaire, 35690 Acigné.',
@@ -390,8 +419,9 @@ export const subpages: Record<string, Subpage> = {
         eyebrow: 'Infos pratiques',
         title: "Prendre rendez-vous à Acigné",
         items: [
-          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'CalendarCheck', title: 'Réserver sur MEDOUCINE', desc: 'Prise de rendez-vous en ligne pour le cabinet d’Acigné.', href: MEDOUCINE_URL, external: true },
+          { iconName: 'CalendarCheck', title: 'Réserver sur RESALIB', desc: 'Également disponible pour le cabinet d’Acigné.', href: RESALIB_URL, external: true },
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'Home', title: 'À domicile', desc: 'Visites possibles dans un rayon de 20 km autour d’Acigné.' },
         ],
       },
@@ -401,7 +431,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Autour du cabinet d’Acigné',
         paragraphs: [
           "Le cabinet d'Acigné accueille les personnes venant de Noyal-sur-Vilaine, Thorigné-Fouillard, Cesson-Sévigné, Servon-sur-Vilaine, Brécé, Châteaubourg, Châteaugiron, Domloup, Chantepie, Liffré et Vern-sur-Seiche.",
-          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est possible à partir de la deuxième séance.",
+          "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
         ],
       },
     ],

@@ -55,7 +55,7 @@ export const images = {
   // confiance gardent un paysage apaisant.
   services: [
     photos.seanceTable, // Hypnothérapie Ericksonienne
-    photos.seanceSophrologie, // Sophrologie Caycédienne
+    photos.sophrologieDomaines, // Sophrologie Caycédienne (pas de patiente allongée : c'est une image d'hypnose)
     photos.seanceFauteuil, // Stress & anxiété
     nature.rayonsSoleilForet, // Troubles du sommeil
     photos.acigneConsultation, // Arrêt du tabac
@@ -100,7 +100,7 @@ export const heroContent = {
   eyebrow: 'Hypnothérapeute & Sophrologue · Rennes · Acigné · À domicile',
   title: 'Hypnose thérapeutique et Sophrologie',
   description:
-    "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose Ericksonienne et la sophrologie Caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur, la perte de poids, le sevrage des addictions et la préparation des échéances anxiogènes — et retrouver votre équilibre.",
+    "Praticienne certifiée depuis 20 ans, je vous accompagne avec l'hypnose Ericksonienne et la sophrologie Caycédienne pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur, la perte de poids, le sevrage des addictions et la préparation des échéances anxiogènes, pour retrouver votre équilibre.",
   // Libellé du bouton d'appel ; le numéro est ajouté automatiquement à la suite.
   button1: 'Appeler',
   button2: 'Découvrir les séances',
@@ -323,7 +323,7 @@ export const faqContent = {
     {
       question: "Où se déroulent les séances ?",
       answer:
-        "Je consulte dans deux cabinets : à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux), et à Acigné (2 Rue du Calvaire). Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet, et la téléconsultation est possible à partir de la deuxième séance.",
+        "Je consulte dans deux cabinets : à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux), et à Acigné (2 Rue du Calvaire). Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
     },
     {
       question: "Quels sont vos horaires ?",
@@ -477,8 +477,8 @@ export const contactContent = {
   cabinets: [
     {
       name: 'Cabinet de Rennes',
-      address: '2A Rue du Bourg Nouveau, 35000 Rennes',
-      note: 'Centre médical SPORMED / Sport Santé Institut — Zone d’affaires Atalante Champeaux',
+      address: '2A Rue du Bourg Nouveau, Zone d’affaires Atalante Champeaux, 35000 Rennes',
+      note: 'Centre médical SPORMED / Sport Santé Institut',
     },
     {
       name: 'Cabinet d\'Acigné',

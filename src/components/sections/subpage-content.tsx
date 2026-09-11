@@ -182,7 +182,7 @@ function FeaturesBlock({ section, dark = false }: { section: Extract<SubpageSect
   return (
     <>
       <SectionTitle eyebrow={section.eyebrow} title={section.title} description={section.description} tone={dark ? 'dark' : 'light'} />
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } } }} className={`mt-14 grid gap-5 sm:grid-cols-2 ${section.items.length === 4 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
         {section.items.map((item, i) => <FeatureCard key={i} item={item} />)}
       </motion.div>
     </>
@@ -300,22 +300,34 @@ function CabinetsBlock({ section, dark = false }: { section: Extract<SubpageSect
       <SectionTitle eyebrow={section.eyebrow} title={section.title} description={section.description} tone={dark ? 'dark' : 'light'} />
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }} className="mt-14 grid gap-6 lg:grid-cols-2">
         {section.items.map((c, i) => (
-          <motion.div key={i} id={c.id} variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }} className="flex scroll-mt-28 flex-col rounded-3xl bg-card p-8 ring-1 ring-border/70 sm:p-9">
-            <span className="flex size-12 items-center justify-center rounded-full bg-secondary text-primary ring-1 ring-border/50"><MapPin className="size-5" aria-hidden /></span>
-            <h3 className="mt-5 font-display text-2xl tracking-[-0.01em] text-foreground">{c.name}</h3>
-            <p className="mt-2 text-base text-muted-foreground">{c.address}</p>
-            {c.note ? <p className="mt-2 text-sm text-muted-foreground/85">{c.note}</p> : null}
-            <div className="mt-auto flex flex-wrap items-center gap-3 pt-7">
-              {c.href ? (
-                <Link href={c.href} className="inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5">
-                  Voir le cabinet <ArrowUpRight className="size-4" aria-hidden />
-                </Link>
-              ) : null}
-              {c.bookingUrl ? (
-                <a href={c.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-card px-5 text-sm font-medium text-foreground ring-1 ring-border/70 transition-colors hover:bg-secondary">
-                  {c.bookingLabel ?? 'Réserver'} <ArrowUpRight className="size-4" aria-hidden />
-                </a>
-              ) : null}
+          <motion.div key={i} id={c.id} variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } } }} className="flex scroll-mt-28 flex-col overflow-hidden rounded-3xl bg-card ring-1 ring-border/70">
+            {c.image ? (
+              <div className="relative aspect-[16/10] w-full bg-secondary">
+                <Image src={c.image} alt={c.name} fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+              </div>
+            ) : null}
+            <div className="flex flex-1 flex-col p-8 sm:p-9">
+              <span className="flex size-12 items-center justify-center rounded-full bg-secondary text-primary ring-1 ring-border/50"><MapPin className="size-5" aria-hidden /></span>
+              <h3 className="mt-5 font-display text-2xl tracking-[-0.01em] text-foreground">{c.name}</h3>
+              <p className="mt-2 text-base text-muted-foreground">{c.address}</p>
+              {c.note ? <p className="mt-2 text-sm text-muted-foreground/85">{c.note}</p> : null}
+              {/* Le lien vers la page du cabinet sur sa ligne, les plateformes de réservation côte à côte dessous */}
+              <div className="mt-auto flex flex-col items-start gap-3 pt-7">
+                {c.href ? (
+                  <Link href={c.href} className="inline-flex h-10 items-center gap-1.5 rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5">
+                    Voir le cabinet <ArrowUpRight className="size-4" aria-hidden />
+                  </Link>
+                ) : null}
+                {c.bookings?.some((b) => b.url) ? (
+                  <div className="flex flex-wrap items-center gap-3">
+                    {c.bookings.filter((b) => b.url).map((b) => (
+                      <a key={b.url} href={b.url} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-card px-5 text-sm font-medium text-foreground ring-1 ring-border/70 transition-colors hover:bg-secondary">
+                        {b.label || 'Réserver'} <ArrowUpRight className="size-4" aria-hidden />
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </motion.div>
         ))}

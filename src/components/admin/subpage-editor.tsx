@@ -68,6 +68,51 @@ function StringList({
   )
 }
 
+/** Boutons de réservation d'un cabinet : un libellé + un lien par plateforme. */
+function BookingList({
+  bookings,
+  onChange,
+}: {
+  bookings?: { label: string; url: string }[]
+  onChange: (next: { label: string; url: string }[]) => void
+}) {
+  const arr = bookings ?? []
+  return (
+    <div className="space-y-3">
+      {arr.map((b, k) => (
+        <div key={k} className="flex items-end gap-2">
+          <div className="grid min-w-0 flex-1 gap-2 md:grid-cols-2">
+            <FieldEditor
+              label={`Bouton ${k + 1} : libellé`}
+              value={b.label}
+              placeholder="Réserver sur RESALIB"
+              onChange={(v) => onChange(arr.map((x, m) => (m === k ? { ...x, label: v } : x)))}
+            />
+            <FieldEditor
+              label={`Bouton ${k + 1} : lien`}
+              type="url"
+              value={b.url}
+              placeholder="https://..."
+              onChange={(v) => onChange(arr.map((x, m) => (m === k ? { ...x, url: v } : x)))}
+            />
+          </div>
+          <button
+            type="button"
+            title="Supprimer ce bouton"
+            onClick={() => onChange(arr.filter((_, m) => m !== k))}
+            className="mb-1.5 shrink-0 rounded-md p-2 text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600"
+          >
+            <Trash2 className="size-4" />
+          </button>
+        </div>
+      ))}
+      <Button type="button" variant="outline" className="w-full gap-2" onClick={() => onChange([...arr, { label: '', url: '' }])}>
+        <Plus className="size-4" /> Ajouter un bouton de réservation
+      </Button>
+    </div>
+  )
+}
+
 /** Carte d'édition d'un item objet (bloc, étape, tarif, cabinet). */
 function ItemCard({ index, children }: { index: number; children: React.ReactNode }) {
   return (
@@ -165,8 +210,8 @@ function KindFields({ section, base, update }: { section: SubpageSection; base: 
               <FieldEditor label="Nom" value={it.name} onChange={(v) => setItem(section.items, j, { name: v })} />
               <FieldEditor label="Adresse" value={it.address} onChange={(v) => setItem(section.items, j, { address: v })} />
               <FieldEditor label="Note" value={it.note ?? ''} type="textarea" onChange={(v) => setItem(section.items, j, { note: v })} />
-              <FieldEditor label="Libellé du bouton de réservation" value={it.bookingLabel ?? ''} onChange={(v) => setItem(section.items, j, { bookingLabel: v })} placeholder="Réserver sur RESALIB" />
-              <FieldEditor label="Lien de réservation" type="url" value={it.bookingUrl ?? ''} onChange={(v) => setItem(section.items, j, { bookingUrl: v })} placeholder="https://..." />
+              <ImageField label="Photo du cabinet" value={it.image ?? ''} onChange={(v) => setItem(section.items, j, { image: v })} />
+              <BookingList bookings={it.bookings} onChange={(next) => setItem(section.items, j, { bookings: next })} />
             </ItemCard>
           ))}
         </>

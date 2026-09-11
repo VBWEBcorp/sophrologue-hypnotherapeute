@@ -1,4 +1,8 @@
+import { photos } from '@/lib/photos'
 import { accessibility, cabinets, siteConfig } from '@/lib/seo'
+
+/** Photo du bâtiment de chaque cabinet : c'est elle que Google associe à la fiche. */
+const CABINET_PHOTO = { rennes: photos.rennesBatiment, acigne: photos.acigneBatiment } as const
 
 /**
  * Toutes les pages où l'activité est référencée sous le même nom : les deux
@@ -72,12 +76,12 @@ export function cabinetJsonLd(cabinetId: 'rennes' | 'acigne') {
     '@context': 'https://schema.org',
     '@type': 'HealthAndBeautyBusiness',
     '@id': `${siteConfig.url}${cabinet.href}#business`,
-    name: `${siteConfig.name} — Hypnothérapeute à ${cabinet.city}`,
+    name: `${siteConfig.name}, hypnothérapeute à ${cabinet.city}`,
     url: `${siteConfig.url}${cabinet.href}`,
     telephone: siteConfig.phoneE164,
     email: siteConfig.email,
-    image: siteConfig.ogImage,
-    priceRange: '45–65 €',
+    image: [CABINET_PHOTO[cabinetId], siteConfig.ogImage],
+    priceRange: '45-65 €',
     currenciesAccepted: 'EUR',
     paymentAccepted: siteConfig.payment.join(', '),
     address: {
@@ -122,7 +126,9 @@ export function practitionerJsonLd() {
     jobTitle: 'Hypnothérapeute et sophrologue',
     telephone: siteConfig.phoneE164,
     email: siteConfig.email,
-    image: siteConfig.ogImage,
+    // Le portrait, pas la bannière OG : c'est l'image qui alimente le
+    // médaillon à côté du nom dans les résultats Google.
+    image: photos.portraitProfessionnel,
     knowsAbout: [
       'Hypnose Ericksonienne',
       'Hypnothérapie',

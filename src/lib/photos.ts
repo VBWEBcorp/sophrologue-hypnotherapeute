@@ -19,13 +19,28 @@ const p = (name: string) => `${PHOTOS_BASE_URL}/${name}.webp`
 export const photos = {
   // ── Praticienne ────────────────────────────────────────────────────────────
   portrait: p('veronique-jan-portrait'),
+  /** Portrait professionnel (fond neutre), transmis le 10/09/2026 : sert au
+   *  médaillon (favicon) et à l'image `Person` du JSON-LD. */
+  portraitProfessionnel: p('veronique-jan-portrait-professionnel'),
 
   // ── Cabinet d'Acigné ───────────────────────────────────────────────────────
+  /** Photos prises par la praticienne le 10/09/2026, travaux de l'immeuble
+   *  terminés. Elles remplacent les captures Street View (`acigneFacade`,
+   *  `acigneAccesRue`), conservées au cas où. */
+  acigneBatiment: p('cabinet-acigne-2-rue-du-calvaire-batiment'),
+  acigneEntree: p('cabinet-acigne-2-rue-du-calvaire-entree'),
+  /** Plaques « JAN Xavier, ostéopathie » et « JAN Véronique, sophrologue »
+   *  à l'entrée du cabinet. La plaque ne mentionne pas l'hypnose : à n'utiliser
+   *  que sur la page Sophrologie (consigne de la praticienne). */
+  plaqueSophrologue: p('plaque-veronique-jan-sophrologue-acigne'),
   acigneFacade: p('cabinet-hypnose-acigne-facade'),
   acigneAccesRue: p('cabinet-hypnose-acigne-acces-rue'),
   acigneConsultation: p('cabinet-acigne-espace-consultation'),
 
   // ── Cabinet de Rennes ──────────────────────────────────────────────────────
+  /** Le bâtiment vu du ciel (même cliché que `aquaWellnessAerien`, sans les
+   *  bandes noires de la capture d'écran). */
+  rennesBatiment: p('batiment-cabinet-rennes-atalante-champeaux'),
   rennesSalleSeance: p('cabinet-rennes-salle-de-seance'),
   rennesBureau: p('cabinet-rennes-bureau-consultation'),
   rennesSalleAttente: p('cabinet-rennes-salle-attente'),
@@ -38,7 +53,14 @@ export const photos = {
   // ── Séances ────────────────────────────────────────────────────────────────
   seanceHypnose: p('seance-hypnose-veronique-jan'),
   seanceTable: p('seance-hypnose-table-relaxation'),
+  /** ⚠️ Malgré son nom, c'est une patiente allongée au casque : une image
+   *  d'hypnose. La sophrologie se pratique debout et assis, elle est illustrée
+   *  par les deux visuels ci-dessous. */
   seanceSophrologie: p('seance-sophrologie-relaxation'),
+  /** Les quatre principes de la sophrologie (page Sophrologie). */
+  sophrologiePrincipes: p('sophrologie-quatre-principes'),
+  /** Les domaines d'application de la sophrologie, en 4/3 (carte Services). */
+  sophrologieDomaines: p('sophrologie-domaines-d-application'),
   seanceFauteuil: p('seance-hypnose-fauteuil-relaxation'),
   equipementAudio: p('equipement-audio-seance-hypnose'),
 

@@ -46,8 +46,8 @@ export const images = {
 
   // Page À propos — galerie 4 images : 3 photos du cabinet + 1 paysage apaisant
   aboutGallery: [
-    photos.acigneConsultation,
-    photos.attenteAffiches,
+    photos.rennesConsultation,
+    photos.rennesAttenteAffiches,
     photos.equipementAudio,
     nature.arbresRayonsSoleil,
   ],
@@ -60,10 +60,10 @@ export const images = {
     photos.sophrologieDomaines, // Sophrologie Caycédienne (pas de patiente allongée : c'est une image d'hypnose)
     photos.seanceFauteuil, // Stress & anxiété
     nature.rayonsSoleilForet, // Troubles du sommeil
-    photos.acigneConsultation, // Arrêt du tabac
-    photos.rennesSalleSeance, // Gestion de la douleur
+    photos.rennesConsultation, // Arrêt du tabac
+    photos.acigneSalleSoin, // Gestion de la douleur
     nature.arbresRayonsSoleil, // Confiance & développement personnel
-    photos.attenteAffiches, // Préparation & accompagnement
+    photos.rennesAttenteAffiches, // Préparation & accompagnement
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
@@ -85,10 +85,10 @@ export const images = {
   // GalleryCarousel sur la home. Sert de repli : dès qu'une galerie existe en
   // base, le carrousel affiche les photos gérées dans « Galerie photos ».
   homeGallery: [
-    photos.acigneConsultation,
-    photos.attenteAffiches,
-    photos.rennesSalleSeance,
-    photos.attenteFauteuils,
+    photos.rennesConsultation,
+    photos.rennesAttenteAffiches,
+    photos.acigneSalleSoin,
+    photos.rennesAttenteFauteuils,
     photos.hallRennes,
     photos.equipementAudio,
   ],

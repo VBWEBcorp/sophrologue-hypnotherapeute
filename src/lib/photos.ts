@@ -29,32 +29,42 @@ export const photos = {
   portraitVesteGrise: p('veronique-jan-portrait-veste-grise'),
 
   // ── Cabinet d'Acigné ───────────────────────────────────────────────────────
+  // Repère donné par la praticienne (12/09/2026) : Acigné, c'est le bureau en
+  // bois, les tons pastel beige et brun et la table de soin bleue (la pièce
+  // partagée avec Xavier Jan). Rennes, c'est le mur bordeaux et les fauteuils
+  // et supports blancs. Les anciens noms de fichiers disaient l'inverse.
   /** Photos prises par la praticienne le 10/09/2026, travaux de l'immeuble
    *  terminés. Elles remplacent les captures Street View (`acigneFacade`,
    *  `acigneAccesRue`), conservées au cas où. */
-  acigneBatiment: p('cabinet-acigne-2-rue-du-calvaire-batiment'),
-  acigneEntree: p('cabinet-acigne-2-rue-du-calvaire-entree'),
+  acigneBatiment: p('cabinet-acigne-immeuble'),
+  /** L'angle de l'immeuble avec la porte, la rampe et le panneau des plaques. */
+  acigneEntreeVueAngle: p('cabinet-acigne-entree-vue-d-angle'),
+  /** Même vue, recadrée en portrait sur l'entrée (bloc 5/6 de la page Acigné). */
+  acigneEntree: p('cabinet-acigne-entree-rue-du-calvaire'),
+  acigneBureau: p('cabinet-acigne-bureau-consultation'),
+  acigneSalleSoin: p('cabinet-acigne-salle-de-soin'),
   /** Plaques « JAN Xavier, ostéopathie » et « JAN Véronique, sophrologue »
    *  à l'entrée du cabinet. La plaque ne mentionne pas l'hypnose : à n'utiliser
    *  que sur la page Sophrologie (consigne de la praticienne).
-   *  Retouchée le 11/09/2026 : la ligne fixe 02 99 37 53 83 n'existe plus,
-   *  seul le 06 reste (le fichier d'origine a été supprimé du bucket). */
-  plaqueSophrologue: p('plaques-jan-cabinet-acigne'),
+   *  Retouchée : la ligne fixe 02 99 37 53 83 n'existe plus, seul le 06 reste
+   *  (les fichiers d'origine ont été supprimés du bucket). */
+  plaqueSophrologue: p('plaques-jan-veronique-xavier-acigne'),
   acigneFacade: p('cabinet-hypnose-acigne-facade'),
   acigneAccesRue: p('cabinet-hypnose-acigne-acces-rue'),
-  acigneConsultation: p('cabinet-acigne-espace-consultation'),
 
   // ── Cabinet de Rennes ──────────────────────────────────────────────────────
   /** Le bâtiment vu du ciel (même cliché que `aquaWellnessAerien`, sans les
    *  bandes noires de la capture d'écran). */
   rennesBatiment: p('batiment-cabinet-rennes-atalante-champeaux'),
-  rennesSalleSeance: p('cabinet-rennes-salle-de-seance'),
-  rennesBureau: p('cabinet-rennes-bureau-consultation'),
+  /** Le bureau noir en verre et les fauteuils blancs ajourés. */
+  rennesConsultation: p('cabinet-rennes-espace-consultation'),
+  /** La salle d'attente du centre SPORMED (dalles sombres, sièges métal). */
   rennesSalleAttente: p('cabinet-rennes-salle-attente'),
+  /** Le coin fauteuils blancs devant le mur bordeaux. */
+  rennesAttenteFauteuils: p('cabinet-rennes-salle-attente-fauteuils'),
+  rennesAttenteAffiches: p('cabinet-rennes-salle-attente-affiches-bretagne'),
 
-  // ── Accueil & attente ──────────────────────────────────────────────────────
-  attenteFauteuils: p('salle-attente-fauteuils'),
-  attenteAffiches: p('salle-attente-affiches-bretagne'),
+  // ── Accueil ────────────────────────────────────────────────────────────────
   hallRennes: p('hall-accueil-centre-rennes'),
 
   // ── Séances ────────────────────────────────────────────────────────────────

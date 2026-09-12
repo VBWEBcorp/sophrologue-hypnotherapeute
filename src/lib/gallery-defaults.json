@@ -31,50 +31,50 @@
   },
   {
     "file": "cabinet-rennes-salle-attente",
-    "title": "La salle d'attente à Rennes",
+    "title": "La salle d'attente du centre médical",
     "description": "La salle d'attente du centre médical qui accueille le cabinet.",
     "category": "Cabinet de Rennes"
   },
   {
-    "file": "cabinet-rennes-bureau-consultation",
-    "title": "Le bureau de consultation à Rennes",
-    "description": "L'espace d'entretien, avant et après la séance.",
+    "file": "cabinet-rennes-espace-consultation",
+    "title": "L'espace de consultation à Rennes",
+    "description": "Le bureau où l'on fait le point, avant et après la séance.",
     "category": "Cabinet de Rennes"
   },
   {
-    "file": "cabinet-rennes-salle-de-seance",
-    "title": "La salle de séance à Rennes",
-    "description": "La salle de séance du cabinet de Rennes, au centre médical SPORMED.",
+    "file": "cabinet-rennes-salle-attente-fauteuils",
+    "title": "Le coin fauteuils à Rennes",
+    "description": "Un espace calme pour patienter avant la séance.",
     "category": "Cabinet de Rennes"
   },
   {
-    "file": "cabinet-acigne-2-rue-du-calvaire-batiment",
+    "file": "cabinet-rennes-salle-attente-affiches-bretagne",
+    "title": "La salle d'attente à Rennes, affiches de Bretagne",
+    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "category": "Cabinet de Rennes"
+  },
+  {
+    "file": "cabinet-acigne-immeuble",
     "title": "Le bâtiment du cabinet d'Acigné",
     "description": "L'immeuble du cabinet, 2 rue du Calvaire à Acigné, travaux terminés.",
     "category": "Cabinet d'Acigné"
   },
   {
-    "file": "cabinet-acigne-2-rue-du-calvaire-entree",
+    "file": "cabinet-acigne-entree-vue-d-angle",
     "title": "L'entrée du cabinet d'Acigné",
-    "description": "L'entrée du cabinet, partagé avec Xavier Jan, ostéopathe.",
+    "description": "L'entrée du cabinet, rue du Calvaire, avec le panneau des plaques.",
     "category": "Cabinet d'Acigné"
   },
   {
-    "file": "cabinet-acigne-espace-consultation",
+    "file": "cabinet-acigne-bureau-consultation",
     "title": "Le bureau de consultation à Acigné",
     "description": "Le bureau où débute chaque accompagnement, par l'entretien préalable.",
     "category": "Cabinet d'Acigné"
   },
   {
-    "file": "salle-attente-fauteuils",
-    "title": "Le coin fauteuils de la salle d'attente",
-    "description": "Un espace calme pour patienter avant la séance.",
-    "category": "Cabinet d'Acigné"
-  },
-  {
-    "file": "salle-attente-affiches-bretagne",
-    "title": "La salle d'attente, affiches de Bretagne",
-    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "file": "cabinet-acigne-salle-de-soin",
+    "title": "La salle de soin à Acigné",
+    "description": "La pièce partagée avec Xavier Jan, ostéopathe.",
     "category": "Cabinet d'Acigné"
   },
   {
@@ -90,12 +90,6 @@
     "description": "Remplacée par la photo de l'entrée prise en septembre 2026.",
     "category": "Cabinet d'Acigné",
     "active": false
-  },
-  {
-    "file": "seance-hypnose-veronique-jan",
-    "title": "Une séance d'hypnose",
-    "description": "Installation confortable et casque audio pour une séance d'hypnose Ericksonienne.",
-    "category": "Séances"
   },
   {
     "file": "seance-hypnose-table-relaxation",
@@ -141,25 +135,25 @@
   },
   {
     "file": "veronique-jan-portrait-haut-rouge",
-    "title": "Véronique Jan, portrait",
+    "title": "Véronique Jan",
     "description": "Praticienne certifiée en hypnose Ericksonienne et sophrologie Caycédienne.",
     "category": "Portraits"
   },
   {
     "file": "veronique-jan-portrait-sourire",
-    "title": "Véronique Jan, portrait souriant",
+    "title": "Véronique Jan",
     "description": "Un accompagnement humain et bienveillant.",
     "category": "Portraits"
   },
   {
     "file": "veronique-jan-portrait-veste-grise",
-    "title": "Véronique Jan, portrait en veste",
+    "title": "Véronique Jan",
     "description": "Ancienne enseignante, thérapeute depuis 2006.",
     "category": "Portraits"
   },
   {
     "file": "veronique-jan-portrait",
-    "title": "Véronique Jan, au cabinet",
+    "title": "Véronique Jan",
     "description": "Hypnose et sophrologie, à Acigné et à Rennes.",
     "category": "Portraits"
   },

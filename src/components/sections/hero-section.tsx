@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-import { PractitionerSignature } from '@/components/sections/practitioner-signature'
+import { PractitionerCard, PractitionerSignature } from '@/components/sections/practitioner-signature'
 import { useContent } from '@/hooks/use-content'
 import { siteConfig } from '@/lib/seo'
 import { heroContent as defaults } from '@/lib/site-content'
@@ -89,6 +89,8 @@ export function HeroSection() {
         />
 
         <div className="relative mx-auto flex min-h-[clamp(34rem,80vh,46rem)] max-w-7xl flex-col justify-between px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+          {/* Deux colonnes sur grand écran : le texte à gauche, la praticienne à droite */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-12">
           {/* Bloc texte principal */}
           <motion.div
             initial="hidden"
@@ -174,16 +176,27 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* La praticienne et sa preuve sociale, ancrées en bas : le portrait
-              en médaillon humanise la page d'arrivée (demande de la praticienne). */}
+          {/* Colonne de droite : la praticienne en grand (demande : humaniser la
+              page d'arrivée). Sur mobile, elle passe en signature compacte en bas. */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.3 }}
+            className="hidden shrink-0 lg:block"
+          >
+            <PractitionerCard className="w-[19rem] xl:w-[21rem]" />
+          </motion.div>
+          </div>
+
+          {/* Preuve sociale, ancrée en bas */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease, delay: 0.35 }}
             className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-4"
           >
-            <PractitionerSignature subtitle="Hypnothérapeute & sophrologue depuis 2006" />
-            <div className="flex items-center gap-3 sm:border-l sm:border-white/20 sm:pl-7">
+            <PractitionerSignature subtitle="Hypnothérapeute & sophrologue depuis 2006" className="lg:hidden" />
+            <div className="flex items-center gap-3 sm:border-l sm:border-white/20 sm:pl-7 lg:border-0 lg:pl-0">
               <div className="flex items-center gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="size-5 fill-amber-400 text-amber-400" />

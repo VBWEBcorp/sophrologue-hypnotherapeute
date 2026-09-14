@@ -144,10 +144,12 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.4, ease, delay: (i % 3) * 0.06 }}
-                        className="group cursor-pointer"
+                        className="group h-full cursor-pointer"
                         onClick={() => setLightbox(image)}
                       >
-                        <div className="overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
+                        {/* h-full + flex-col : les cartes d'une même rangée gardent la même
+                            hauteur quel que soit le nombre de lignes de la légende. */}
+                        <div className="flex h-full flex-col overflow-hidden rounded-3xl bg-card ring-1 ring-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
                           <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                             <Image
                               src={image.imageUrl}
@@ -157,7 +159,7 @@ export default function GalleryContent({ initialSettings, initialImages }: Props
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           </div>
-                          <div className="p-5 space-y-2">
+                          <div className="flex-1 space-y-2 p-5">
                             <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors">
                               {image.title}
                             </h3>

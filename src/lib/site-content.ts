@@ -24,10 +24,13 @@ export const images = {
   // Hero homepage — [0] = vraie photo de séance ; suivantes = nature apaisante.
   // Les fonds plein écran restent en paysage : les photos du cabinet font 850 px
   // de large, elles seraient floues en 1920 px.
+  // Plus de patiente allongée en ouverture (demande de la praticienne, elle
+  // apparaît déjà sur Services et Hypnothérapie) : le hero porte son portrait
+  // en médaillon, les fonds restent des paysages.
   heroCarousel: [
-    photos.seanceHypnose,
     nature.rayonsSoleilForet,
     nature.planEauArbres,
+    nature.brumeSurLac,
   ],
 
   // Section "À propos" sur la home — portrait de Véronique Jan
@@ -46,8 +49,8 @@ export const images = {
 
   // Page À propos — galerie 4 images : 3 photos du cabinet + 1 paysage apaisant
   aboutGallery: [
-    photos.rennesConsultation,
-    photos.rennesAttenteAffiches,
+    photos.acigneConsultation,
+    photos.acigneSalleAttente,
     photos.equipementAudio,
     nature.arbresRayonsSoleil,
   ],
@@ -60,10 +63,10 @@ export const images = {
     photos.sophrologieDomaines, // Sophrologie Caycédienne (pas de patiente allongée : c'est une image d'hypnose)
     photos.seanceFauteuil, // Stress & anxiété
     nature.rayonsSoleilForet, // Troubles du sommeil
-    photos.rennesConsultation, // Arrêt du tabac
+    photos.acigneConsultation, // Arrêt du tabac
     photos.acigneSalleSoin, // Gestion de la douleur
     nature.arbresRayonsSoleil, // Confiance & développement personnel
-    photos.rennesAttenteAffiches, // Préparation & accompagnement
+    photos.acigneSalleAttente, // Préparation & accompagnement
   ],
 
   // Section CTA — 2 colonnes d'images animées en marquee vertical
@@ -85,10 +88,10 @@ export const images = {
   // GalleryCarousel sur la home. Sert de repli : dès qu'une galerie existe en
   // base, le carrousel affiche les photos gérées dans « Galerie photos ».
   homeGallery: [
-    photos.rennesConsultation,
-    photos.rennesAttenteAffiches,
+    photos.acigneConsultation,
+    photos.acigneSalleAttente,
     photos.acigneSalleSoin,
-    photos.rennesAttenteFauteuils,
+    photos.rennesSalonAttente,
     photos.hallRennes,
     photos.equipementAudio,
   ],

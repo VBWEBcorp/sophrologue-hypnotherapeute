@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import { PractitionerSignature } from '@/components/sections/practitioner-signature'
 import { useContent } from '@/hooks/use-content'
 import { siteConfig } from '@/lib/seo'
 import { heroContent as defaults } from '@/lib/site-content'
@@ -173,21 +174,25 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Preuve sociale, ancrée en bas (façon référence) */}
+          {/* La praticienne et sa preuve sociale, ancrées en bas : le portrait
+              en médaillon humanise la page d'arrivée (demande de la praticienne). */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease, delay: 0.35 }}
-            className="mt-12 flex items-center gap-4"
+            className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-4"
           >
-            <div className="flex items-center gap-0.5" aria-hidden>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="size-5 fill-amber-400 text-amber-400" />
-              ))}
-            </div>
-            <div className="text-sm leading-tight text-white/85">
-              <p className="font-semibold text-white">5,0 sur Google</p>
-              <p className="text-white/70">Hypnothérapeute &amp; sophrologue depuis 2006</p>
+            <PractitionerSignature subtitle="Hypnothérapeute & sophrologue depuis 2006" />
+            <div className="flex items-center gap-3 sm:border-l sm:border-white/20 sm:pl-7">
+              <div className="flex items-center gap-0.5" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="size-5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <div className="text-sm leading-tight text-white/85">
+                <p className="font-semibold text-white">5,0 sur Google</p>
+                <p className="text-white/70">Avis patients</p>
+              </div>
             </div>
           </motion.div>
         </div>

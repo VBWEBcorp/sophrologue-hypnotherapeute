@@ -1,86 +1,86 @@
 [
   {
     "file": "batiment-cabinet-rennes-atalante-champeaux",
-    "title": "Le bâtiment du cabinet de Rennes",
+    "title": "Cabinet de Rennes",
     "description": "Le centre médical SPORMED vu du ciel, zone d'affaires Atalante Champeaux.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "acces-cabinet-rennes-atalante-champeaux",
-    "title": "L'entrée du cabinet de Rennes",
-    "description": "L'accès au centre médical SPORMED, 2A rue du Bourg Nouveau.",
+    "title": "Entrée du cabinet de Rennes",
+    "description": "2A rue du Bourg Nouveau, Rennes.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "parking-cabinet-rennes",
-    "title": "Le parking du cabinet de Rennes",
+    "title": "Parking du cabinet de Rennes",
     "description": "Stationnement au pied du centre médical.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "hall-accueil-centre-rennes",
-    "title": "Le hall d'accueil du centre",
+    "title": "Hall d'accueil du 1er étage",
     "description": "Le hall du centre médical, avec ascenseur et espace de repos.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "accueil-aqua-wellness-rennes",
-    "title": "Le comptoir d'accueil",
-    "description": "Le comptoir d'accueil à l'entrée du centre, côté Aqua Wellness.",
+    "title": "Comptoir d'accueil",
+    "description": "À l'entrée du centre, côté Aqua Wellness.",
     "category": "Cabinet de Rennes"
   },
   {
-    "file": "cabinet-rennes-salle-attente",
-    "title": "La salle d'attente du centre médical",
-    "description": "La salle d'attente du centre médical qui accueille le cabinet.",
-    "category": "Cabinet de Rennes"
-  },
-  {
-    "file": "cabinet-rennes-espace-consultation",
-    "title": "L'espace de consultation à Rennes",
-    "description": "Le bureau où l'on fait le point, avant et après la séance.",
+    "file": "hall-accueil-1er-etage-rennes",
+    "title": "Hall d'accueil du 1er étage, autre vue",
+    "description": "Le même hall, vu depuis les sièges.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "cabinet-rennes-salle-attente-fauteuils",
-    "title": "Le coin fauteuils à Rennes",
-    "description": "Un espace calme pour patienter avant la séance.",
-    "category": "Cabinet de Rennes"
-  },
-  {
-    "file": "cabinet-rennes-salle-attente-affiches-bretagne",
-    "title": "La salle d'attente à Rennes, affiches de Bretagne",
-    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "title": "Salon d'attente de Rennes",
+    "description": "Les deux fauteuils blancs du couloir du spa, avant la séance.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "cabinet-acigne-immeuble",
-    "title": "Le bâtiment du cabinet d'Acigné",
-    "description": "L'immeuble du cabinet, 2 rue du Calvaire à Acigné, travaux terminés.",
+    "title": "Immeuble du cabinet d'Acigné",
+    "description": "2 rue du Calvaire, Acigné.",
     "category": "Cabinet d'Acigné"
   },
   {
     "file": "cabinet-acigne-entree-vue-d-angle",
-    "title": "L'entrée du cabinet d'Acigné",
-    "description": "L'entrée du cabinet, rue du Calvaire, avec le panneau des plaques.",
+    "title": "Entrée du cabinet d'Acigné",
+    "description": "La porte, la rampe et le panneau des plaques, rue du Calvaire.",
     "category": "Cabinet d'Acigné"
   },
   {
-    "file": "cabinet-acigne-bureau-consultation",
-    "title": "Le bureau de consultation à Acigné",
+    "file": "cabinet-acigne-salle-de-consultation",
+    "title": "Salle de consultation d'Acigné",
     "description": "Le bureau où débute chaque accompagnement, par l'entretien préalable.",
     "category": "Cabinet d'Acigné"
   },
   {
+    "file": "cabinet-acigne-salle-d-attente",
+    "title": "Salle d'attente d'Acigné",
+    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
+    "file": "cabinet-acigne-bureau-consultation",
+    "title": "Seconde pièce de consultation",
+    "description": "Bureau et table de soin, à Acigné.",
+    "category": "Cabinet d'Acigné"
+  },
+  {
     "file": "cabinet-acigne-salle-de-soin",
-    "title": "La salle de soin à Acigné",
-    "description": "La pièce partagée avec Xavier Jan, ostéopathe.",
+    "title": "Seconde pièce de consultation",
+    "description": "La table de soin, à Acigné.",
     "category": "Cabinet d'Acigné"
   },
   {
     "file": "cabinet-hypnose-acigne-facade",
     "title": "Cabinet d'Acigné, façade (capture Street View)",
-    "description": "Remplacée par la photo du bâtiment prise en septembre 2026.",
+    "description": "Remplacée par la photo de l'immeuble prise en septembre 2026.",
     "category": "Cabinet d'Acigné",
     "active": false
   },
@@ -111,19 +111,19 @@
   },
   {
     "file": "equipement-audio-seance-hypnose",
-    "title": "L'équipement audio des séances",
-    "description": "Casques et matériel son utilisés pendant les séances d'hypnose et de sophrologie.",
+    "title": "Casque audio",
+    "description": "Non obligatoire, utilisé pour optimiser l'efficacité des séances d'hypnose en créant une bulle sonore de bien-être.",
     "category": "Séances"
   },
   {
     "file": "sophrologie-quatre-principes",
-    "title": "Les quatre principes de la sophrologie",
+    "title": "Quatre principes de la sophrologie",
     "description": "Action positive, schéma corporel, réalité objective, adaptabilité.",
     "category": "Sophrologie"
   },
   {
     "file": "sophrologie-domaines-d-application",
-    "title": "Les domaines d'application de la sophrologie",
+    "title": "Domaines d'application de la sophrologie",
     "description": "Stress, émotions, sommeil, confiance en soi, préparation mentale, lâcher-prise.",
     "category": "Sophrologie"
   },

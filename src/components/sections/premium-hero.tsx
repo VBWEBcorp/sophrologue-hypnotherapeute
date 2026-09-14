@@ -6,6 +6,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { PractitionerSignature } from '@/components/sections/practitioner-signature'
+
 const ease = [0.22, 1, 0.36, 1] as const
 
 interface PremiumHeroProps {
@@ -105,7 +107,7 @@ export function PremiumHero({
               </p>
             )}
 
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-7">
               <Link
                 href="/contact"
                 className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card px-7 text-[0.95rem] font-medium text-foreground shadow-[var(--shadow-md)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
@@ -113,6 +115,9 @@ export function PremiumHero({
                 Prendre un RDV
                 <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
               </Link>
+              {/* On arrive souvent sur une page secondaire depuis Google : le
+                  médaillon dit tout de suite qui reçoit. */}
+              <PractitionerSignature size="sm" />
             </div>
 
             {children && <div className="mt-10">{children}</div>}

@@ -29,10 +29,15 @@ export const photos = {
   portraitVesteGrise: p('veronique-jan-portrait-veste-grise'),
 
   // ── Cabinet d'Acigné ───────────────────────────────────────────────────────
-  // Repère donné par la praticienne (12/09/2026) : Acigné, c'est le bureau en
-  // bois, les tons pastel beige et brun et la table de soin bleue (la pièce
-  // partagée avec Xavier Jan). Rennes, c'est le mur bordeaux et les fauteuils
-  // et supports blancs. Les anciens noms de fichiers disaient l'inverse.
+  // Repère validé photo par photo avec la praticienne (14/09/2026) :
+  //  - Acigné : sa salle de consultation (bureau noir en verre, fauteuils
+  //    blancs ajourés, lampes), la salle d'attente aux affiches de Bretagne,
+  //    et une seconde pièce de consultation (bureau bois, table de soin bleue).
+  //  - Rennes : le mur bordeaux, la table blanche et les deux fauteuils blancs
+  //    du couloir du spa (son salon d'attente), plus les espaces du centre
+  //    SPORMED (hall du 1er étage, comptoir, parking).
+  // Les premiers noms de fichiers disaient autre chose : ne jamais déduire le
+  // cabinet d'un nom de fichier ni du style des sièges.
   /** Photos prises par la praticienne le 10/09/2026, travaux de l'immeuble
    *  terminés. Elles remplacent les captures Street View (`acigneFacade`,
    *  `acigneAccesRue`), conservées au cas où. */
@@ -41,6 +46,11 @@ export const photos = {
   acigneEntreeVueAngle: p('cabinet-acigne-entree-vue-d-angle'),
   /** Même vue, recadrée en portrait sur l'entrée (bloc 5/6 de la page Acigné). */
   acigneEntree: p('cabinet-acigne-entree-rue-du-calvaire'),
+  /** Sa salle de consultation : bureau noir en verre, fauteuils blancs ajourés. */
+  acigneConsultation: p('cabinet-acigne-salle-de-consultation'),
+  /** La salle d'attente d'Acigné, affiches de Bretagne. */
+  acigneSalleAttente: p('cabinet-acigne-salle-d-attente'),
+  /** Seconde pièce de consultation : bureau bois et table de soin bleue. */
   acigneBureau: p('cabinet-acigne-bureau-consultation'),
   acigneSalleSoin: p('cabinet-acigne-salle-de-soin'),
   /** Plaques « JAN Xavier, ostéopathie » et « JAN Véronique, sophrologue »
@@ -56,16 +66,13 @@ export const photos = {
   /** Le bâtiment vu du ciel (même cliché que `aquaWellnessAerien`, sans les
    *  bandes noires de la capture d'écran). */
   rennesBatiment: p('batiment-cabinet-rennes-atalante-champeaux'),
-  /** Le bureau noir en verre et les fauteuils blancs ajourés. */
-  rennesConsultation: p('cabinet-rennes-espace-consultation'),
-  /** La salle d'attente du centre SPORMED (dalles sombres, sièges métal). */
-  rennesSalleAttente: p('cabinet-rennes-salle-attente'),
-  /** Le coin fauteuils blancs devant le mur bordeaux. */
-  rennesAttenteFauteuils: p('cabinet-rennes-salle-attente-fauteuils'),
-  rennesAttenteAffiches: p('cabinet-rennes-salle-attente-affiches-bretagne'),
+  /** Son salon d'attente : les deux fauteuils blancs du couloir du spa, mur bordeaux. */
+  rennesSalonAttente: p('cabinet-rennes-salle-attente-fauteuils'),
 
   // ── Accueil ────────────────────────────────────────────────────────────────
+  /** Le hall du 1er étage du centre, deux angles. */
   hallRennes: p('hall-accueil-centre-rennes'),
+  hallRennesAutreVue: p('hall-accueil-1er-etage-rennes'),
 
   // ── Séances ────────────────────────────────────────────────────────────────
   seanceHypnose: p('seance-hypnose-veronique-jan'),

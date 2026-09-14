@@ -31,14 +31,14 @@
   },
   {
     "file": "hall-accueil-1er-etage-rennes",
-    "title": "Hall d'accueil du 1er étage, autre vue",
-    "description": "Le même hall, vu depuis les sièges.",
+    "title": "Hall d'accueil du 1er étage",
+    "description": "Lieu de passage pour votre salon d'attente du couloir spa.",
     "category": "Cabinet de Rennes"
   },
   {
     "file": "cabinet-rennes-salle-attente-fauteuils",
     "title": "Salon d'attente de Rennes",
-    "description": "Les deux fauteuils blancs du couloir du spa, avant la séance.",
+    "description": "Salon en retrait derrière le rideau, pour votre tranquillité.",
     "category": "Cabinet de Rennes"
   },
   {
@@ -50,7 +50,7 @@
   {
     "file": "cabinet-acigne-entree-vue-d-angle",
     "title": "Entrée du cabinet d'Acigné",
-    "description": "La porte, la rampe et le panneau des plaques, rue du Calvaire.",
+    "description": "Côté rue du Grand Four.",
     "category": "Cabinet d'Acigné"
   },
   {
@@ -62,19 +62,19 @@
   {
     "file": "cabinet-acigne-salle-d-attente",
     "title": "Salle d'attente d'Acigné",
-    "description": "Un décor apaisant, aux couleurs de l'Ille-et-Vilaine et du Finistère.",
+    "description": "Un décor apaisant aux couleurs de la Bretagne, musique en sourdine et lecture à disposition.",
     "category": "Cabinet d'Acigné"
   },
   {
     "file": "cabinet-acigne-bureau-consultation",
     "title": "Seconde pièce de consultation",
-    "description": "Bureau et table de soin, à Acigné.",
+    "description": "Bureau et table de soin inclinable en fauteuil assis.",
     "category": "Cabinet d'Acigné"
   },
   {
     "file": "cabinet-acigne-salle-de-soin",
     "title": "Seconde pièce de consultation",
-    "description": "La table de soin, à Acigné.",
+    "description": "Table de soin inclinable en fauteuil assis.",
     "category": "Cabinet d'Acigné"
   },
   {
@@ -99,8 +99,8 @@
   },
   {
     "file": "seance-hypnose-fauteuil-relaxation",
-    "title": "Séance d'hypnose en fauteuil relaxant",
-    "description": "Le fauteuil inclinable, une alternative à la table pour les séances.",
+    "title": "Séance d'hypnose en fauteuil assis",
+    "description": "Le même support de séance, inclinable en fauteuil assis pour les personnes qui préfèrent ne pas être allongées.",
     "category": "Séances"
   },
   {

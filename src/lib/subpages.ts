@@ -20,6 +20,8 @@ export type SubpageSection = (
       title: string
       paragraphs: string[]
       image: string
+      /** Cadre de l'image : portrait 5/6 par défaut, ou paysage 4/3 pour une vue large (rue, bâtiment). */
+      imageAspect?: 'portrait' | 'landscape'
       reverse?: boolean
       bullets?: string[]
     }
@@ -406,7 +408,10 @@ export const subpages: Record<string, Subpage> = {
         kind: 'split',
         eyebrow: 'Adresse',
         title: 'Un cabinet pluridisciplinaire',
-        image: photos.acigneEntree,
+        // La photo prise de loin, avec l'arbre : la praticienne la préfère et
+        // elle montre la rue en large, d'où le cadre paysage.
+        image: photos.acigneBatiment,
+        imageAspect: 'landscape',
         reverse: true,
         paragraphs: [
           '2 Rue du Calvaire, 35690 Acigné.',
@@ -426,9 +431,12 @@ export const subpages: Record<string, Subpage> = {
         ],
       },
       {
-        kind: 'prose',
+        // Seconde photo du lieu (l'entrée, côté rue du Grand Four), demandée
+        // par la praticienne en plus de la vue large.
+        kind: 'split',
         eyebrow: 'Zone d’intervention',
         title: 'Autour du cabinet d’Acigné',
+        image: photos.acigneEntree,
         paragraphs: [
           "Le cabinet d'Acigné accueille les personnes venant de Noyal-sur-Vilaine, Thorigné-Fouillard, Cesson-Sévigné, Servon-sur-Vilaine, Brécé, Châteaubourg, Châteaugiron, Domloup, Chantepie, Liffré et Vern-sur-Seiche.",
           "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",

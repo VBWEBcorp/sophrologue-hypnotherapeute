@@ -126,7 +126,7 @@ function ProseBlock({ section, dark = false }: { section: Extract<SubpageSection
 function SplitBlock({ section, dark = false }: { section: Extract<SubpageSection, { kind: 'split' }>; dark?: boolean }) {
   return (
     <div className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-16 ${section.reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-      <motion.div initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease }} className="relative aspect-[5/6] overflow-hidden rounded-[1.75rem] bg-secondary shadow-[var(--shadow-lg)] ring-1 ring-border/50">
+      <motion.div initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease }} className={`relative overflow-hidden rounded-[1.75rem] bg-secondary shadow-[var(--shadow-lg)] ring-1 ring-border/50 ${section.imageAspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[5/6]'}`}>
         <Image src={section.image} alt={section.title} fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" />
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.6, ease, delay: 0.1 }}>

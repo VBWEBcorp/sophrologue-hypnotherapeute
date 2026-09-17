@@ -18,6 +18,7 @@ import { useToast } from '@/components/admin/toast'
 import { useConfirm } from '@/components/admin/confirm-dialog'
 import { AdminLoading } from '@/components/admin/admin-ui'
 import { cn } from '@/lib/utils'
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 
 interface BlogPost {
   _id: string
@@ -47,7 +48,7 @@ export default function AdminBlogPage() {
   const { toast } = useToast()
   const confirm = useConfirm()
   const [tab, setTab] = useState<Tab>('articles')
-  const [settings, setSettings] = useState<BlogSettings>({ enabled: false, title: 'Nos dernières actualités', eyebrow: 'Blog', description: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.', heroImage: '', categories: [] })
+  const [settings, setSettings] = useState<BlogSettings>({ ...BLOG_DEFAULTS, enabled: false, heroImage: '', categories: [] })
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -475,7 +476,7 @@ export default function AdminBlogPage() {
                 <Input
                   value={settings.title}
                   onChange={(e) => setSettings({ ...settings, title: e.target.value })}
-                  placeholder="Nos dernières actualités"
+                  placeholder={BLOG_DEFAULTS.title}
                 />
                 <p className="text-[11px] text-muted-foreground/60">
                   Le grand titre affiché dans la section d&apos;en-tête
@@ -489,7 +490,7 @@ export default function AdminBlogPage() {
                 <textarea
                   value={settings.description || ''}
                   onChange={(e) => setSettings({ ...settings, description: e.target.value })}
-                  placeholder="Retrouvez nos conseils, nos projets récents et les tendances du secteur."
+                  placeholder={BLOG_DEFAULTS.description}
                   rows={2}
                   className="w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 resize-y"
                 />

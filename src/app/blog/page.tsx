@@ -4,6 +4,7 @@ import { connectDB } from '@/lib/db'
 import { BlogSettings, BlogPost } from '@/models/Blog'
 import { visiblePostFilter } from '@/lib/blog-filters'
 import { siteConfig } from '@/lib/seo'
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 import BlogPageContent from './blog-page-content'
 
 export const revalidate = 3600
@@ -13,8 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
     await connectDB()
     const settings = await BlogSettings.findOne().lean() as any
 
-    const title = settings?.title || 'Blog'
-    const description = settings?.description || 'Découvrez nos articles, conseils et actualités.'
+    const title = settings?.title || BLOG_DEFAULTS.title
+    const description = settings?.description || BLOG_DEFAULTS.description
 
     return {
       title,
@@ -39,16 +40,11 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     }
   } catch {
-    return { title: 'Blog' }
+    return { title: BLOG_DEFAULTS.title, description: BLOG_DEFAULTS.description }
   }
 }
 
-const defaultSettings = {
-  enabled: true,
-  title: 'Nos dernières actualités',
-  description: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.',
-  eyebrow: 'Blog',
-}
+const defaultSettings = BLOG_DEFAULTS
 
 export default async function BlogPage() {
   let settings: any = defaultSettings
@@ -76,8 +72,8 @@ export default async function BlogPage() {
     jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: settings?.title || 'Blog',
-      description: settings?.description || 'Nos dernières actualités',
+      name: settings?.title || BLOG_DEFAULTS.title,
+      description: settings?.description || BLOG_DEFAULTS.description,
       url: `${siteConfig.url}/blog`,
       publisher: {
         '@type': 'Organization',

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/lib/db'
 import { BlogSettings } from '@/models/Blog'
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 import { verifyAuth } from '@/lib/auth'
 
 const CACHE_HEADERS = {
@@ -12,10 +13,7 @@ export async function GET() {
     await connectDB()
     const settings = await BlogSettings.findOne().lean()
     if (!settings) {
-      return NextResponse.json(
-        { enabled: true, title: 'Nos dernières actualités', eyebrow: 'Blog', description: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.' },
-        { headers: CACHE_HEADERS }
-      )
+      return NextResponse.json(BLOG_DEFAULTS, { headers: CACHE_HEADERS })
     }
     return NextResponse.json(settings, { headers: CACHE_HEADERS })
   } catch (error) {

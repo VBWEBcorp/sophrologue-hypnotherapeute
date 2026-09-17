@@ -1,3 +1,4 @@
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 import mongoose, { Schema, Document } from 'mongoose'
 
 export interface IBlogPost extends Document {
@@ -62,10 +63,10 @@ const BlogPostSchema = new Schema<IBlogPost>(
 
 const BlogSettingsSchema = new Schema<IBlogSettings>(
   {
-    enabled: { type: Boolean, default: true },
-    title: { type: String, default: 'Nos dernières actualités' },
-    description: { type: String, default: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.' },
-    eyebrow: { type: String, default: 'Blog' },
+    enabled: { type: Boolean, default: BLOG_DEFAULTS.enabled },
+    title: { type: String, default: BLOG_DEFAULTS.title },
+    description: { type: String, default: BLOG_DEFAULTS.description },
+    eyebrow: { type: String, default: BLOG_DEFAULTS.eyebrow },
     heroImage: String,
     categories: [{ type: String }],
   },

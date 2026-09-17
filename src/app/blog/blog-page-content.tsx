@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Calendar, User, Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 
 interface BlogPost {
   _id: string
@@ -100,7 +101,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
   const gridPosts = showFeatured ? filteredPosts.slice(1) : filteredPosts
 
   const { lead: titleLead, accent: titleAccent } = splitTitle(
-    settings.title || 'Nos dernières actualités'
+    settings.title || BLOG_DEFAULTS.title
   )
 
   if (!settings?.enabled) {
@@ -156,7 +157,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
               )}
             </h1>
             <p className="mt-5 text-lg text-white/70 leading-relaxed sm:text-xl max-w-2xl mx-auto">
-              {settings.description || 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.'}
+              {settings.description || BLOG_DEFAULTS.description}
             </p>
           </motion.div>
         </div>

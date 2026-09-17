@@ -91,9 +91,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
     }
 
-    // Blog pages if enabled
+    // Blog : actif tant qu'il n'est pas désactivé dans l'espace client. Sans document
+    // BlogSettings en base (cas de la prod), la navbar et l'API le tiennent pour actif ;
+    // exiger ici un document laissait les articles hors du sitemap.
     const blogSettings = await BlogSettings.findOne()
-    if (blogSettings?.enabled) {
+    if (blogSettings?.enabled !== false) {
       pages.push({
         url: `${baseUrl}/blog`,
         lastModified: new Date(),

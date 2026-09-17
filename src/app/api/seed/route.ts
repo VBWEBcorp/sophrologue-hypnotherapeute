@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/lib/db'
 import { GalleryImage, GallerySettings } from '@/models/Gallery'
 import { BlogPost, BlogSettings } from '@/models/Blog'
+import { BLOG_DEFAULTS } from '@/lib/blog-defaults'
 import { verifyAuth } from '@/lib/auth'
 import { nature } from '@/lib/photos'
 
@@ -79,8 +80,8 @@ export async function POST(request: NextRequest) {
       if (!blogSettings) {
         await BlogSettings.create({
           enabled: true,
-          title: 'Nos dernières actualités',
-          description: 'Retrouvez nos conseils, nos projets récents et les tendances du secteur.',
+          title: BLOG_DEFAULTS.title,
+          description: BLOG_DEFAULTS.description,
           eyebrow: 'Blog',
           categories: ['Web Design', 'SEO', 'Conseils'],
         })

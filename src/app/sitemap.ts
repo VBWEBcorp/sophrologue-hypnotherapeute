@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 import { siteConfig } from '@/lib/seo'
+import { PORTRAIT_URL } from '@/components/seo/json-ld'
 import { connectDB } from '@/lib/db'
 import { BlogPost, BlogSettings } from '@/models/Blog'
 import { visiblePostFilter } from '@/lib/blog-filters'
@@ -13,6 +14,11 @@ export const dynamic = 'force-dynamic'
 
 const baseUrl = siteConfig.url
 
+// Sitemap d'images : le portrait de la praticienne est dans le hero de toutes
+// les pages du site, on le déclare sur chacune. C'est un des signaux qui
+// désignent à Google l'image à mettre en vignette à côté du résultat.
+const portrait = [PORTRAIT_URL]
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = [
     {
@@ -20,60 +26,70 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
+      images: portrait,
     },
     {
       url: `${baseUrl}/a-propos`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: portrait,
     },
     {
       url: `${baseUrl}/hypnotherapie`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
+      images: portrait,
     },
     {
       url: `${baseUrl}/seances-hypnose`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: portrait,
     },
     {
       url: `${baseUrl}/sophrologie`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
+      images: portrait,
     },
     {
       url: `${baseUrl}/cabinets`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+      images: portrait,
     },
     {
       url: `${baseUrl}/cabinets/rennes`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+      images: portrait,
     },
     {
       url: `${baseUrl}/cabinets/acigne`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+      images: portrait,
     },
     {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: portrait,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+      images: portrait,
     },
   ]
 

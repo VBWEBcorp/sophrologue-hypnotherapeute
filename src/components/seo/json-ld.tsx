@@ -5,6 +5,32 @@ import { accessibility, cabinets, siteConfig } from '@/lib/seo'
 const CABINET_PHOTO = { rennes: photos.rennesBatiment, acigne: photos.acigneBatiment } as const
 
 /**
+ * Le portrait de référence, décrit une fois pour toutes.
+ *
+ * La praticienne veut son visage dans la vignette que Google affiche à droite
+ * de la description, sur mobile, comme chez ses consœurs. Google choisit cette
+ * vignette tout seul parmi les images de la page ; la seule prise qu'on a,
+ * c'est de lui désigner la même image partout : image principale de chaque
+ * page, image de la praticienne, de l'organisation et des cabinets, `og:image`
+ * et sitemap d'images. Même URL que l'<img> du hero (servie sans passer par
+ * l'optimiseur), pour que Google relie la donnée structurée à ce qu'il voit.
+ * Dimensions réelles du fichier : 610 × 458.
+ */
+export const PORTRAIT_URL = photos.portraitProfessionnel
+
+export function portraitImageObject() {
+  return {
+    '@type': 'ImageObject',
+    '@id': `${siteConfig.url}#portrait`,
+    url: PORTRAIT_URL,
+    contentUrl: PORTRAIT_URL,
+    width: 610,
+    height: 458,
+    caption: siteConfig.ogImageAlt,
+  }
+}
+
+/**
  * Toutes les pages où l'activité est référencée sous le même nom : les deux
  * fiches Google d'abord, puis les réseaux. C'est ce faisceau qui permet à
  * Google de rattacher le site aux fiches plutôt que de les traiter à part.
@@ -43,6 +69,7 @@ export function organizationJsonLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     logo: `${siteConfig.url}/icon.png`,
+    image: portraitImageObject(),
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: siteConfig.phoneE164,
@@ -80,7 +107,9 @@ export function cabinetJsonLd(cabinetId: 'rennes' | 'acigne') {
     url: `${siteConfig.url}${cabinet.href}`,
     telephone: siteConfig.phoneE164,
     email: siteConfig.email,
-    image: [CABINET_PHOTO[cabinetId], siteConfig.ogImage],
+    // Le portrait d'abord (c'est lui qu'on veut en vignette Google), puis le
+    // bâtiment, qui reste la photo de repère de la fiche.
+    image: [portraitImageObject(), CABINET_PHOTO[cabinetId]],
     priceRange: '45-65 €',
     currenciesAccepted: 'EUR',
     paymentAccepted: siteConfig.payment.join(', '),
@@ -126,9 +155,9 @@ export function practitionerJsonLd() {
     jobTitle: 'Hypnothérapeute et sophrologue',
     telephone: siteConfig.phoneE164,
     email: siteConfig.email,
-    // Le portrait, pas la bannière OG : c'est l'image qui alimente le
-    // médaillon à côté du nom dans les résultats Google.
-    image: photos.portraitProfessionnel,
+    // Le portrait, pas la bannière OG : c'est l'image qu'on veut voir à côté
+    // du nom dans les résultats Google.
+    image: portraitImageObject(),
     knowsAbout: [
       'Hypnose Ericksonienne',
       'Hypnothérapie',
@@ -189,6 +218,10 @@ export function webPageJsonLd(
     name,
     description,
     url: `${siteConfig.url}${path}`,
+    // Le portrait est dans le hero de chaque page : il en est l'image
+    // principale, quelle que soit la page qui sort dans Google.
+    primaryImageOfPage: portraitImageObject(),
+    image: portraitImageObject(),
     isPartOf: {
       '@type': 'WebSite',
       name: siteConfig.name,

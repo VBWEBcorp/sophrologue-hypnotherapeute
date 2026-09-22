@@ -148,7 +148,7 @@ function AboutHero({
               <div className="relative aspect-square overflow-hidden rounded-xl">
                 <Image
                   src={hero.image}
-                  alt="Véronique Jan, hypnothérapeute et sophrologue"
+                  alt="Véronique Jan, hypnothérapeute et sophrologue à Rennes et Acigné"
                   fill
                   sizes="(min-width: 1024px) 500px, 100vw"
                   priority

@@ -9,7 +9,9 @@ import { siteConfig } from '@/lib/seo'
  * Placé dans le hero de chaque page pour que la première page vue, quelle
  * qu'elle soit (on arrive souvent sur une page secondaire depuis Google),
  * montre qui reçoit. C'est le même portrait que le favicon, la page À propos
- * et les fiches RESALIB / MEDOUCINE : une seule image de référence.
+ * et les fiches RESALIB / MEDOUCINE : une seule image de référence, et c'est
+ * elle que le JSON-LD et le sitemap désignent à Google pour la vignette des
+ * résultats de recherche.
  */
 export function PractitionerSignature({
   subtitle = 'Hypnothérapeute & sophrologue · Rennes · Acigné',
@@ -26,12 +28,16 @@ export function PractitionerSignature({
       <span
         className={`relative ${medallion} shrink-0 overflow-hidden rounded-full ring-2 ring-white/80 shadow-[var(--shadow-md)]`}
       >
-        {/* Le portrait est un peu plus large que haut : on cale le cadrage sur le visage. */}
+        {/* Le portrait est un peu plus large que haut : on cale le cadrage sur le visage.
+            Servi tel quel (10 Ko) : l'URL de l'<img> est alors exactement celle du
+            JSON-LD et du sitemap, et Google n'a qu'une seule image à relier au
+            portrait qu'on lui demande en vignette. */}
         <Image
           src={photos.portraitProfessionnel}
-          alt={siteConfig.name}
+          alt={siteConfig.ogImageAlt}
           fill
           sizes="72px"
+          unoptimized
           className="object-cover object-[50%_30%]"
         />
       </span>
@@ -56,10 +62,11 @@ export function PractitionerCard({ className = '' }: { className?: string }) {
       <span className="relative size-40 overflow-hidden rounded-full ring-4 ring-white/85 shadow-[var(--shadow-lg)] xl:size-44">
         <Image
           src={photos.portraitProfessionnel}
-          alt={siteConfig.name}
+          alt={siteConfig.ogImageAlt}
           fill
           sizes="176px"
           priority
+          unoptimized
           className="object-cover object-[50%_30%]"
         />
       </span>

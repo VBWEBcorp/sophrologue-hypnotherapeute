@@ -10,7 +10,17 @@ export const siteConfig = {
   locale: 'fr_FR',
   description:
     "Véronique Jan, hypnothérapeute (hypnose Ericksonienne) et sophrologue à Rennes et Acigné depuis 20 ans. Accompagnement du stress, de l'anxiété, de la dépression, du sommeil, des phobies, de la douleur et arrêt du tabac.",
-  ogImage: 'https://sophrologue-hypnotherapeute-jan.fr/og.png',
+  /**
+   * Image de partage : le portrait de la praticienne, et pas une bannière.
+   * Elle a demandé que son visage apparaisse à côté du nom de domaine dans
+   * les résultats Google (la vignette à droite de la description, sur mobile),
+   * comme chez ses consœurs. Google choisit cette vignette parmi les images
+   * qu'il croise sur la page ; on lui répète la même partout (og:image,
+   * JSON-LD, sitemap d'images, hero). Visage centré : un recadrage carré ou
+   * 4:3 le garde entier.
+   */
+  ogImage: 'https://sophrologue-hypnotherapeute-jan.fr/veronique-jan-hypnotherapeute-sophrologue.jpg',
+  ogImageAlt: 'Véronique Jan, hypnothérapeute et sophrologue à Rennes et Acigné',
   twitterHandle: '@veroniquejan',
   themeColor: '#2c2438',
   /** Numéro affiché — format identique à celui des fiches Google et de RESALIB. */

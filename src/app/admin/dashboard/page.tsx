@@ -37,6 +37,7 @@ const pageModules = [
   { href: '/admin/pages/cabinets', label: 'Mes cabinets', desc: 'Rennes & Acigné', icon: MapPin },
   { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', desc: 'Centre SPORMED', icon: MapPin },
   { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", desc: 'Rue du Calvaire', icon: MapPin },
+  { href: '/admin/pages/noyal-sur-vilaine', label: 'Noyal-sur-Vilaine', desc: 'Page de zone, reçue à Acigné', icon: MapPin },
   { href: '/admin/pages/contact', label: 'Contact', desc: 'Coordonnées, RDV', icon: Phone },
 ]
 

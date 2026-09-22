@@ -78,6 +78,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       images: portrait,
     },
     {
+      url: `${baseUrl}/hypnose-noyal-sur-vilaine`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      images: portrait,
+    },
+    {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

@@ -208,6 +208,7 @@ export const routes = [
   '/cabinets',
   '/cabinets/rennes',
   '/cabinets/acigne',
+  '/hypnose-noyal-sur-vilaine',
   '/services',
   '/contact',
   '/mentions-legales',

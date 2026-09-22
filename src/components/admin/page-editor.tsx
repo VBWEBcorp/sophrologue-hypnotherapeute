@@ -79,6 +79,7 @@ const previewPaths: Record<string, string> = {
   'sub-cabinets': '/cabinets',
   'sub-cabinet-rennes': '/cabinets/rennes',
   'sub-cabinet-acigne': '/cabinets/acigne',
+  'sub-noyal-sur-vilaine': '/hypnose-noyal-sur-vilaine',
 }
 
 /* ── Composant ──────────────────────────────────────────────────────────── */

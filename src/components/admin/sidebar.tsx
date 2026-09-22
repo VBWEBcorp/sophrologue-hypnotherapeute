@@ -46,6 +46,7 @@ const pageEditItems = [
   { href: '/admin/pages/cabinets', label: 'Mes cabinets', icon: MapPin },
   { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', icon: MapPin },
   { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", icon: MapPin },
+  { href: '/admin/pages/noyal-sur-vilaine', label: 'Noyal-sur-Vilaine', icon: MapPin },
   { href: '/admin/pages/contact', label: 'Contact', icon: Phone },
 ]
 

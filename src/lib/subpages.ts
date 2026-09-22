@@ -332,6 +332,7 @@ export const subpages: Record<string, Subpage> = {
         title: 'Je me déplace aussi chez vous',
         items: [
           { iconName: 'Home', title: 'À domicile', desc: 'Visites à domicile dans un rayon de 20 km autour de chaque cabinet.' },
+          { iconName: 'MapPin', title: 'Noyal-sur-Vilaine et alentours', desc: 'Les habitants de Noyal-sur-Vilaine sont reçus au cabinet d’Acigné, à moins de dix minutes, ou à domicile.', href: '/hypnose-noyal-sur-vilaine' },
           // Formulation de la praticienne : elle pratique peu la téléconsultation,
           // et uniquement avec des patients déjà suivis en cabinet.
           { iconName: 'Smartphone', title: 'En téléconsultation', desc: 'Uniquement en suivi, après un premier protocole en présentiel. Me consulter pour la programmer.' },
@@ -428,6 +429,7 @@ export const subpages: Record<string, Subpage> = {
           { iconName: 'CalendarCheck', title: 'Réserver sur RESALIB', desc: 'Également disponible pour le cabinet d’Acigné.', href: RESALIB_URL, external: true },
           { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
           { iconName: 'Home', title: 'À domicile', desc: 'Visites possibles dans un rayon de 20 km autour d’Acigné.' },
+          { iconName: 'MapPin', title: 'Vous venez de Noyal-sur-Vilaine ?', desc: 'Le cabinet est à moins de dix minutes : tout ce qu’il faut savoir sur une page dédiée.', href: '/hypnose-noyal-sur-vilaine' },
         ],
       },
       {
@@ -440,6 +442,131 @@ export const subpages: Record<string, Subpage> = {
         paragraphs: [
           "Le cabinet d'Acigné accueille les personnes venant de Noyal-sur-Vilaine, Thorigné-Fouillard, Cesson-Sévigné, Servon-sur-Vilaine, Brécé, Châteaubourg, Châteaugiron, Domloup, Chantepie, Liffré et Vern-sur-Seiche.",
           "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
+        ],
+      },
+    ],
+  },
+  // ════════════════════════════════ NOYAL-SUR-VILAINE ════════════════════════
+  // Page de zone, pas de cabinet : la praticienne n'est pas installée à Noyal,
+  // elle y reçoit les habitants depuis Acigné, la commune voisine. Promise à la
+  // cliente le 17/09/2026 (levier durable pour Noyal, à la place d'un mot dans
+  // le nom de la fiche Google). Tout ce qui est dit ici l'est déjà ailleurs sur
+  // le site : rien n'est inventé pour la commune.
+  'noyal-sur-vilaine': {
+    slug: 'hypnose-noyal-sur-vilaine',
+    metaTitle: 'Hypnose et sophrologie près de Noyal-sur-Vilaine',
+    metaDescription:
+      "Véronique Jan, hypnothérapeute et sophrologue depuis 2006, reçoit les habitants de Noyal-sur-Vilaine à son cabinet d'Acigné, à moins de dix minutes, ou à domicile.",
+    hero: {
+      eyebrow: 'Hypnose & sophrologie · Noyal-sur-Vilaine',
+      title: 'Hypnothérapeute près de Noyal-sur-Vilaine',
+      description:
+        "Depuis 2006, je reçois les habitants de Noyal-sur-Vilaine à mon cabinet d'Acigné, la commune voisine, ou à domicile. Hypnose Ericksonienne et sophrologie Caycédienne.",
+      breadcrumb: 'Noyal-sur-Vilaine',
+      backgroundImage: nature.riviereBordeeArbres,
+    },
+    sections: [
+      {
+        kind: 'split',
+        eyebrow: 'Le cabinet le plus proche',
+        title: 'À Acigné, la commune voisine de Noyal-sur-Vilaine',
+        image: photos.acigneBatiment,
+        imageAspect: 'landscape',
+        reverse: true,
+        paragraphs: [
+          "Mon cabinet se trouve 2 Rue du Calvaire, à Acigné, à moins de dix minutes en voiture du centre de Noyal-sur-Vilaine. C'est un cabinet pluridisciplinaire, partagé avec Xavier Jan, ostéopathe.",
+          "Depuis vingt ans, une bonne partie des personnes que j'accompagne viennent des communes voisines : Noyal-sur-Vilaine, Servon-sur-Vilaine, Brécé, Châteaubourg ou Thorigné-Fouillard.",
+        ],
+        bullets: ['Sur rendez-vous', 'Du lundi au samedi', 'Hypnose & sophrologie'],
+      },
+      {
+        kind: 'features',
+        eyebrow: 'Ce que je propose',
+        title: 'Deux approches, un même objectif : votre mieux-être',
+        items: [
+          { iconName: 'Brain', title: 'Hypnose Ericksonienne', desc: 'Une thérapie brève de quelques séances, pour agir sur ce qui vous bloque. Praticienne certifiée (Institut Émergences, Rennes).', href: '/hypnotherapie' },
+          { iconName: 'Leaf', title: 'Sophrologie Caycédienne', desc: 'Des exercices simples de relaxation du corps et de l’esprit, à pratiquer ensuite en autonomie.', href: '/sophrologie' },
+          { iconName: 'Sparkles', title: 'Le déroulement d’une séance', desc: 'De l’entretien au retour : ce qui se passe concrètement, et pourquoi vous restez conscient·e.', href: '/seances-hypnose' },
+          { iconName: 'Home', title: 'À domicile à Noyal-sur-Vilaine', desc: 'Je me déplace chez vous : la commune est dans le rayon de 20 km que je couvre autour d’Acigné.' },
+        ],
+      },
+      {
+        kind: 'checklist',
+        eyebrow: 'Motifs de consultation',
+        title: 'Ce sur quoi je peux vous accompagner',
+        description: 'Enfants, adolescents, adultes, femmes enceintes et jeunes mamans.',
+        items: [
+          'Le stress, l’anxiété et la dépression',
+          'Un blocage, une situation stressante ou une phobie',
+          'Le sommeil, à retrouver ou à améliorer',
+          'L’accompagnement à l’arrêt du tabac et les compulsions alimentaires',
+          'La gestion de la douleur',
+          'La préparation d’une échéance anxiogène (examens, entretiens, épreuve sportive…)',
+          'L’accompagnement de protocoles médicaux',
+          'Les acouphènes',
+        ],
+      },
+      {
+        kind: 'timeline',
+        eyebrow: 'Votre premier rendez-vous',
+        title: 'Comment débute un accompagnement',
+        description: 'Chaque accompagnement commence par un temps d’échange, jamais par une technique.',
+        steps: [
+          { iconName: 'Users', title: 'L’entretien', desc: 'Un échange approfondi pour comprendre votre histoire, vos symptômes et vos objectifs.' },
+          { iconName: 'Target', title: 'Le protocole', desc: 'Un protocole personnalisé, en hypnose, en sophrologie ou les deux, sur quelques séances.' },
+          { iconName: 'Smartphone', title: 'Le suivi', desc: 'En cabinet ou à domicile. La téléconsultation est réservée au suivi, après un premier protocole en présentiel.' },
+        ],
+      },
+      {
+        // Tarifs identiques à la page Sophrologie : une seule grille sur le site.
+        kind: 'pricing',
+        eyebrow: 'Tarifs',
+        title: 'Mes tarifs',
+        description:
+          'Règlement par chèque, espèces ou virement. La carte bancaire n’est pas acceptée.',
+        items: [
+          { price: '57 à 65 €', label: 'Séance d’hypnose', note: 'Selon la localité, la durée et le déplacement' },
+          { price: '45 à 57 €', label: 'Séance de sophrologie', note: 'Selon la localité, la durée et le déplacement' },
+          { price: 'Sur consultation', label: 'Enfants', note: 'Tarif spécifique selon l’âge' },
+        ],
+      },
+      {
+        kind: 'cabinets',
+        eyebrow: 'Prendre rendez-vous',
+        title: 'Réserver au cabinet d’Acigné',
+        description: 'En ligne, sur la plateforme de votre choix, ou par téléphone.',
+        items: [
+          {
+            id: 'acigne',
+            name: "Cabinet d'Acigné",
+            address: '2 Rue du Calvaire, 35690 Acigné',
+            note: 'À moins de dix minutes de Noyal-sur-Vilaine. En association avec Xavier Jan, ostéopathe.',
+            image: photos.acigneBatiment,
+            href: '/cabinets/acigne',
+            bookings: [
+              { label: 'Réserver sur MEDOUCINE', url: MEDOUCINE_URL },
+              { label: 'Réserver sur RESALIB', url: RESALIB_URL },
+            ],
+          },
+        ],
+      },
+      {
+        kind: 'features',
+        eyebrow: 'Autres façons de me joindre',
+        title: 'Par téléphone, chez vous, ou à Rennes',
+        items: [
+          { iconName: 'Phone', title: 'Par téléphone', desc: '06 15 62 17 23, appel ou SMS. Rappel ou réponse dans la demi-journée.', href: `tel:${siteConfig.phoneE164}` },
+          { iconName: 'Home', title: 'À domicile', desc: 'Visites possibles à Noyal-sur-Vilaine et dans un rayon de 20 km autour d’Acigné.' },
+          { iconName: 'MapPin', title: 'Cabinet de Rennes', desc: 'Si vous travaillez à Rennes : centre médical SPORMED, zone d’affaires Atalante Champeaux.', href: '/cabinets/rennes' },
+        ],
+      },
+      {
+        kind: 'highlight',
+        eyebrow: 'Bon à savoir',
+        title: 'Je ne suis pas installée à Noyal-sur-Vilaine même',
+        paragraphs: [
+          "Mon cabinet est à Acigné, la commune voisine, à quelques minutes. Si vous préférez ne pas vous déplacer, je viens chez vous : Noyal-sur-Vilaine est dans le rayon de 20 km que je couvre à domicile.",
+          "Pour un premier rendez-vous, nous nous voyons toujours en présentiel, au cabinet ou à domicile. La téléconsultation n'intervient qu'ensuite, en suivi, si elle est utile.",
         ],
       },
     ],

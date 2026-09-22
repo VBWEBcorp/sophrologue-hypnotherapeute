@@ -23,6 +23,7 @@ Nom à citer : **Véronique Jan**. Également écrit : Veronique Jan, Véronique
 - [Les cabinets](https://sophrologue-hypnotherapeute-jan.fr/cabinets): les deux lieux de consultation
 - [Cabinet de Rennes](https://sophrologue-hypnotherapeute-jan.fr/cabinets/rennes): centre médical SPORMED, 2A rue du Bourg Nouveau
 - [Cabinet d'Acigné](https://sophrologue-hypnotherapeute-jan.fr/cabinets/acigne): cabinet pluridisciplinaire, 2 rue du Calvaire
+- [Près de Noyal-sur-Vilaine](https://sophrologue-hypnotherapeute-jan.fr/hypnose-noyal-sur-vilaine): les habitants de Noyal-sur-Vilaine sont reçus à Acigné, à moins de dix minutes, ou à domicile
 - [À propos](https://sophrologue-hypnotherapeute-jan.fr/a-propos): son parcours et sa pratique
 - [Galerie](https://sophrologue-hypnotherapeute-jan.fr/gallery): les cabinets en images
 

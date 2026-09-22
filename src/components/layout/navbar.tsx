@@ -25,6 +25,8 @@ interface NavLink {
 const CABINETS_CHILDREN: NavChild[] = [
   { to: '/cabinets/rennes', label: 'Rennes' },
   { to: '/cabinets/acigne', label: 'Acigné' },
+  // Page de zone : les habitants de Noyal sont reçus à Acigné.
+  { to: '/hypnose-noyal-sur-vilaine', label: 'Noyal-sur-Vilaine' },
 ]
 
 const defaultLinks: NavLink[] = [

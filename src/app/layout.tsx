@@ -84,6 +84,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  // Propriété Search Console du site (balise demandée par Google le 22/09/2026).
+  verification: {
+    google: 'HQswkgPmZcFIDHPRPHWRc0jwhlKs0wfal9-FrgU3CKY',
+  },
 }
 
 export const viewport: Viewport = {

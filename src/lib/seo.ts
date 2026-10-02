@@ -8,8 +8,13 @@ export const siteConfig = {
    */
   url: 'https://sophrologue-hypnotherapeute-jan.fr',
   locale: 'fr_FR',
+  /**
+   * Sous 155 caracteres : au-dela, Google coupe et la fin de la phrase n'est
+   * jamais lue. Elle sert aussi d'`og:description` et de description du
+   * JSON-LD, d'ou une formulation qui tient debout seule.
+   */
   description:
-    "Véronique Jan, hypnothérapeute (hypnose Ericksonienne) et sophrologue à Rennes et Acigné depuis 20 ans. Accompagnement du stress, de l'anxiété, de la dépression, du sommeil, des phobies, de la douleur et arrêt du tabac.",
+    "Hypnothérapeute et sophrologue à Rennes et Acigné depuis 2006 : stress, anxiété, sommeil, phobies, arrêt du tabac. Deux cabinets, et à domicile.",
   /**
    * Image de partage : le portrait de la praticienne, et pas une bannière.
    * Elle a demandé que son visage apparaisse à côté du nom de domaine dans

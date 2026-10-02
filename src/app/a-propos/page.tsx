@@ -4,10 +4,12 @@ import { AboutContent } from './about-content'
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 
 const description =
-  "Véronique Jan, sophrologue et hypnothérapeute à Acigné et Rennes depuis 2006. Formée à l'Institut de Sophrologie de Rennes (ISR) et à l'Institut Émergences de Rennes. Approche personnalisée."
+  "Hypnothérapeute et sophrologue à Rennes et Acigné depuis 2006. Formée à l'hypnose Ericksonienne à l'Institut Émergences et à la sophrologie à l'ISR."
 
 export const metadata: Metadata = {
-  title: 'À propos',
+  // « À propos » ne portait aucun mot-clé : c'est pourtant la page
+  // d'autorité de la praticienne (ancienneté, formations, parcours).
+  title: 'Hypnothérapeute à Rennes depuis 2006',
   description,
   alternates: { canonical: '/a-propos' },
 }
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    webPageJsonLd('À propos', description, '/a-propos'),
+    webPageJsonLd('Hypnothérapeute à Rennes depuis 2006', description, '/a-propos'),
     breadcrumbJsonLd([
       { name: 'Accueil', path: '/' },
       { name: 'À propos', path: '/a-propos' },

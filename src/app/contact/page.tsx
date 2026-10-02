@@ -4,7 +4,7 @@ import { ContactContent } from './contact-content'
 import { breadcrumbJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
 
 const description =
-  "Prenez rendez-vous avec Véronique Jan, hypnothérapeute et sophrologue à Acigné et Rennes. Réservation en ligne MEDOUCINE et RESALIB, par téléphone, SMS ou e-mail."
+  "Prendre rendez-vous avec Véronique Jan à Rennes ou à Acigné : réservation en ligne RESALIB et MEDOUCINE, par téléphone ou par SMS."
 
 export const metadata: Metadata = {
   title: 'Prendre rendez-vous',

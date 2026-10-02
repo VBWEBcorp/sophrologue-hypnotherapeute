@@ -41,6 +41,22 @@ export type SubpageSection = (
       steps: { iconName?: string; title: string; desc: string }[]
     }
   | { kind: 'highlight'; eyebrow?: string; title: string; paragraphs: string[] }
+  /**
+   * Questions fréquentes propres à une page.
+   *
+   * Ce sont les questions réellement posées au téléphone ou en première
+   * séance. Elles étoffent des pages courtes avec du texte utile, et la page
+   * qui les porte déclare le JSON-LD `FAQPage` correspondant : Google peut
+   * alors les afficher sous le résultat, et les moteurs de réponse y puisent
+   * directement.
+   */
+  | {
+      kind: 'faq'
+      eyebrow?: string
+      title: string
+      description?: string
+      items: { question: string; answer: string }[]
+    }
   | {
       kind: 'pricing'
       eyebrow?: string
@@ -90,7 +106,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'hypnotherapie',
     metaTitle: 'Hypnothérapie Ericksonienne à Rennes et Acigné',
     metaDescription:
-      "Hypnothérapie Ericksonienne à Rennes et Acigné : une thérapie brève pour agir sur le stress, l'anxiété, la dépression, les phobies, le sommeil, la douleur et l'arrêt du tabac.",
+      "Hypnose Ericksonienne à Rennes et Acigné : thérapie brève pour le stress, l'anxiété, les phobies et l'arrêt du tabac. Praticienne certifiée depuis 2006.",
     hero: {
       eyebrow: 'Hypnothérapie',
       title: 'Hypnothérapie Ericksonienne à Rennes & Acigné',
@@ -151,7 +167,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'seances-hypnose',
     metaTitle: "Séances d'hypnose : le déroulement",
     metaDescription:
-      "Comment se déroule une séance d'hypnose avec Véronique Jan : entretien, induction, état d'hypnose et activation des ressources. Vous restez conscient·e et acteur·rice.",
+      "Comment se déroule une séance d'hypnose : l'entretien, la détente, l'état d'hypnose, le retour. Vous restez conscient et acteur du début à la fin.",
     hero: {
       eyebrow: "Séances d'hypnose",
       title: "Le déroulement d'une séance d'hypnose",
@@ -192,7 +208,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'sophrologie',
     metaTitle: 'Sophrologie à Rennes et Acigné',
     metaDescription:
-      "Sophrologie Caycédienne à Rennes et Acigné : techniques et exercices psycho-corporels pour apaiser le système nerveux, relâcher le corps et gérer le stress en autonomie. Tarifs et séances.",
+      "Sophrologie Caycédienne à Rennes et Acigné : des exercices simples pour relâcher le corps, apaiser le stress et retrouver le sommeil, en autonomie.",
     hero: {
       eyebrow: 'Sophrologie',
       title: 'La sophrologie pour apaiser stress et angoisses',
@@ -282,7 +298,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'cabinets',
     metaTitle: 'Mes cabinets à Rennes & Acigné',
     metaDescription:
-      "Véronique Jan vous accueille dans deux cabinets, à Rennes (centre médical SPORMED) et à Acigné (2 Rue du Calvaire), ainsi qu'à domicile dans un rayon de 20 km et en téléconsultation.",
+      "Deux cabinets pour vos séances d'hypnose et de sophrologie : Rennes (centre médical SPORMED) et Acigné. Également à domicile, dans un rayon de 20 km.",
     hero: {
       eyebrow: 'Mes cabinets',
       title: 'Mes cabinets à Rennes & Acigné',
@@ -347,7 +363,7 @@ export const subpages: Record<string, Subpage> = {
     slug: 'cabinets/rennes',
     metaTitle: 'Hypnothérapeute à Rennes, cabinet SPORMED',
     metaDescription:
-      "Hypnose et sophrologie à Rennes, au sein du centre médical SPORMED (2A Rue du Bourg Nouveau, 35000 Rennes), Zone d’affaires Atalante Champeaux. Réservation en ligne sur RESALIB.",
+      "Hypnose et sophrologie à Rennes, au centre médical SPORMED, 2A rue du Bourg Nouveau, zone d’affaires Atalante Champeaux. Rendez-vous en ligne.",
     hero: {
       eyebrow: 'Mes cabinets · Rennes',
       title: 'Cabinet de Rennes',
@@ -386,6 +402,44 @@ export const subpages: Record<string, Subpage> = {
         paragraphs: [
           "Je reçois à Rennes les personnes venant de Pacé, Saint-Jacques-de-la-Lande, Saint-Grégoire, Saint-Gilles, Vezin-le-Coquet, ainsi que des quartiers de Cleunay et Villejean.",
           "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
+        ],
+      },
+      {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Venir au cabinet de Rennes',
+        description: 'Les questions que l’on me pose le plus souvent avant un premier rendez-vous.',
+        items: [
+          {
+            question: 'Où se trouve exactement le cabinet de Rennes ?',
+            answer:
+              'Au centre médical SPORMED, 2A rue du Bourg Nouveau, dans la zone d’affaires Atalante Champeaux, à Rennes. Le centre regroupe plusieurs professionnels de santé ; mon espace de consultation se trouve au premier étage.',
+          },
+          {
+            question: 'Quels sont les horaires de consultation ?',
+            answer:
+              'Du lundi au vendredi de 8 h à 21 h 30, et le samedi de 8 h à 20 h. Les séances ont lieu uniquement sur rendez-vous.',
+          },
+          {
+            question: 'Comment prendre rendez-vous à Rennes ?',
+            answer:
+              'En ligne sur RESALIB ou sur MEDOUCINE, ou directement par téléphone et par SMS au 06 15 62 17 23. Je réponds ou je rappelle dans la demi-journée.',
+          },
+          {
+            question: 'Combien coûte une séance ?',
+            answer:
+              'De 57 à 65 € pour une séance d’hypnose et de 45 à 57 € pour une séance de sophrologie, selon la localité, la durée et le déplacement. Un tarif spécifique s’applique aux enfants, selon l’âge.',
+          },
+          {
+            question: 'Quels moyens de paiement acceptez-vous ?',
+            answer:
+              'Le chèque, les espèces et le virement. La carte bancaire n’est pas acceptée.',
+          },
+          {
+            question: 'Consultez-vous à distance ?',
+            answer:
+              'La téléconsultation est réservée au suivi, après un premier protocole en présentiel. Un premier rendez-vous se fait toujours au cabinet ou à domicile.',
+          },
         ],
       },
     ],
@@ -444,6 +498,44 @@ export const subpages: Record<string, Subpage> = {
           "Je me déplace également à domicile dans un rayon de 20 km autour du cabinet, ce qui couvre aussi les communes non citées ici. La téléconsultation est réservée au suivi, après un premier protocole en présentiel : me consulter pour la programmer.",
         ],
       },
+      {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Venir au cabinet d’Acigné',
+        description: 'Les questions que l’on me pose le plus souvent avant un premier rendez-vous.',
+        items: [
+          {
+            question: 'Où se trouve le cabinet d’Acigné ?',
+            answer:
+              'Au 2 rue du Calvaire, 35690 Acigné, dans un cabinet pluridisciplinaire partagé avec Xavier Jan, ostéopathe. L’entrée se fait côté rue du Grand Four.',
+          },
+          {
+            question: 'Quels sont les horaires de consultation ?',
+            answer:
+              'Du lundi au vendredi de 8 h à 21 h 30, et le samedi de 8 h à 20 h. Les séances ont lieu uniquement sur rendez-vous.',
+          },
+          {
+            question: 'Comment prendre rendez-vous à Acigné ?',
+            answer:
+              'En ligne sur MEDOUCINE ou sur RESALIB, ou directement par téléphone et par SMS au 06 15 62 17 23. Je réponds ou je rappelle dans la demi-journée.',
+          },
+          {
+            question: 'Depuis quelles communes vient-on à Acigné ?',
+            answer:
+              'Principalement de Noyal-sur-Vilaine, Thorigné-Fouillard, Cesson-Sévigné, Servon-sur-Vilaine, Brécé, Châteaubourg, Châteaugiron, Domloup, Chantepie, Liffré et Vern-sur-Seiche. Je me déplace aussi à domicile dans un rayon de 20 km.',
+          },
+          {
+            question: 'Combien coûte une séance ?',
+            answer:
+              'De 57 à 65 € pour une séance d’hypnose et de 45 à 57 € pour une séance de sophrologie, selon la localité, la durée et le déplacement. Règlement par chèque, espèces ou virement ; la carte bancaire n’est pas acceptée.',
+          },
+          {
+            question: 'Faut-il venir en présentiel la première fois ?',
+            answer:
+              'Oui. Un premier rendez-vous se fait toujours au cabinet ou à domicile. La téléconsultation n’intervient qu’ensuite, en suivi, si elle est utile.',
+          },
+        ],
+      },
     ],
   },
   // ════════════════════════════════ NOYAL-SUR-VILAINE ════════════════════════
@@ -454,9 +546,9 @@ export const subpages: Record<string, Subpage> = {
   // le site : rien n'est inventé pour la commune.
   'noyal-sur-vilaine': {
     slug: 'hypnose-noyal-sur-vilaine',
-    metaTitle: 'Hypnose et sophrologie près de Noyal-sur-Vilaine',
+    metaTitle: 'Hypnose et sophrologie à Noyal-sur-Vilaine',
     metaDescription:
-      "Véronique Jan, hypnothérapeute et sophrologue depuis 2006, reçoit les habitants de Noyal-sur-Vilaine à son cabinet d'Acigné, à moins de dix minutes, ou à domicile.",
+      "Hypnothérapeute et sophrologue depuis 2006, je reçois les habitants de Noyal-sur-Vilaine à mon cabinet d'Acigné, à dix minutes, ou à domicile.",
     hero: {
       eyebrow: 'Hypnose & sophrologie · Noyal-sur-Vilaine',
       title: 'Hypnothérapeute près de Noyal-sur-Vilaine',
@@ -561,6 +653,33 @@ export const subpages: Record<string, Subpage> = {
         ],
       },
       {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Depuis Noyal-sur-Vilaine',
+        items: [
+          {
+            question: 'Faut-il aller jusqu’à Rennes pour une séance ?',
+            answer:
+              'Non. Le cabinet d’Acigné est à moins de dix minutes en voiture du centre de Noyal-sur-Vilaine, 2 rue du Calvaire. Le cabinet de Rennes est utile surtout si vous y travaillez.',
+          },
+          {
+            question: 'Vous déplacez-vous à Noyal-sur-Vilaine ?',
+            answer:
+              'Oui. La commune est dans le rayon de 20 km que je couvre à domicile autour d’Acigné, y compris pour un premier rendez-vous.',
+          },
+          {
+            question: 'Quels sont les horaires et les tarifs ?',
+            answer:
+              'Du lundi au vendredi de 8 h à 21 h 30 et le samedi de 8 h à 20 h, sur rendez-vous. De 57 à 65 € la séance d’hypnose, de 45 à 57 € la séance de sophrologie, selon la localité, la durée et le déplacement.',
+          },
+          {
+            question: 'Combien de séances faut-il prévoir ?',
+            answer:
+              'L’hypnose Ericksonienne est une thérapie brève : quelques séances suffisent généralement. Le nombre se décide ensemble lors de l’entretien initial, en fonction de votre objectif.',
+          },
+        ],
+      },
+      {
         kind: 'highlight',
         eyebrow: 'Bon à savoir',
         title: 'Je ne suis pas installée à Noyal-sur-Vilaine même',
@@ -575,4 +694,17 @@ export const subpages: Record<string, Subpage> = {
 
 export function getSubpage(slug: string): Subpage | undefined {
   return subpages[slug]
+}
+
+/**
+ * Les questions d'une page, pour le JSON-LD `FAQPage`.
+ *
+ * Elles sont lues dans les sections de la page plutôt que recopiées : le
+ * balisage ne peut pas se désynchroniser de ce que le visiteur lit, ce que
+ * Google demande explicitement.
+ */
+export function faqOfSubpage(slug: string): { question: string; answer: string }[] {
+  const page = subpages[slug]
+  if (!page) return []
+  return page.sections.flatMap((s) => (s.kind === 'faq' ? s.items : []))
 }

@@ -336,6 +336,34 @@ function CabinetsBlock({ section, dark = false }: { section: Extract<SubpageSect
   )
 }
 
+/**
+ * Questions fréquentes d'une page.
+ *
+ * En <details>/<summary> natifs plutôt qu'avec un état React : les réponses
+ * sont dans le HTML même sans JavaScript, donc lisibles par Google et par les
+ * moteurs de réponse, et le repli fonctionne tout seul.
+ */
+function FaqBlock({ section, dark = false }: { section: Extract<SubpageSection, { kind: 'faq' }>; dark?: boolean }) {
+  return (
+    <>
+      <SectionTitle eyebrow={section.eyebrow} title={section.title} description={section.description} tone={dark ? 'dark' : 'light'} />
+      <div className="mx-auto mt-12 max-w-3xl divide-y divide-border/60 overflow-hidden rounded-3xl bg-card ring-1 ring-border/60">
+        {section.items.map((item, i) => (
+          <details key={i} className="group">
+            <summary className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-medium text-foreground transition-colors hover:bg-foreground/[0.02] sm:px-6 sm:py-5 [&::-webkit-details-marker]:hidden">
+              {item.question}
+              <span aria-hidden className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20 transition-transform duration-300 group-open:rotate-45">
+                <span className="text-lg leading-none">+</span>
+              </span>
+            </summary>
+            <p className="px-5 pb-5 text-[15px] leading-relaxed text-muted-foreground sm:px-6 sm:pb-6">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </>
+  )
+}
+
 function renderSection(section: SubpageSection, dark: boolean) {
   switch (section.kind) {
     case 'prose': return <ProseBlock section={section} dark={dark} />
@@ -345,6 +373,7 @@ function renderSection(section: SubpageSection, dark: boolean) {
     case 'timeline': return <TimelineBlock section={section} dark={dark} />
     case 'pricing': return <PricingBlock section={section} dark={dark} />
     case 'cabinets': return <CabinetsBlock section={section} dark={dark} />
+    case 'faq': return <FaqBlock section={section} dark={dark} />
   }
 }
 

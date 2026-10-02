@@ -6,6 +6,6 @@ export const BLOG_DEFAULTS = {
   eyebrow: 'Actualités',
   title: 'Conseils et actualités',
   description:
-    "Des articles clairs sur l'hypnose Ericksonienne et la sophrologie : pour quels motifs consulter, " +
-    'comment se déroulent les séances à Rennes, à Acigné et à domicile, et ce qu\'il faut savoir avant un premier rendez-vous.',
+    "Des articles clairs sur l'hypnose et la sophrologie : pour quels motifs consulter, " +
+    'comment se déroule une séance à Rennes et à Acigné, et ce qu\'il faut savoir avant un premier rendez-vous.',
 }

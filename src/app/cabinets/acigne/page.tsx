@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 import { SubpageRenderer } from '@/components/sections/subpage-renderer'
-import { breadcrumbJsonLd, cabinetJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
-import { subpages } from '@/lib/subpages'
+import { breadcrumbJsonLd, cabinetJsonLd, faqJsonLd, webPageJsonLd } from '@/components/seo/json-ld'
+import { faqOfSubpage, subpages } from '@/lib/subpages'
 
 const data = subpages['cabinet-acigne']
 
@@ -17,6 +17,7 @@ const jsonLd = {
   '@graph': [
     cabinetJsonLd('acigne'),
     webPageJsonLd(data.metaTitle, data.metaDescription, `/${data.slug}`),
+    faqJsonLd(faqOfSubpage('cabinet-acigne')),
     breadcrumbJsonLd([
       { name: 'Accueil', path: '/' },
       { name: 'Mes cabinets', path: '/cabinets' },

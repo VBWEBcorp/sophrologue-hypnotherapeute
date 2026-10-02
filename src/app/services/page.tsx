@@ -8,7 +8,7 @@ import {
 } from '@/components/seo/json-ld'
 
 const description =
-  "Hypnose Ericksonienne et sophrologie Caycédienne à Acigné et Rennes : stress, anxiété, sommeil, phobies, arrêt du tabac, gestion de la douleur, confiance en soi."
+  "Hypnose et sophrologie à Rennes et Acigné : stress, anxiété, sommeil, phobies, arrêt du tabac, douleur, confiance en soi."
 
 const services = [
   { title: 'Hypnothérapie Ericksonienne', desc: "Une thérapie brève de quelques séances qui mobilise votre inconscient pour activer vos capacités de changement et de mieux-être." },

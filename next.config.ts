@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '*.r2.dev',
       },
+      // Visuels des articles déposés par PHARE : hébergés par PHARE, adresses
+      // absolues stockées telles quelles. Sans cette entrée, /_next/image les
+      // refuse (400) et la couverture reste vide sur la liste et l'article.
+      {
+        protocol: 'https',
+        hostname: 'app.vbweb.fr',
+        pathname: '/api/media/**',
+      },
     ],
   },
   experimental: {

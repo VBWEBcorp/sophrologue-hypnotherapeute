@@ -57,7 +57,7 @@ export default async function BlogPage() {
       BlogSettings.findOne().lean(),
       BlogPost.find(visiblePostFilter())
         .sort({ publishedAt: -1, createdAt: -1 })
-        .select('title slug excerpt coverImage category tags author publishedAt')
+        .select('title slug excerpt coverImage coverImageAlt category tags author publishedAt')
         .limit(50)
         .lean(),
     ])

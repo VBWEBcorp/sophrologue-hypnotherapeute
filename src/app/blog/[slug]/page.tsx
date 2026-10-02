@@ -9,6 +9,37 @@ import BlogPostContent from './blog-post-content'
 
 type Params = Promise<{ slug: string }>
 
+/*
+ * Le JSON-LD déposé par PHARE désigne son visuel par une adresse relative
+ * (« /api/media/... »), qui pointe sur ce site et y répond 404 : Google lit
+ * alors un article sans image. On y remet la couverture réelle, en absolu.
+ * Un JSON illisible est rendu tel quel, jamais bloquant.
+ */
+function withCoverImage(raw: string, coverImage: string): string {
+  if (!coverImage) return raw
+  try {
+    const data = JSON.parse(raw)
+    const image = { '@type': 'ImageObject', url: coverImage }
+    const isArticle = (n: any) =>
+      n && typeof n === 'object' && /(BlogPosting|Article)$/.test(String(n['@type'] ?? ''))
+    const nodes: any[] = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.['@graph'])
+        ? data['@graph']
+        : [data]
+    let touched = false
+    for (const n of nodes) {
+      if (isArticle(n)) {
+        n.image = image
+        touched = true
+      }
+    }
+    return touched ? JSON.stringify(data) : raw
+  } catch {
+    return raw
+  }
+}
+
 // Revalidate every 60 minutes, new articles will be picked up automatically
 export const revalidate = 3600
 
@@ -48,7 +79,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         url,
         siteName: siteConfig.name,
         locale: siteConfig.locale,
-        images: post.coverImage ? [{ url: post.coverImage, width: 1200, height: 630, alt: title }] : [],
+        images: post.coverImage ? [{ url: post.coverImage, alt: post.coverImageAlt || title }] : [],
         publishedTime: post.publishedAt?.toISOString(),
         modifiedTime: post.updatedAt?.toISOString(),
         authors: post.author ? [post.author] : [],
@@ -89,6 +120,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       excerpt: post.excerpt || '',
       content: post.content || '',
       coverImage: post.coverImage || '',
+      coverImageAlt: post.coverImageAlt || '',
       category: post.category || '',
       tags: post.tags || [],
       author: post.author || '',
@@ -121,7 +153,11 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     }
 
     // JSON-LD de PHARE s il existe (stocke tel quel), sinon celui genere.
-  const articleLd = ((post as any).jsonLd || JSON.stringify(jsonLd)).replace(/</g, '\\u003c')
+  const articleLd = (
+    (post as any).jsonLd
+      ? withCoverImage((post as any).jsonLd, post.coverImage || '')
+      : JSON.stringify(jsonLd)
+  ).replace(/</g, '\\u003c')
 
   return (
       <>

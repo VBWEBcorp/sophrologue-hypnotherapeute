@@ -16,6 +16,7 @@ interface BlogPost {
   excerpt: string
   content: string
   coverImage: string
+  coverImageAlt?: string
   category: string
   tags: string[]
   author: string
@@ -117,7 +118,7 @@ export default function BlogPostContent({
       <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[480px] overflow-hidden bg-muted">
         <Image
           src={cover}
-          alt={post.title}
+          alt={(post.coverImage && post.coverImageAlt) || post.title}
           fill
           sizes="100vw"
           priority

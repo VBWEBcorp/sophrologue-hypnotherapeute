@@ -14,6 +14,7 @@ interface BlogPost {
   slug: string
   excerpt: string
   coverImage: string
+  coverImageAlt?: string
   category: string
   tags: string[]
   author: string
@@ -296,7 +297,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
                     <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden bg-muted">
                       <Image
                         src={filteredPosts[0].coverImage}
-                        alt={filteredPosts[0].title}
+                        alt={filteredPosts[0].coverImageAlt || filteredPosts[0].title}
                         fill
                         sizes="(min-width:768px) 50vw, 100vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -359,7 +360,7 @@ export default function BlogPageContent({ initialSettings, initialPosts }: Props
                           <div className="relative aspect-[16/9] overflow-hidden bg-muted">
                             <Image
                               src={post.coverImage}
-                              alt={post.title}
+                              alt={post.coverImageAlt || post.title}
                               fill
                               sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
                               loading="lazy"

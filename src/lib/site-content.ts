@@ -381,6 +381,40 @@ export const aboutContent = {
         "Un protocole adapté à chacun : enfants, adolescents, adultes, femmes enceintes, sportifs, professionnels et entreprises.",
     },
   ],
+  /**
+   * Le parcours, en toutes lettres.
+   *
+   * Reprend ce qui était déjà dit ailleurs sur le site : ancienne enseignante
+   * devenue thérapeute il y a vingt ans, les deux écoles de formation, les
+   * publics reçus, les lieux d'intervention. Sur le site d'une praticienne,
+   * c'est la page qui établit l'expérience et les titres ; elle n'en portait
+   * aucun détail.
+   */
+  parcours: {
+    eyebrow: 'Mon parcours',
+    title: 'Vingt ans de pratique, deux approches complémentaires',
+    paragraphs: [
+      "Ancienne enseignante, je suis devenue thérapeute il y a vingt ans. J'exerce depuis 2006 à Acigné, où se trouve mon cabinet principal, et à Rennes, au sein du centre médical SPORMED. Je me déplace également à domicile, dans un rayon de vingt kilomètres autour de chaque cabinet.",
+      "Je me suis formée à la sophrologie Caycédienne à l'Institut de Sophrologie de Rennes, auprès de Bernard Santerre, puis à l'hypnose Ericksonienne à l'Institut Émergences de Rennes, auprès du Dr Claude Virot. Ce sont deux approches reconnues, que je mets au service du même objectif : vous aider à mobiliser vos propres ressources.",
+      "Chaque accompagnement débute par un entretien approfondi, pour comprendre votre histoire, vos symptômes et ce que vous venez chercher. Le protocole se construit ensuite avec vous, séance après séance. L'hypnose est une thérapie brève : quelques séances suffisent généralement.",
+    ],
+    publicsTitle: 'Les personnes que j’accompagne',
+    publics: [
+      'Enfants et adolescents',
+      'Adultes, à tout âge de la vie',
+      'Femmes enceintes et jeunes mamans',
+      'Sportifs en préparation mentale',
+      'Salariés et chefs d’entreprise',
+      'Personnes suivies en parallèle d’un protocole médical',
+    ],
+    interventionsTitle: 'Là où j’interviens aussi',
+    interventions: [
+      'Milieu hospitalier et structures médicales',
+      'Structures sportives',
+      'Entreprises',
+      'EHPAD',
+    ],
+  },
   gallery: images.aboutGallery,
 }
 

@@ -340,12 +340,54 @@ function AboutGallery({ gallery }: { gallery: string[] }) {
   )
 }
 
+/**
+ * Le parcours : trois paragraphes, puis les publics reçus et les lieux
+ * d'intervention en deux colonnes.
+ */
+function ParcoursSection({ parcours }: { parcours: typeof aboutContent.parcours }) {
+  return (
+    <section className="border-b border-border/60 bg-background">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <SectionTitle eyebrow={parcours.eyebrow} title={parcours.title} />
+
+        <div className="mx-auto mt-12 max-w-3xl space-y-5">
+          {parcours.paragraphs.map((p: string, i: number) => (
+            <p key={i} className="text-pretty text-[17px] leading-relaxed text-muted-foreground">
+              {p}
+            </p>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
+          {[
+            { titre: parcours.publicsTitle, items: parcours.publics },
+            { titre: parcours.interventionsTitle, items: parcours.interventions },
+          ].map((bloc, i) => (
+            <div key={i} className="rounded-3xl bg-card p-7 ring-1 ring-border/60">
+              <h3 className="font-display text-lg font-semibold text-foreground">{bloc.titre}</h3>
+              <ul className="mt-4 space-y-2.5">
+                {(bloc.items ?? []).map((item: string, j: number) => (
+                  <li key={j} className="flex items-start gap-2.5 text-[15px] leading-snug text-muted-foreground">
+                    <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function AboutContent() {
   const { data } = useContent('about', defaults)
   const hero = data.hero ?? defaults.hero
   const stats = data.stats ?? defaults.stats
   const values = data.values ?? defaults.values
   const gallery = data.gallery ?? defaults.gallery
+  const parcours = data.parcours ?? defaults.parcours
 
   return (
     <>
@@ -357,6 +399,8 @@ export function AboutContent() {
           <ValuesTimeline values={values} />
         </div>
       </section>
+
+      <ParcoursSection parcours={parcours} />
 
       <AboutGallery gallery={gallery} />
 

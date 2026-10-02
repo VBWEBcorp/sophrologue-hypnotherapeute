@@ -17,6 +17,7 @@ const defaults = {
   hero: aboutContent.hero,
   stats: aboutContent.stats,
   values: aboutContent.values,
+  parcours: aboutContent.parcours,
   gallery: aboutContent.gallery,
 }
 
@@ -91,9 +92,78 @@ export default function AdminAboutPage() {
               />
             </SectionEditor>
 
-            {/* 4 ────────────────────────────────────────────── Bandeau photos */}
+            {/* 4 ────────────────────────────────────────────────── Parcours */}
             <SectionEditor
               step={4}
+              title="Mon parcours"
+              icon={Gem}
+              description="Le texte du parcours, les publics reçus et les lieux d'intervention"
+              cols={1}
+            >
+              <FieldEditor label="Accroche" value={about.value('parcours.eyebrow')} onChange={about.setter('parcours.eyebrow')} />
+              <FieldEditor label="Titre" wide value={about.value('parcours.title')} onChange={about.setter('parcours.title')} />
+              <RepeatableList
+                itemLabel="Paragraphe"
+                addLabel="Ajouter un paragraphe"
+                items={about.value('parcours.paragraphs') as string[]}
+                onChange={about.setter('parcours.paragraphs')}
+                newItem={() => ''}
+                renderItem={(p: string, i) => (
+                  <FieldEditor
+                    label={`Paragraphe ${i + 1}`}
+                    type="textarea"
+                    value={p}
+                    onChange={(v) => {
+                      const next = [...((about.value('parcours.paragraphs') as string[]) ?? [])]
+                      next[i] = v
+                      about.set('parcours.paragraphs', next)
+                    }}
+                  />
+                )}
+              />
+              <FieldEditor label="Titre de la 1re liste" value={about.value('parcours.publicsTitle')} onChange={about.setter('parcours.publicsTitle')} />
+              <RepeatableList
+                itemLabel="Public"
+                addLabel="Ajouter un public"
+                items={about.value('parcours.publics') as string[]}
+                onChange={about.setter('parcours.publics')}
+                newItem={() => ''}
+                renderItem={(p: string, i) => (
+                  <FieldEditor
+                    label={`Public ${i + 1}`}
+                    value={p}
+                    onChange={(v) => {
+                      const next = [...((about.value('parcours.publics') as string[]) ?? [])]
+                      next[i] = v
+                      about.set('parcours.publics', next)
+                    }}
+                  />
+                )}
+              />
+              <FieldEditor label="Titre de la 2e liste" value={about.value('parcours.interventionsTitle')} onChange={about.setter('parcours.interventionsTitle')} />
+              <RepeatableList
+                itemLabel="Lieu"
+                addLabel="Ajouter un lieu"
+                items={about.value('parcours.interventions') as string[]}
+                onChange={about.setter('parcours.interventions')}
+                newItem={() => ''}
+                renderItem={(p: string, i) => (
+                  <FieldEditor
+                    label={`Lieu ${i + 1}`}
+                    value={p}
+                    onChange={(v) => {
+                      const next = [...((about.value('parcours.interventions') as string[]) ?? [])]
+                      next[i] = v
+                      about.set('parcours.interventions', next)
+                    }}
+                  />
+                )}
+              />
+            </SectionEditor>
+
+            {/* 5 ────────────────────────────────────────────── Bandeau photos */}
+            <SectionEditor
+              step={5}
               title="Bandeau photos"
               icon={Images}
               description="La rangée de photos avant le bloc de rendez-vous"
@@ -121,9 +191,9 @@ export default function AdminAboutPage() {
               </p>
             </SectionEditor>
 
-            {/* 5 ────────────────────────────────────── Appel à l'action (lien) */}
+            {/* 6 ────────────────────────────────────── Appel à l'action (lien) */}
             <SectionEditor
-              step={5}
+              step={6}
               title="Appel à l'action"
               icon={Megaphone}
               description="Le bloc de prise de rendez-vous en bas de page"

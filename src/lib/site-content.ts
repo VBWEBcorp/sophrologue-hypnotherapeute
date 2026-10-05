@@ -453,6 +453,7 @@ export const servicesContent = {
     {
       iconName: 'Wind',
       title: 'Stress & anxiété',
+      href: '/hypnose-stress-anxiete-rennes',
       description: "Apaiser les tensions nerveuses et physiques, gagner en autonomie face au stress et retrouver un état de calme durable.",
       points: ['Gestion des tensions', 'Lâcher-prise', 'Sérénité retrouvée'],
       image: images.services[2],
@@ -467,9 +468,22 @@ export const servicesContent = {
     {
       iconName: 'ShieldCheck',
       title: 'Accompagnement à l’arrêt du tabac',
+      href: '/hypnose-arret-du-tabac-rennes',
       description: "Se libérer du tabac et des compulsions grâce à un accompagnement ciblé et respectueux de votre rythme.",
       points: ['Arrêt du tabac', 'Compulsions alimentaires', 'Accompagnement sur mesure'],
       image: images.services[4],
+    },
+    {
+      // La perte de poids ne figurait nulle part dans la liste, alors que c'est
+      // le plus gros gisement de recherches du métier (19 370 par mois cumulées
+      // sur 438 expressions, moisson du 14/09/2026) et qu'elle la pratique,
+      // anneau gastrique virtuel compris.
+      iconName: 'Scale',
+      title: 'Perte de poids',
+      href: '/hypnose-perte-de-poids-rennes',
+      description: "Agir sur les compulsions, le grignotage et le rapport à la nourriture plutôt que sur l'assiette seule. L'anneau gastrique virtuel fait partie des protocoles possibles.",
+      points: ['Compulsions alimentaires', 'Anneau gastrique virtuel', 'Changement durable'],
+      image: images.services[3],
     },
     {
       iconName: 'HeartPulse',

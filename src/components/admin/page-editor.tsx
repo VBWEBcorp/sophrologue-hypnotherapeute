@@ -80,6 +80,9 @@ const previewPaths: Record<string, string> = {
   'sub-cabinet-rennes': '/cabinets/rennes',
   'sub-cabinet-acigne': '/cabinets/acigne',
   'sub-noyal-sur-vilaine': '/hypnose-noyal-sur-vilaine',
+  'sub-arret-du-tabac': '/hypnose-arret-du-tabac-rennes',
+  'sub-perte-de-poids': '/hypnose-perte-de-poids-rennes',
+  'sub-stress-anxiete': '/hypnose-stress-anxiete-rennes',
 }
 
 /* ── Composant ──────────────────────────────────────────────────────────── */

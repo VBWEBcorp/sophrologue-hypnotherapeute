@@ -22,6 +22,14 @@ interface NavLink {
 }
 
 // Sous-menu "Mes cabinets" (comme sur le site d'origine)
+// Les trois motifs qui ont leur propre page, choisis sur les volumes réels
+// (moisson du 14/09/2026) : perte de poids, arrêt du tabac, stress et anxiété.
+const ACCOMPAGNEMENTS_CHILDREN: NavChild[] = [
+  { to: '/hypnose-arret-du-tabac-rennes', label: 'Arrêt du tabac' },
+  { to: '/hypnose-perte-de-poids-rennes', label: 'Perte de poids' },
+  { to: '/hypnose-stress-anxiete-rennes', label: 'Stress et anxiété' },
+]
+
 const CABINETS_CHILDREN: NavChild[] = [
   { to: '/cabinets/rennes', label: 'Rennes' },
   { to: '/cabinets/acigne', label: 'Acigné' },
@@ -35,6 +43,7 @@ const defaultLinks: NavLink[] = [
   { to: '/hypnotherapie', label: 'Hypnothérapie' },
   { to: '/seances-hypnose', label: "Séances d'hypnose" },
   { to: '/sophrologie', label: 'Sophrologie' },
+  { to: '/services', label: 'Accompagnements', children: ACCOMPAGNEMENTS_CHILDREN },
   { to: '/cabinets', label: 'Mes cabinets', children: CABINETS_CHILDREN },
   { to: '/blog', label: 'Nos actualités' },
 ]
@@ -73,6 +82,7 @@ export function Navbar() {
           { to: '/hypnotherapie', label: 'Hypnothérapie' },
           { to: '/seances-hypnose', label: "Séances d'hypnose" },
           { to: '/sophrologie', label: 'Sophrologie' },
+          { to: '/services', label: 'Accompagnements', children: ACCOMPAGNEMENTS_CHILDREN },
           { to: '/cabinets', label: 'Mes cabinets', children: CABINETS_CHILDREN },
         ]
 

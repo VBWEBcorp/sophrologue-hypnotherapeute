@@ -85,6 +85,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       images: portrait,
     },
     {
+      url: `${baseUrl}/hypnose-arret-du-tabac-rennes`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      images: portrait,
+    },
+    {
+      url: `${baseUrl}/hypnose-perte-de-poids-rennes`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      images: portrait,
+    },
+    {
+      url: `${baseUrl}/hypnose-stress-anxiete-rennes`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      images: portrait,
+    },
+    {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

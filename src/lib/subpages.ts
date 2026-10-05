@@ -211,7 +211,11 @@ export const subpages: Record<string, Subpage> = {
       "Sophrologie Caycédienne à Rennes et Acigné : des exercices simples pour relâcher le corps, apaiser le stress et retrouver le sommeil, en autonomie.",
     hero: {
       eyebrow: 'Sophrologie',
-      title: 'La sophrologie pour apaiser stress et angoisses',
+      // « sophrologue rennes » et « sophrologie rennes » pèsent 1 300 recherches
+      // par mois chacun (moisson DataForSEO du 14/09/2026), et la page est en
+      // deuxième page sur les deux. Son titre principal ne portait ni le métier
+      // ni la ville : il annonçait un bénéfice, pas ce que les gens tapent.
+      title: 'Sophrologue à Rennes et Acigné',
       description:
         "Une méthode douce de relaxation du corps et de l'esprit, que vous apprenez à pratiquer en autonomie au quotidien.",
       breadcrumb: 'Sophrologie',
@@ -366,9 +370,11 @@ export const subpages: Record<string, Subpage> = {
       "Hypnose et sophrologie à Rennes, au centre médical SPORMED, 2A rue du Bourg Nouveau, zone d’affaires Atalante Champeaux. Rendez-vous en ligne.",
     hero: {
       eyebrow: 'Mes cabinets · Rennes',
-      title: 'Cabinet de Rennes',
+      // « hypnose rennes » : 1 000 recherches par mois, la requête la plus
+      // disputée du métier, et c'est cette page qui la vise.
+      title: 'Hypnose et sophrologie à Rennes',
       description:
-        "Je vous reçois au cœur de Rennes, au sein du centre médical SPORMED.",
+        "Je vous reçois au sein du centre médical SPORMED, zone d’affaires Atalante Champeaux.",
       breadcrumb: 'Rennes',
       backgroundImage: nature.foretVueDuCiel,
     },
@@ -453,7 +459,7 @@ export const subpages: Record<string, Subpage> = {
       "Hypnose et sophrologie à Acigné (2 Rue du Calvaire, 35690), à deux pas de Noyal-sur-Vilaine et Thorigné-Fouillard. Cabinet partagé avec un ostéopathe.",
     hero: {
       eyebrow: 'Mes cabinets · Acigné',
-      title: "Cabinet d'Acigné",
+      title: "Hypnose et sophrologie à Acigné",
       description: "Mon cabinet principal à Acigné, partagé avec Xavier Jan, ostéopathe.",
       breadcrumb: 'Acigné',
       backgroundImage: nature.arbresVertsVueDuCiel,
@@ -538,6 +544,258 @@ export const subpages: Record<string, Subpage> = {
       },
     ],
   },
+
+  // ════════════════════════════════ ARRÊT DU TABAC ═══════════════════════════
+  // 4 370 recherches/mois cumulées sur 138 expressions (moisson du 14/09/2026),
+  // dont « hypnose pour arrêt du tabac » à 3 600. Le site n'avait qu'un article
+  // de longue traîne (« combien de séances »), rien qui réponde à l'intention
+  // d'achat. La praticienne elle-même signale que c'est « une grosse demande ».
+  'arret-du-tabac': {
+    slug: 'hypnose-arret-du-tabac-rennes',
+    metaTitle: 'Hypnose pour arrêter de fumer à Rennes et Acigné',
+    metaDescription:
+      "Accompagnement à l'arrêt du tabac par l'hypnose Ericksonienne à Rennes et Acigné. Thérapie brève, praticienne certifiée depuis 2006.",
+    hero: {
+      eyebrow: 'Accompagnement · Arrêt du tabac',
+      title: 'Arrêter de fumer avec l’hypnose',
+      description:
+        "Un accompagnement en quelques séances, à Rennes ou à Acigné, pour vous libérer du tabac à votre rythme.",
+      breadcrumb: 'Arrêt du tabac',
+      backgroundImage: nature.pinsBrume,
+    },
+    sections: [
+      {
+        kind: 'prose',
+        eyebrow: 'La méthode',
+        title: 'Ce que l’hypnose change dans l’arrêt du tabac',
+        paragraphs: [
+          "Fumer n'est pas qu'une affaire de volonté : c'est un automatisme, installé par des années de gestes répétés et associé à des moments précis de la journée. C'est exactement sur ces automatismes que l'hypnose Ericksonienne travaille.",
+          "La séance ne vous impose rien. Elle vous met en contact avec vos propres ressources pour que le changement vienne de vous, sans le sentiment de privation qui fait échouer tant de tentatives. C'est une thérapie brève : quelques séances suffisent généralement.",
+          "Je vous accompagne également sur les compulsions alimentaires qui accompagnent parfois l'arrêt, pour que la libération ne se déplace pas ailleurs.",
+        ],
+      },
+      {
+        kind: 'timeline',
+        eyebrow: 'Le déroulement',
+        title: 'Comment se passe un accompagnement',
+        description: 'Chaque accompagnement commence par un entretien, jamais par une technique.',
+        steps: [
+          { iconName: 'Users', title: 'L’entretien', desc: 'Votre histoire avec le tabac, ce que vous avez déjà tenté, ce qui déclenche l’envie, et ce que vous venez chercher.' },
+          { iconName: 'Brain', title: 'Le travail en hypnose', desc: 'Un protocole construit pour vous, qui agit sur l’automatisme et sur les situations où il se déclenche.' },
+          { iconName: 'Target', title: 'La consolidation', desc: 'Une ou deux séances de suivi selon les besoins, pour ancrer le changement et prévenir la rechute.' },
+        ],
+      },
+      {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Ce que l’on me demande le plus souvent',
+        items: [
+          {
+            question: 'Combien de séances faut-il pour arrêter de fumer ?',
+            answer:
+              'L’hypnose Ericksonienne est une thérapie brève : quelques séances suffisent généralement. Le nombre se décide ensemble lors de l’entretien initial, selon votre histoire avec le tabac et ce que vous avez déjà tenté.',
+          },
+          {
+            question: 'Vais-je perdre le contrôle pendant la séance ?',
+            answer:
+              'Non. À aucun moment vous ne perdez le contrôle. L’état d’hypnose est un état naturel, proche de la rêverie, et vous restez acteur de votre séance du début à la fin.',
+          },
+          {
+            question: 'Vais-je prendre du poids en arrêtant ?',
+            answer:
+              'C’est une crainte fréquente. L’accompagnement peut porter en même temps sur les compulsions alimentaires, pour que l’arrêt ne se déplace pas sur la nourriture.',
+          },
+          {
+            question: 'Combien coûte une séance ?',
+            answer:
+              'De 57 à 65 € la séance d’hypnose, selon la localité, la durée et le déplacement. Règlement par chèque, espèces ou virement ; la carte bancaire n’est pas acceptée.',
+          },
+          {
+            question: 'Où se déroulent les séances ?',
+            answer:
+              'Au cabinet de Rennes, au centre médical SPORMED, ou au cabinet d’Acigné, 2 rue du Calvaire. Je me déplace aussi à domicile dans un rayon de 20 km autour de chaque cabinet.',
+          },
+        ],
+      },
+      {
+        kind: 'features',
+        eyebrow: 'Pour aller plus loin',
+        title: 'Autres pages utiles',
+        items: [
+          { iconName: 'Brain', title: 'L’hypnose Ericksonienne', desc: 'La méthode, ses indications et ma formation.', href: '/hypnotherapie' },
+          { iconName: 'Sparkles', title: 'Le déroulement d’une séance', desc: 'De l’entretien au retour, ce qui se passe concrètement.', href: '/seances-hypnose' },
+          { iconName: 'CalendarCheck', title: 'Prendre rendez-vous', desc: 'En ligne, par téléphone ou par SMS.', href: '/contact' },
+        ],
+      },
+    ],
+  },
+
+  // ════════════════════════════════ PERTE DE POIDS ═══════════════════════════
+  // Le plus gros gisement de la moisson : 19 370 recherches/mois cumulées sur
+  // 438 expressions, dont « hypnose perte de poids » à 2 400 et l'anneau
+  // gastrique virtuel à 390. Le site n'en disait rien, alors qu'elle pratique.
+  'perte-de-poids': {
+    slug: 'hypnose-perte-de-poids-rennes',
+    metaTitle: 'Hypnose et perte de poids à Rennes et Acigné',
+    metaDescription:
+      "Perdre du poids avec l'hypnose à Rennes et Acigné : compulsions alimentaires, rapport à la nourriture, anneau gastrique virtuel. Praticienne certifiée.",
+    hero: {
+      eyebrow: 'Accompagnement · Perte de poids',
+      title: 'Hypnose et perte de poids',
+      description:
+        "Agir sur le rapport à la nourriture plutôt que sur l'assiette : un accompagnement en hypnose à Rennes et à Acigné.",
+      breadcrumb: 'Perte de poids',
+      backgroundImage: nature.planEauArbres,
+    },
+    sections: [
+      {
+        kind: 'prose',
+        eyebrow: 'La méthode',
+        title: 'Pourquoi passer par l’hypnose',
+        paragraphs: [
+          "Les régimes agissent sur ce que l'on mange. Ils ne disent rien de ce qui pousse à manger : l'ennui, la fatigue, le stress, une émotion qu'on ne sait pas nommer. C'est ce qui explique qu'un poids perdu revienne si souvent.",
+          "L'hypnose Ericksonienne travaille sur ce rapport à la nourriture. Elle agit sur les compulsions, sur les automatismes de grignotage et sur les émotions qui les déclenchent, pour que le changement se fasse sans lutte permanente.",
+          "L'anneau gastrique virtuel fait partie des protocoles possibles : il s'agit de suggérer au corps, sous hypnose, la sensation d'un estomac plus petit. Il se décide ensemble, après l'entretien, et ne convient pas à toutes les situations.",
+        ],
+      },
+      {
+        kind: 'checklist',
+        eyebrow: 'Ce sur quoi on travaille',
+        title: 'Les situations les plus fréquentes',
+        items: [
+          'Les compulsions alimentaires et le grignotage',
+          'Manger sous le coup d’une émotion ou du stress',
+          'Le poids pris après un arrêt du tabac',
+          'La reprise de poids après un régime',
+          'Le rapport au corps et à l’image de soi',
+          'La motivation à tenir dans la durée',
+        ],
+      },
+      {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Ce que l’on me demande le plus souvent',
+        items: [
+          {
+            question: 'L’hypnose fait-elle maigrir toute seule ?',
+            answer:
+              'Non, et il faut se méfier de ce qui le promet. L’hypnose agit sur ce qui vous pousse à manger : les compulsions, les automatismes, les émotions. Elle rend le changement possible et tenable, elle ne remplace ni l’alimentation ni le mouvement.',
+          },
+          {
+            question: 'Qu’est-ce que l’anneau gastrique virtuel ?',
+            answer:
+              'Un protocole sous hypnose qui suggère au corps la sensation d’un estomac réduit, sans aucune intervention chirurgicale. Il se décide après l’entretien et ne convient pas à toutes les situations.',
+          },
+          {
+            question: 'Combien de séances faut-il prévoir ?',
+            answer:
+              'L’hypnose Ericksonienne est une thérapie brève : quelques séances suffisent généralement. Le nombre se décide ensemble lors de l’entretien initial, selon votre objectif.',
+          },
+          {
+            question: 'Combien coûte une séance ?',
+            answer:
+              'De 57 à 65 € la séance d’hypnose, selon la localité, la durée et le déplacement. Règlement par chèque, espèces ou virement ; la carte bancaire n’est pas acceptée.',
+          },
+          {
+            question: 'Faut-il un suivi médical en parallèle ?',
+            answer:
+              'L’accompagnement en hypnose ne remplace jamais un suivi médical. Il peut en revanche l’accompagner, comme je le fais pour d’autres protocoles médicaux.',
+          },
+        ],
+      },
+      {
+        kind: 'features',
+        eyebrow: 'Pour aller plus loin',
+        title: 'Autres pages utiles',
+        items: [
+          { iconName: 'Brain', title: 'L’hypnose Ericksonienne', desc: 'La méthode, ses indications et ma formation.', href: '/hypnotherapie' },
+          { iconName: 'Cigarette', title: 'Arrêt du tabac', desc: 'L’accompagnement à l’arrêt, et la prise de poids qui l’accompagne parfois.', href: '/hypnose-arret-du-tabac-rennes' },
+          { iconName: 'CalendarCheck', title: 'Prendre rendez-vous', desc: 'En ligne, par téléphone ou par SMS.', href: '/contact' },
+        ],
+      },
+    ],
+  },
+
+  // ════════════════════════════════ STRESS ET ANXIÉTÉ ════════════════════════
+  // 2 100 recherches/mois cumulées sur 342 expressions. C'est le premier motif
+  // affiché partout sur le site, et il n'avait aucune page à lui.
+  'stress-anxiete': {
+    slug: 'hypnose-stress-anxiete-rennes',
+    metaTitle: 'Hypnose pour le stress et l’anxiété à Rennes',
+    metaDescription:
+      "Gérer le stress et l'anxiété par l'hypnose et la sophrologie, à Rennes et Acigné. Thérapie brève et outils à pratiquer en autonomie.",
+    hero: {
+      eyebrow: 'Accompagnement · Stress et anxiété',
+      title: 'Hypnose et sophrologie face au stress',
+      description:
+        "Apaiser le stress, l'anxiété et les angoisses, et repartir avec des outils que vous pratiquez seul·e.",
+      breadcrumb: 'Stress et anxiété',
+      backgroundImage: nature.brumeSurLac,
+    },
+    sections: [
+      {
+        kind: 'prose',
+        eyebrow: 'Deux approches',
+        title: 'Pourquoi je combine hypnose et sophrologie',
+        paragraphs: [
+          "Le stress est rarement un problème isolé : il se loge dans le sommeil, dans la digestion, dans la respiration, dans la façon dont on aborde une échéance. Le traiter demande d'agir à deux endroits.",
+          "L'hypnose Ericksonienne agit sur ce qui déclenche et entretient l'anxiété, souvent sans que l'on en ait conscience. C'est une thérapie brève : quelques séances suffisent généralement.",
+          "La sophrologie Caycédienne, elle, vous apprend des exercices simples de respiration et de détente, que vous reproduisez seul·e quand le besoin se fait sentir. L'une dénoue, l'autre outille. Selon votre situation, je travaille avec l'une, avec l'autre, ou avec les deux.",
+        ],
+      },
+      {
+        kind: 'checklist',
+        eyebrow: 'Ce sur quoi on travaille',
+        title: 'Les situations les plus fréquentes',
+        items: [
+          'Le stress installé au travail ou à la maison',
+          'L’anxiété et les angoisses',
+          'Les troubles du sommeil liés au stress',
+          'La préparation d’une échéance anxiogène (examen, entretien, épreuve sportive)',
+          'Les tensions physiques et les troubles nerveux',
+          'Le renforcement d’une psychothérapie en cours',
+        ],
+      },
+      {
+        kind: 'faq',
+        eyebrow: 'Questions fréquentes',
+        title: 'Ce que l’on me demande le plus souvent',
+        items: [
+          {
+            question: 'Hypnose ou sophrologie pour le stress ?',
+            answer:
+              'L’hypnose agit sur les causes et les automatismes, souvent en quelques séances. La sophrologie vous apprend des exercices à pratiquer vous-même au quotidien. Les deux sont complémentaires : on choisit ensemble lors de l’entretien initial.',
+          },
+          {
+            question: 'Au bout de combien de temps sent-on un changement ?',
+            answer:
+              'Beaucoup de personnes repartent de la première séance avec une détente qu’elles n’avaient plus ressentie depuis longtemps. Pour un changement durable, l’hypnose reste une thérapie brève : quelques séances suffisent généralement.',
+          },
+          {
+            question: 'Est-ce que cela remplace un traitement ?',
+            answer:
+              'Non. L’accompagnement ne remplace jamais un suivi médical ni un traitement en cours. Il vient en complément, et il peut consolider une psychothérapie.',
+          },
+          {
+            question: 'Repart-on avec des exercices ?',
+            answer:
+              'Oui, c’est tout l’intérêt de la sophrologie : vous apprenez des techniques de respiration et de relâchement que vous pratiquez ensuite en autonomie, chez vous ou au travail.',
+          },
+        ],
+      },
+      {
+        kind: 'features',
+        eyebrow: 'Pour aller plus loin',
+        title: 'Autres pages utiles',
+        items: [
+          { iconName: 'Brain', title: 'L’hypnose Ericksonienne', desc: 'La méthode, ses indications et ma formation.', href: '/hypnotherapie' },
+          { iconName: 'Leaf', title: 'La sophrologie', desc: 'Les exercices, les bienfaits et les tarifs.', href: '/sophrologie' },
+          { iconName: 'CalendarCheck', title: 'Prendre rendez-vous', desc: 'En ligne, par téléphone ou par SMS.', href: '/contact' },
+        ],
+      },
+    ],
+  },
+
   // ════════════════════════════════ NOYAL-SUR-VILAINE ════════════════════════
   // Page de zone, pas de cabinet : la praticienne n'est pas installée à Noyal,
   // elle y reçoit les habitants depuis Acigné, la commune voisine. Promise à la

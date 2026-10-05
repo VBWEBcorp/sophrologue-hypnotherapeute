@@ -1,7 +1,9 @@
 'use client'
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRef } from 'react'
 
 import { CtaSection } from '@/components/sections/cta-section'
@@ -169,6 +171,26 @@ function ServiceRow({
               </motion.li>
             ))}
           </motion.ul>
+        )}
+
+        {/* Lien vers la page dédiée, quand l'accompagnement en a une. Sans lui,
+            ces pages n'étaient atteignables depuis nulle part. */}
+        {service.href && (
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+            }}
+            className="mt-7"
+          >
+            <Link
+              href={service.href}
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+            >
+              En savoir plus sur {service.title.toLowerCase()}
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+            </Link>
+          </motion.div>
         )}
 
       </motion.div>

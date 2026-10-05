@@ -4,20 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import {
-  Home,
-  Users,
-  Brain,
-  Sparkles,
-  Leaf,
-  Briefcase,
-  MapPin,
-  Phone,
-  FileText,
-  Megaphone,
-  Images,
-  Eye,
-} from 'lucide-react'
+import { Brain, Briefcase, Cigarette, Eye, FileText, Home, Images, Leaf, MapPin, Megaphone, Phone, Scale, Sparkles, Users, Wind } from 'lucide-react'
 
 import { siteConfig } from '@/lib/seo'
 
@@ -38,6 +25,9 @@ const pageModules = [
   { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', desc: 'Centre SPORMED', icon: MapPin },
   { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", desc: 'Rue du Calvaire', icon: MapPin },
   { href: '/admin/pages/noyal-sur-vilaine', label: 'Noyal-sur-Vilaine', desc: 'Page de zone, reçue à Acigné', icon: MapPin },
+  { href: '/admin/pages/arret-du-tabac', label: 'Arrêt du tabac', desc: 'Accompagnement dédié', icon: Cigarette },
+  { href: '/admin/pages/perte-de-poids', label: 'Perte de poids', desc: 'Accompagnement dédié', icon: Scale },
+  { href: '/admin/pages/stress-anxiete', label: 'Stress et anxiété', desc: 'Accompagnement dédié', icon: Wind },
   { href: '/admin/pages/contact', label: 'Contact', desc: 'Coordonnées, RDV', icon: Phone },
 ]
 

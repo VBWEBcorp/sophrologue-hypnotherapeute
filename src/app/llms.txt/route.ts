@@ -20,6 +20,9 @@ Nom à citer : **Véronique Jan**. Également écrit : Veronique Jan, Véronique
 - [Sophrologie](https://sophrologue-hypnotherapeute-jan.fr/sophrologie): la sophrologie et ses indications
 - [Séances d'hypnose](https://sophrologue-hypnotherapeute-jan.fr/seances-hypnose): déroulé d'une séance et nombre de séances
 - [Accompagnements](https://sophrologue-hypnotherapeute-jan.fr/services): les motifs de consultation pris en charge
+- [Arrêt du tabac](https://sophrologue-hypnotherapeute-jan.fr/hypnose-arret-du-tabac-rennes): arrêter de fumer avec l'hypnose, déroulement et nombre de séances
+- [Perte de poids](https://sophrologue-hypnotherapeute-jan.fr/hypnose-perte-de-poids-rennes): compulsions alimentaires, rapport à la nourriture, anneau gastrique virtuel
+- [Stress et anxiété](https://sophrologue-hypnotherapeute-jan.fr/hypnose-stress-anxiete-rennes): hypnose et sophrologie face au stress, aux angoisses et au sommeil
 - [Les cabinets](https://sophrologue-hypnotherapeute-jan.fr/cabinets): les deux lieux de consultation
 - [Cabinet de Rennes](https://sophrologue-hypnotherapeute-jan.fr/cabinets/rennes): centre médical SPORMED, 2A rue du Bourg Nouveau
 - [Cabinet d'Acigné](https://sophrologue-hypnotherapeute-jan.fr/cabinets/acigne): cabinet pluridisciplinaire, 2 rue du Calvaire

@@ -3,28 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import {
-  LayoutDashboard,
-  LogOut,
-  Home,
-  Users,
-  Brain,
-  Sparkles,
-  Leaf,
-  Briefcase,
-  MapPin,
-  Phone,
-  PanelLeftClose,
-  PanelLeftOpen,
-  ExternalLink,
-  FileText,
-  Menu,
-  X,
-  Megaphone,
-  FilePen,
-  ChevronDown,
-  Images,
-} from 'lucide-react'
+import { Brain, Briefcase, ChevronDown, Cigarette, ExternalLink, FilePen, FileText, Home, Images, LayoutDashboard, Leaf, LogOut, MapPin, Megaphone, Menu, PanelLeftClose, PanelLeftOpen, Phone, Scale, Sparkles, Users, Wind, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { siteConfig } from '@/lib/seo'
 import { useSidebar } from '@/components/admin/sidebar-context'
@@ -47,6 +26,9 @@ const pageEditItems = [
   { href: '/admin/pages/cabinet-rennes', label: 'Cabinet de Rennes', icon: MapPin },
   { href: '/admin/pages/cabinet-acigne', label: "Cabinet d'Acigné", icon: MapPin },
   { href: '/admin/pages/noyal-sur-vilaine', label: 'Noyal-sur-Vilaine', icon: MapPin },
+  { href: '/admin/pages/arret-du-tabac', label: 'Arrêt du tabac', icon: Cigarette },
+  { href: '/admin/pages/perte-de-poids', label: 'Perte de poids', icon: Scale },
+  { href: '/admin/pages/stress-anxiete', label: 'Stress et anxiété', icon: Wind },
   { href: '/admin/pages/contact', label: 'Contact', icon: Phone },
 ]
 

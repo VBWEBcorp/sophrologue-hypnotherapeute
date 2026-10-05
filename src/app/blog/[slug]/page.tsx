@@ -64,7 +64,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
     if (!post) return {}
 
-    const title = post.metaTitle || post.title
+    const rawTitle = post.metaTitle || post.title
+    // Le gabarit du layout ajoute « | Véronique Jan ». Sur un titre d'article
+    // déjà long, l'ensemble dépassait 70 caractères et Google coupait la fin,
+    // c'est-à-dire le mot-clé. Au-delà de 46 caractères, on garde le titre seul.
+    const title: string | { absolute: string } =
+      rawTitle.length > 46 ? { absolute: rawTitle } : rawTitle
     const description = (post.metaDescription || post.excerpt || '').substring(0, 160)
     const url = `${siteConfig.url}/blog/${post.slug}`
 
@@ -74,12 +79,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       authors: post.author ? [{ name: post.author }] : [],
       openGraph: {
         type: 'article',
-        title,
+        title: rawTitle,
         description,
         url,
         siteName: siteConfig.name,
         locale: siteConfig.locale,
-        images: post.coverImage ? [{ url: post.coverImage, alt: post.coverImageAlt || title }] : [],
+        images: post.coverImage ? [{ url: post.coverImage, alt: post.coverImageAlt || rawTitle }] : [],
         publishedTime: post.publishedAt?.toISOString(),
         modifiedTime: post.updatedAt?.toISOString(),
         authors: post.author ? [post.author] : [],
@@ -87,7 +92,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       },
       twitter: {
         card: 'summary_large_image',
-        title,
+        title: rawTitle,
         description,
         images: post.coverImage ? [post.coverImage] : [],
       },

@@ -552,7 +552,7 @@ export const subpages: Record<string, Subpage> = {
   // d'achat. La praticienne elle-même signale que c'est « une grosse demande ».
   'arret-du-tabac': {
     slug: 'hypnose-arret-du-tabac-rennes',
-    metaTitle: 'Hypnose pour arrêter de fumer à Rennes et Acigné',
+    metaTitle: 'Hypnose pour arrêter de fumer à Rennes',
     metaDescription:
       "Accompagnement à l'arrêt du tabac par l'hypnose Ericksonienne à Rennes et Acigné. Thérapie brève, praticienne certifiée depuis 2006.",
     hero: {
